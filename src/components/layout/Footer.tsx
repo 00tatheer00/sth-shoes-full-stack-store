@@ -11,6 +11,7 @@ import {
   Truck,
   RotateCcw,
   Sparkles,
+  Crown,
 } from 'lucide-react';
 import { MOCK_CATEGORIES } from '@/data/mockData';
 
@@ -27,66 +28,71 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#1F130E] text-[#FAF7F2] border-t border-[#3A2315] pt-16 pb-8">
+    <footer className="bg-gradient-to-b from-[#0A1128] via-[#0F172A] to-[#0A1128] text-white border-t-2 border-[#2563EB]/40 pt-16 pb-8 shadow-2xl">
       {/* Brand Value Guarantees Ribbon */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 mb-12 border-b border-[#3A2315]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 mb-12 border-b border-[#2563EB]/30">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex items-center gap-4 p-4 bg-[#3A2315]/30 border border-[#3A2315]">
-            <div className="w-12 h-12 rounded-full bg-[#4A2E1D] flex items-center justify-center text-[#C59B27] flex-shrink-0">
+          <div className="flex items-center gap-4 p-5 bg-[#0F172A]/80 border border-[#2563EB]/30 shadow-md">
+            <div className="w-12 h-12 rounded-full bg-[#2563EB]/20 border border-[#00F0FF] flex items-center justify-center text-[#00F0FF] flex-shrink-0">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-serif font-semibold text-[#FAF7F2]">100% Genuine Leather</h4>
-              <p className="text-xs text-[#E2D7C7]/70 mt-0.5">Handpicked full-grain cowhide & imported calfskin</p>
+              <h4 className="text-sm font-serif font-bold text-white">100% Genuine Leather</h4>
+              <p className="text-xs text-slate-300 mt-0.5">Handpicked full-grain cowhide & imported calfskin</p>
             </div>
           </div>
-          <div className="flex items-center gap-4 p-4 bg-[#3A2315]/30 border border-[#3A2315]">
-            <div className="w-12 h-12 rounded-full bg-[#4A2E1D] flex items-center justify-center text-[#C59B27] flex-shrink-0">
+          <div className="flex items-center gap-4 p-5 bg-[#0F172A]/80 border border-[#2563EB]/30 shadow-md">
+            <div className="w-12 h-12 rounded-full bg-[#2563EB]/20 border border-[#00F0FF] flex items-center justify-center text-[#00F0FF] flex-shrink-0">
               <Truck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-serif font-semibold text-[#FAF7F2]">Nationwide COD Express</h4>
-              <p className="text-xs text-[#E2D7C7]/70 mt-0.5">Free shipping across Pakistan on orders over Rs. 5,000</p>
+              <h4 className="text-sm font-serif font-bold text-white">Nationwide COD Express</h4>
+              <p className="text-xs text-slate-300 mt-0.5">Free shipping across Pakistan on orders over Rs. 5,000</p>
             </div>
           </div>
-          <div className="flex items-center gap-4 p-4 bg-[#3A2315]/30 border border-[#3A2315]">
-            <div className="w-12 h-12 rounded-full bg-[#4A2E1D] flex items-center justify-center text-[#C59B27] flex-shrink-0">
+          <div className="flex items-center gap-4 p-5 bg-[#0F172A]/80 border border-[#2563EB]/30 shadow-md">
+            <div className="w-12 h-12 rounded-full bg-[#2563EB]/20 border border-[#00F0FF] flex items-center justify-center text-[#00F0FF] flex-shrink-0">
               <RotateCcw className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-serif font-semibold text-[#FAF7F2]">Hassle-Free Exchange</h4>
-              <p className="text-xs text-[#E2D7C7]/70 mt-0.5">14 days size replacement & home collection support</p>
+              <h4 className="text-sm font-serif font-bold text-white">Hassle-Free Exchange</h4>
+              <p className="text-xs text-slate-300 mt-0.5">14 days size replacement & home collection support</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Footer Navigation Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#3A2315]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#2563EB]/30">
         {/* Brand Story Column */}
         <div className="lg:col-span-2 space-y-4">
-          <div className="flex flex-col">
-            <span className="text-2xl font-serif font-bold tracking-[0.18em] text-[#FAF7F2] uppercase">
-              Tatheer Chappalz
-            </span>
-            <span className="text-[10px] font-mono text-[#C59B27] tracking-widest uppercase">
-              Authentic Peshawari Footwear Atelier
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[#2563EB] border border-[#00F0FF] flex items-center justify-center text-[#F59E0B] shadow-md">
+              <Crown className="w-5 h-5" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-2xl font-serif font-bold tracking-[0.18em] text-white uppercase">
+                Tatheer Chappalz
+              </span>
+              <span className="text-[10px] font-mono text-[#00F0FF] tracking-widest uppercase font-bold">
+                Authentic Peshawari Footwear Atelier
+              </span>
+            </div>
           </div>
-          <p className="text-xs text-[#E2D7C7]/80 leading-relaxed max-w-sm">
+          <p className="text-xs text-slate-300 leading-relaxed max-w-sm font-sans">
             Handcrafting heirloom-quality Peshawari Chappals in Namak Mandi, Peshawar. Rooted in century-old cobbling traditions, perfected for the modern gentleman who demands authority and timeless elegance.
           </p>
-          <div className="space-y-2 pt-2 text-xs text-[#E2D7C7]/80">
+          <div className="space-y-2 pt-2 text-xs text-slate-300">
             <div className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 text-[#C59B27] mt-0.5 flex-shrink-0" />
+              <MapPin className="w-4 h-4 text-[#F59E0B] mt-0.5 flex-shrink-0" />
               <span>Namak Mandi Bazaar, Opposite Jahangirpura, Peshawar, KP, Pakistan</span>
             </div>
             <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-[#C59B27] flex-shrink-0" />
+              <Phone className="w-4 h-4 text-[#F59E0B] flex-shrink-0" />
               <span>+92 300 9876543 / +92 91 5271890</span>
             </div>
             <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-[#C59B27] flex-shrink-0" />
+              <Mail className="w-4 h-4 text-[#F59E0B] flex-shrink-0" />
               <span>concierge@tatheerchappalz.com</span>
             </div>
           </div>
@@ -94,19 +100,19 @@ export const Footer: React.FC = () => {
 
         {/* Collections Links */}
         <div className="space-y-3">
-          <h4 className="text-xs font-mono uppercase tracking-widest text-[#C59B27] font-semibold border-b border-[#3A2315] pb-2">
+          <h4 className="text-xs font-mono uppercase tracking-widest text-[#F59E0B] font-bold border-b border-[#2563EB]/40 pb-2">
             Collections
           </h4>
-          <ul className="space-y-2 text-xs text-[#E2D7C7]/80">
+          <ul className="space-y-2 text-xs text-slate-300">
             {MOCK_CATEGORIES.map((cat) => (
               <li key={cat.id}>
-                <Link href={`/category/${cat.slug}`} className="hover:text-[#C59B27] transition-colors">
+                <Link href={`/category/${cat.slug}`} className="hover:text-[#00F0FF] transition-colors">
                   {cat.name}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/shop" className="hover:text-[#C59B27] transition-colors font-medium text-[#FAF7F2]">
+              <Link href="/shop" className="hover:text-[#00F0FF] transition-colors font-bold text-white">
                 View All Footwear →
               </Link>
             </li>
@@ -115,42 +121,42 @@ export const Footer: React.FC = () => {
 
         {/* Customer Care Links */}
         <div className="space-y-3">
-          <h4 className="text-xs font-mono uppercase tracking-widest text-[#C59B27] font-semibold border-b border-[#3A2315] pb-2">
+          <h4 className="text-xs font-mono uppercase tracking-widest text-[#F59E0B] font-bold border-b border-[#2563EB]/40 pb-2">
             Customer Care
           </h4>
-          <ul className="space-y-2 text-xs text-[#E2D7C7]/80">
+          <ul className="space-y-2 text-xs text-slate-300">
             <li>
-              <Link href="/size-guide" className="hover:text-[#C59B27] transition-colors">
+              <Link href="/size-guide" className="hover:text-[#00F0FF] transition-colors">
                 Size & Fit Guide
               </Link>
             </li>
             <li>
-              <Link href="/craft" className="hover:text-[#C59B27] transition-colors">
+              <Link href="/craft" className="hover:text-[#00F0FF] transition-colors">
                 The Art of Peshawari Craft
               </Link>
             </li>
             <li>
-              <Link href="/shipping" className="hover:text-[#C59B27] transition-colors">
+              <Link href="/shipping" className="hover:text-[#00F0FF] transition-colors">
                 Shipping & Express COD
               </Link>
             </li>
             <li>
-              <Link href="/returns" className="hover:text-[#C59B27] transition-colors">
+              <Link href="/returns" className="hover:text-[#00F0FF] transition-colors">
                 Returns & Exchanges
               </Link>
             </li>
             <li>
-              <Link href="/faq" className="hover:text-[#C59B27] transition-colors">
+              <Link href="/faq" className="hover:text-[#00F0FF] transition-colors">
                 Frequently Asked Questions
               </Link>
             </li>
             <li>
-              <Link href="/account/orders" className="hover:text-[#C59B27] transition-colors">
+              <Link href="/account/orders" className="hover:text-[#00F0FF] transition-colors">
                 Track Shipment
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-[#C59B27] transition-colors">
+              <Link href="/contact" className="hover:text-[#00F0FF] transition-colors">
                 Contact Concierge
               </Link>
             </li>
@@ -159,15 +165,15 @@ export const Footer: React.FC = () => {
 
         {/* Newsletter Column */}
         <div className="space-y-3">
-          <h4 className="text-xs font-mono uppercase tracking-widest text-[#C59B27] font-semibold border-b border-[#3A2315] pb-2">
+          <h4 className="text-xs font-mono uppercase tracking-widest text-[#F59E0B] font-bold border-b border-[#2563EB]/40 pb-2">
             Peshawar Gazette
           </h4>
-          <p className="text-xs text-[#E2D7C7]/70">
+          <p className="text-xs text-slate-300">
             Subscribe for private preview access to limited-edition calfskin drops and artisan stories.
           </p>
           {subscribed ? (
-            <div className="p-3 bg-[#4A2E1D] text-[#C59B27] text-xs font-medium border border-[#C59B27] flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
+            <div className="p-3 bg-[#2563EB]/20 text-[#00F0FF] text-xs font-bold border border-[#00F0FF] flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#F59E0B]" />
               <span>Thank you for joining the Tatheer Circle!</span>
             </div>
           ) : (
@@ -178,46 +184,48 @@ export const Footer: React.FC = () => {
                 placeholder="Enter your email address"
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="w-full px-3 py-2 bg-[#3A2315]/60 border border-[#3A2315] text-xs text-[#FAF7F2] placeholder-[#E2D7C7]/50 focus:outline-none focus:border-[#C59B27]"
+                className="w-full px-3.5 py-2.5 bg-[#0F172A] border border-[#2563EB] text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#00F0FF]"
               />
               <button
                 type="submit"
-                className="w-full py-2 bg-[#C59B27] text-[#1F130E] text-xs font-semibold uppercase tracking-wider hover:bg-white transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2.5 bg-[#2563EB] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#00F0FF] hover:text-[#0A1128] transition-colors flex items-center justify-center gap-2 shadow-md"
               >
                 Subscribe <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </form>
           )}
-          <div className="pt-2 text-[11px] text-[#E2D7C7]/50">
+          <div className="pt-2 text-[11px] text-slate-400">
             Accepting COD nationwide across 200+ cities in Pakistan.
           </div>
         </div>
       </div>
 
       {/* Bottom Legal & Payment Badges Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#E2D7C7]/60">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
         <div>
           © 2026 Tatheer Chappalz. All Rights Reserved. Crafted with pride in Peshawar, Pakistan.
         </div>
         <div className="flex items-center space-x-6 text-[11px]">
-          <Link href="/privacy" className="hover:text-[#C59B27] transition-colors">
+          <Link href="/privacy" className="hover:text-[#00F0FF] transition-colors">
             Privacy Policy
           </Link>
           <span>•</span>
-          <Link href="/terms" className="hover:text-[#C59B27] transition-colors">
+          <Link href="/terms" className="hover:text-[#00F0FF] transition-colors">
             Terms & Conditions
           </Link>
           <span>•</span>
-          <Link href="/contact" className="hover:text-[#C59B27] transition-colors">
+          <Link href="/contact" className="hover:text-[#00F0FF] transition-colors">
             Peshawar Flagship
           </Link>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[10px] text-[#C59B27] bg-[#3A2315]/40 px-3 py-1 border border-[#3A2315]">
+        <div className="flex items-center gap-2 font-mono text-[10px] text-[#F59E0B] bg-[#0F172A] px-3 py-1 border border-[#2563EB]/40 shadow-xs">
           <span>Cash on Delivery</span>
           <span>|</span>
-          <span>Direct Bank Transfer</span>
+          <span>JazzCash</span>
           <span>|</span>
-          <span>Visa / Mastercard</span>
+          <span>Easypaisa</span>
+          <span>|</span>
+          <span>Cards</span>
         </div>
       </div>
     </footer>

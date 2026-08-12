@@ -17,9 +17,7 @@ import {
   Copy,
   Flame,
   Zap,
-  Star,
-  Shield,
-  Layers,
+  Crown,
 } from 'lucide-react';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { SizeFinderModal } from '@/components/shop/SizeFinderModal';
@@ -50,7 +48,7 @@ export default function HomePage() {
     },
     {
       id: 'm2',
-      title: 'Zalmi Velvet-Suede Sapphire Blue',
+      title: 'Zalmi Velvet-Suede Sapphire Edition',
       category: 'Zalmi Collection',
       tagline: 'Lightweight Suede Comfort Signature Edition',
       price: 13999,
@@ -62,7 +60,7 @@ export default function HomePage() {
       id: 'm3',
       title: 'Norozi Heavy Buckle Heritage Maroon',
       category: 'Norozi Heritage',
-      tagline: 'Traditional Heavy Brass Buckle & Double Leather Tire Sole',
+      tagline: 'Traditional Heavy Brass Buckle & Double Leather Sole',
       price: 14999,
       originalPrice: 18500,
       image: '/images/norozi.png',
@@ -99,11 +97,11 @@ export default function HomePage() {
       <JsonLd type="Organization" data={{}} />
       <JsonLd type="WebSite" data={{}} />
 
-      {/* MAGNIFICENT ROYAL SAPPHIRE BLUE HERO SECTION */}
+      {/* MAGNIFICENT UNIFIED ROYAL SAPPHIRE BLUE HERO SECTION */}
       <section className="relative bg-gradient-to-br from-[#0A1128] via-[#0F172A] to-[#1E3A8A] text-white border-b-2 border-[#2563EB]/40 py-16 lg:py-24 overflow-hidden shadow-2xl">
         {/* Floating Ambient Glowing Orbs */}
-        <div className="absolute top-10 left-10 w-96 h-96 bg-[#2563EB]/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#00F0FF]/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-10 left-10 w-96 h-96 bg-[#2563EB]/25 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#00F0FF]/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -123,7 +121,7 @@ export default function HomePage() {
                 <h1 className="text-4xl sm:text-6xl font-serif font-extrabold text-white tracking-tight leading-tight drop-shadow-md">
                   {currentHero.title}
                 </h1>
-                <p className="text-sm font-sans text-gray-300 italic max-w-xl">
+                <p className="text-sm font-sans text-slate-300 italic max-w-xl">
                   "{currentHero.tagline}"
                 </p>
               </div>
@@ -271,6 +269,88 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Sapphire Collection Banner Grid */}
+      <section className="py-12 bg-white border-y border-[#E2E8F0]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Left Big Banner */}
+            <div className="lg:col-span-6 relative bg-gradient-to-br from-[#0A1128] to-[#1E3A8A] border-2 border-[#2563EB] text-white min-h-[360px] p-8 flex flex-col justify-between overflow-hidden group shadow-xl">
+              <div className="relative z-10 space-y-2">
+                <span className="text-xs font-mono uppercase tracking-widest text-[#00F0FF] font-bold">
+                  Heritage Craftsmanship
+                </span>
+                <h3 className="text-3xl font-serif font-bold text-white">
+                  Royal Peshawari <br />
+                  <span className="italic font-serif font-normal text-[#F59E0B]">Chappal Collection</span>
+                </h3>
+              </div>
+              <div className="relative z-10">
+                <Link
+                  href="/shop"
+                  className="inline-block px-8 py-3.5 bg-[#2563EB] text-white text-xs font-serif uppercase tracking-widest font-bold hover:bg-[#00F0FF] hover:text-[#0A1128] transition-all border border-[#00F0FF]/40 shadow-lg"
+                >
+                  Explore Collection
+                </Link>
+              </div>
+              <div className="absolute right-0 bottom-0 w-3/5 h-4/5">
+                <Image
+                  src="/images/zalmi.png"
+                  alt="Crafted Chappal"
+                  fill
+                  className="object-contain group-hover:scale-108 transition-transform duration-700"
+                />
+              </div>
+            </div>
+
+            {/* Right Stacked Category Cards */}
+            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="bg-[#0A1128] text-white p-6 flex flex-col justify-between min-h-[170px] border-2 border-[#2563EB] shadow-md">
+                <div>
+                  <span className="text-[10px] font-mono text-[#F59E0B] uppercase tracking-widest">Peshawar Guild</span>
+                  <h4 className="text-xl font-serif font-bold text-white mt-1">Gentlemen Edition</h4>
+                </div>
+                <Link href="/shop" className="text-xs font-serif text-[#00F0FF] hover:underline flex items-center gap-1 font-bold">
+                  Shop Gentlemen <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              <div className="bg-[#F8FAFC] border-2 border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[170px] shadow-xs hover:border-[#2563EB] transition-all">
+                <div className="relative w-full h-24">
+                  <Image src="/images/kaptaan.png" alt="Kaptaan Chappal" fill className="object-contain" />
+                </div>
+                <div className="text-center pt-1">
+                  <h5 className="text-xs font-serif font-bold text-[#0F172A]">Kaptaan Double Sole</h5>
+                  <span className="text-[11px] font-mono font-bold text-[#2563EB]">From Rs. 12,999</span>
+                </div>
+              </div>
+
+              <div className="bg-[#F8FAFC] border-2 border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[170px] shadow-xs hover:border-[#2563EB] transition-all">
+                <div className="relative w-full h-24">
+                  <Image src="/images/norozi.png" alt="Norozi Chappal" fill className="object-contain" />
+                </div>
+                <div className="text-center pt-1">
+                  <h5 className="text-xs font-serif font-bold text-[#0F172A]">Norozi Heavy Buckle</h5>
+                  <span className="text-[11px] font-mono font-bold text-[#2563EB]">From Rs. 14,999</span>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-[#1E3A8A] to-[#0A1128] text-white p-6 flex flex-col justify-between min-h-[170px] border-2 border-[#2563EB] shadow-md">
+                <div>
+                  <span className="text-[10px] font-mono text-[#F59E0B] uppercase tracking-widest">Bespoke Fit</span>
+                  <h4 className="text-xl font-serif font-bold text-white mt-1">Custom Sizing</h4>
+                </div>
+                <button
+                  onClick={() => setSizeModalOpen(true)}
+                  className="text-xs font-serif text-[#00F0FF] hover:underline flex items-center gap-1 font-bold text-left"
+                >
+                  Size Finder Tool <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Best Seller Section */}
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-2 mb-12">
@@ -293,7 +373,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Size Finder Modal */}
+      {/* Brand Seals Bar */}
+      <section className="py-12 bg-white border-t border-[#E2E8F0]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div className="p-5 border border-[#E2E8F0] bg-[#F8FAFC] space-y-1 shadow-2xs hover:border-[#2563EB] transition-all">
+              <Award className="w-7 h-7 text-[#2563EB] mx-auto" />
+              <h5 className="text-xs font-serif font-bold text-[#0F172A] uppercase">PESHAWAR GUILD</h5>
+              <p className="text-[10px] text-slate-500 font-mono">Authentic Namak Mandi Atelier</p>
+            </div>
+            <div className="p-5 border border-[#E2E8F0] bg-[#F8FAFC] space-y-1 shadow-2xs hover:border-[#2563EB] transition-all">
+              <Award className="w-7 h-7 text-[#2563EB] mx-auto" />
+              <h5 className="text-xs font-serif font-bold text-[#0F172A] uppercase">FULL GRAIN LEATHER</h5>
+              <p className="text-[10px] text-slate-500 font-mono">100% Genuine Calfskin & Cowhide</p>
+            </div>
+            <div className="p-5 border border-[#E2E8F0] bg-[#F8FAFC] space-y-1 shadow-2xs hover:border-[#2563EB] transition-all">
+              <Award className="w-7 h-7 text-[#2563EB] mx-auto" />
+              <h5 className="text-xs font-serif font-bold text-[#0F172A] uppercase">HAND STITCHED</h5>
+              <p className="text-[10px] text-slate-500 font-mono">14+ Hours Per Pair</p>
+            </div>
+            <div className="p-5 border border-[#E2E8F0] bg-[#F8FAFC] space-y-1 shadow-2xs hover:border-[#2563EB] transition-all">
+              <Award className="w-7 h-7 text-[#2563EB] mx-auto" />
+              <h5 className="text-xs font-serif font-bold text-[#0F172A] uppercase">ROYAL SEAL</h5>
+              <p className="text-[10px] text-slate-500 font-mono">Patron Quality Guarantee</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Size Finder Wizard Modal */}
       <SizeFinderModal
         isOpen={sizeModalOpen}
         onClose={() => setSizeModalOpen(false)}
