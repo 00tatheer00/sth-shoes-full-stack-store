@@ -29,21 +29,21 @@ export const SizeFinderModal: React.FC<SizeFinderModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#0A1128]/80 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-[#F8FAFC] max-w-lg w-full border-2 border-[#2563EB] shadow-2xl p-6 sm:p-8 space-y-6 relative text-[#0F172A]">
+    <div className="fixed inset-0 z-50 bg-[#0B1120]/80 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="bg-[#F4F8FF] max-w-lg w-full border-2 border-[#1E90FF] shadow-2xl p-6 sm:p-8 space-y-6 relative text-[#0B1120]">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-slate-500 hover:text-[#EF4444] transition-colors"
+          className="absolute top-4 right-4 p-2 text-slate-500 hover:text-[#FF3B30] transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Header */}
         <div className="text-center space-y-1">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#2563EB] font-bold flex items-center justify-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-[#F59E0B]" /> Interactive Atelier Sizer
+          <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#1E90FF] font-bold flex items-center justify-center gap-1.5">
+            <Sparkles className="w-4 h-4 text-[#FFB800]" /> Interactive Atelier Sizer
           </span>
-          <h2 className="text-2xl font-serif font-bold text-[#0F172A]">
+          <h2 className="text-2xl font-serif font-bold text-[#0B1120]">
             Find Your Perfect Peshawari Fit
           </h2>
           <p className="text-xs text-slate-600 font-sans">
@@ -54,7 +54,7 @@ export const SizeFinderModal: React.FC<SizeFinderModalProps> = ({
         {/* Wizard Steps */}
         {step === 1 && (
           <div className="space-y-4">
-            <label className="block text-xs font-mono uppercase font-bold text-[#0F172A] text-center">
+            <label className="block text-xs font-mono uppercase font-bold text-[#0B1120] text-center">
               1. What is your usual US Sneaker Size? ({shoeSizeUS})
             </label>
             <div className="grid grid-cols-6 gap-2">
@@ -64,8 +64,8 @@ export const SizeFinderModal: React.FC<SizeFinderModalProps> = ({
                   onClick={() => setShoeSizeUS(s)}
                   className={`py-3 text-xs font-mono font-bold border transition-all ${
                     shoeSizeUS === s
-                      ? 'bg-[#2563EB] text-white border-[#00F0FF] shadow-lg scale-105'
-                      : 'bg-white text-[#0F172A] border-[#E2E8F0] hover:border-[#2563EB]'
+                      ? 'bg-[#1E90FF] text-white border-[#00E5FF] shadow-lg scale-105'
+                      : 'bg-white text-[#0B1120] border-[#DBEAFE] hover:border-[#1E90FF]'
                   }`}
                 >
                   US {s}
@@ -74,16 +74,16 @@ export const SizeFinderModal: React.FC<SizeFinderModalProps> = ({
             </div>
             <button
               onClick={() => setStep(2)}
-              className="w-full py-3.5 bg-[#0A1128] text-white text-xs font-serif font-bold uppercase tracking-wider hover:bg-[#2563EB] flex items-center justify-center gap-2 mt-4 shadow-md"
+              className="w-full py-3.5 bg-[#0B1120] text-white text-xs font-serif font-bold uppercase tracking-wider hover:bg-[#1E90FF] flex items-center justify-center gap-2 mt-4 shadow-md"
             >
-              Next Step <ArrowRight className="w-4 h-4 text-[#00F0FF]" />
+              Next Step <ArrowRight className="w-4 h-4 text-[#00E5FF]" />
             </button>
           </div>
         )}
 
         {step === 2 && (
           <div className="space-y-4">
-            <label className="block text-xs font-mono uppercase font-bold text-[#0F172A] text-center">
+            <label className="block text-xs font-mono uppercase font-bold text-[#0B1120] text-center">
               2. How do you plan to wear your Peshawari Chappal?
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -91,24 +91,24 @@ export const SizeFinderModal: React.FC<SizeFinderModalProps> = ({
                 onClick={() => setSockPreference('socks')}
                 className={`p-4 text-xs font-serif text-center border transition-all ${
                   sockPreference === 'socks'
-                    ? 'bg-[#2563EB] text-white border-[#00F0FF] shadow-lg'
-                    : 'bg-white text-[#0F172A] border-[#E2E8F0]'
+                    ? 'bg-[#1E90FF] text-white border-[#00E5FF] shadow-lg'
+                    : 'bg-white text-[#0B1120] border-[#DBEAFE]'
                 }`}
               >
                 <div className="font-bold text-sm">With Shalwar Kameez Socks</div>
-                <div className="text-[10px] text-[#F59E0B] font-mono mt-1">Standard Traditional Fit</div>
+                <div className="text-[10px] text-[#FFB800] font-mono mt-1">Standard Traditional Fit</div>
               </button>
 
               <button
                 onClick={() => setSockPreference('barefoot')}
                 className={`p-4 text-xs font-serif text-center border transition-all ${
                   sockPreference === 'barefoot'
-                    ? 'bg-[#2563EB] text-white border-[#00F0FF] shadow-lg'
-                    : 'bg-white text-[#0F172A] border-[#E2E8F0]'
+                    ? 'bg-[#1E90FF] text-white border-[#00E5FF] shadow-lg'
+                    : 'bg-white text-[#0B1120] border-[#DBEAFE]'
                 }`}
               >
                 <div className="font-bold text-sm">Barefoot / Summer</div>
-                <div className="text-[10px] text-[#F59E0B] font-mono mt-1">Snug Leather Mold</div>
+                <div className="text-[10px] text-[#FFB800] font-mono mt-1">Snug Leather Mold</div>
               </button>
             </div>
 
@@ -121,9 +121,9 @@ export const SizeFinderModal: React.FC<SizeFinderModalProps> = ({
               </button>
               <button
                 onClick={() => setStep(3)}
-                className="flex-1 py-3.5 bg-[#0A1128] text-white text-xs font-serif font-bold uppercase tracking-wider hover:bg-[#2563EB] flex items-center justify-center gap-2 shadow-md"
+                className="flex-1 py-3.5 bg-[#0B1120] text-white text-xs font-serif font-bold uppercase tracking-wider hover:bg-[#1E90FF] flex items-center justify-center gap-2 shadow-md"
               >
-                Calculate Fit <Sparkles className="w-4 h-4 text-[#00F0FF]" />
+                Calculate Fit <Sparkles className="w-4 h-4 text-[#00E5FF]" />
               </button>
             </div>
           </div>
@@ -131,11 +131,11 @@ export const SizeFinderModal: React.FC<SizeFinderModalProps> = ({
 
         {step === 3 && (
           <div className="text-center space-y-4">
-            <div className="p-6 bg-white border-2 border-[#2563EB] shadow-xl space-y-2">
-              <span className="text-[10px] font-mono text-[#2563EB] uppercase font-bold tracking-widest">
+            <div className="p-6 bg-white border-2 border-[#1E90FF] shadow-xl space-y-2">
+              <span className="text-[10px] font-mono text-[#1E90FF] uppercase font-bold tracking-widest">
                 Recommended Peshawari Size
               </span>
-              <div className="text-4xl font-serif font-bold text-[#0F172A]">
+              <div className="text-4xl font-serif font-bold text-[#0B1120]">
                 EU {recommendedEU}
               </div>
               <p className="text-xs text-slate-600 leading-relaxed font-sans">
@@ -152,7 +152,7 @@ export const SizeFinderModal: React.FC<SizeFinderModalProps> = ({
               </button>
               <button
                 onClick={handleFinish}
-                className="flex-1 py-3.5 bg-[#2563EB] text-white text-xs font-serif font-bold uppercase tracking-widest hover:bg-[#0A1128] hover:text-[#00F0FF] transition-colors flex items-center justify-center gap-2 shadow-lg"
+                className="flex-1 py-3.5 bg-[#1E90FF] text-white text-xs font-serif font-bold uppercase tracking-widest hover:bg-[#0B1120] hover:text-[#00E5FF] transition-colors flex items-center justify-center gap-2 shadow-lg"
               >
                 <CheckCircle2 className="w-4 h-4" /> Select Size EU {recommendedEU}
               </button>

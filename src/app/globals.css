@@ -1,28 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
-    --background: #F8FAFC;
-    --foreground: #0F172A;
+    --background: #F4F8FF;
+    --foreground: #0B1120;
     
-    --blue-dark: #0A1128;
-    --blue-deep: #0F172A;
-    --blue-royal: #1D4ED8;
-    --blue-accent: #2563EB;
-    --blue-bright: #3B82F6;
-    --cyan-electric: #00F0FF;
+    --dodger-blue: #1E90FF;
+    --dodger-blue-dark: #0B63F6;
+    --dodger-blue-deep: #0B1120;
+    --dodger-blue-light: #60A5FA;
+    --cyan-glow: #00E5FF;
     
-    --gold-vibrant: #F59E0B;
-    --gold-bright: #FBBF24;
-    --gold-metallic: #D4AF37;
-    --crimson-vibrant: #EF4444;
-    --emerald-vibrant: #10B981;
+    --gold-accent: #FFB800;
+    --gold-bright: #FFD700;
+    --crimson-sale: #FF3B30;
+    --emerald-stock: #10B981;
     
     --card-bg: #FFFFFF;
-    --border-color: #E2E8F0;
-    --border-blue: #3B82F6;
-    --border-gold: #F59E0B;
+    --border-color: #DBEAFE;
+    --border-dodger: #1E90FF;
   }
 
   body {
@@ -42,77 +39,67 @@
   }
 }
 
-/* Glassmorphism Sapphire Header & Cards */
-.glass-header-blue {
-  background: rgba(15, 23, 42, 0.94);
+/* Glassmorphism Dodger Blue Header & Panels */
+.glass-dodger-header {
+  background: rgba(11, 17, 32, 0.94);
   backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(59, 130, 246, 0.35);
+  border-bottom: 1.5px solid rgba(30, 144, 255, 0.4);
 }
 
-.glass-card-sapphire {
+.glass-dodger-card {
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(59, 130, 246, 0.25);
-  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1), 0 0 30px rgba(37, 99, 235, 0.15);
+  border: 1.5px solid rgba(30, 144, 255, 0.3);
+  box-shadow: 0 20px 40px -15px rgba(11, 17, 32, 0.08), 0 0 30px rgba(30, 144, 255, 0.15);
 }
 
-.glass-card-dark-blue {
-  background: rgba(10, 17, 40, 0.95);
+.glass-dodger-dark {
+  background: rgba(11, 17, 32, 0.95);
   backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(59, 130, 246, 0.4);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 240, 255, 0.2);
+  border: 1.5px solid rgba(30, 144, 255, 0.45);
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6), 0 0 35px rgba(30, 144, 255, 0.3);
 }
 
-/* Glowing Sapphire Effects */
-.glow-blue {
-  box-shadow: 0 0 30px rgba(37, 99, 235, 0.45);
+/* Glowing Dodger Blue Effects */
+.glow-dodger {
+  box-shadow: 0 0 30px rgba(30, 144, 255, 0.5);
 }
 
-.glow-cyan {
-  box-shadow: 0 0 30px rgba(0, 240, 255, 0.45);
+.glow-cyan-dodger {
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
 }
 
 .glow-gold {
-  box-shadow: 0 0 30px rgba(245, 158, 11, 0.45);
+  box-shadow: 0 0 30px rgba(255, 184, 0, 0.4);
 }
 
-/* 3D Sapphire Badges */
-.badge-blue-3d {
-  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+/* 3D Dodger Blue Badges */
+.badge-dodger-3d {
+  background: linear-gradient(135deg, #1E90FF 0%, #0B63F6 100%);
   color: #ffffff;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 16px rgba(30, 144, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .badge-gold-3d {
-  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-  color: #0F172A;
-  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, #FFB800 0%, #D97706 100%);
+  color: #0B1120;
+  box-shadow: 0 6px 16px rgba(255, 184, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .badge-sale-3d {
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  background: linear-gradient(135deg, #FF3B30 0%, #DC2626 100%);
   color: #ffffff;
-  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 16px rgba(255, 59, 48, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Card Hover Animations */
-.card-blue-hover {
+/* Smooth Card Hover Motion */
+.card-dodger-hover {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.card-blue-hover:hover {
+.card-dodger-hover:hover {
   transform: translateY(-8px) scale(1.01);
-  border-color: #2563EB;
-  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.2), 0 0 35px rgba(37, 99, 235, 0.35);
-}
-
-/* Floating animation */
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-12px) rotate(1.5deg); }
-}
-
-.animate-float-slow {
-  animation: floatSlow 5s ease-in-out infinite;
+  border-color: #1E90FF;
+  box-shadow: 0 25px 50px -12px rgba(11, 17, 32, 0.18), 0 0 35px rgba(30, 144, 255, 0.35);
 }
 
 /* Custom Scrollbar */
@@ -120,9 +107,9 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F8FAFC;
+  background: #F4F8FF;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2563EB;
+  background: #1E90FF;
   border-radius: 4px;
 }
