@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #FAF7F2;
+    --foreground: #1C1917;
+    
+    --leather-dark: #1F130E;
+    --leather-saddle: #4A2E1D;
+    --leather-light: #8C5332;
+    --tan-accent: #B87546;
+    --gold-accent: #C59B27;
+    --gold-light: #E6C875;
+    --maroon-accent: #5C1D24;
+    
+    --cream-bg: #FAF7F2;
+    --sand-bg: #EAE3D2;
+    --card-bg: #FFFFFF;
+    --border-color: #E2D7C7;
+    --border-dark: #3A2315;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #C8B9A6;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8C5332;
+}
+
+/* Custom Utility Classes */
+.bg-leather-dark { background-color: var(--leather-dark); }
+.bg-leather-saddle { background-color: var(--leather-saddle); }
+.bg-tan-accent { background-color: var(--tan-accent); }
+.bg-gold-accent { background-color: var(--gold-accent); }
+.bg-cream { background-color: var(--cream-bg); }
+.bg-sand { background-color: var(--sand-bg); }
+.bg-maroon { background-color: var(--maroon-accent); }
+
+.text-leather-dark { color: var(--leather-dark); }
+.text-leather-saddle { color: var(--leather-saddle); }
+.text-tan-accent { color: var(--tan-accent); }
+.text-gold-accent { color: var(--gold-accent); }
+.text-maroon-accent { color: var(--maroon-accent); }
+
+.border-leather-saddle { border-color: var(--leather-saddle); }
+.border-leather-border { border-color: var(--border-color); }
+.border-gold-accent { border-color: var(--gold-accent); }
+
+/* Leather Stitch Border Effect */
+.border-stitch {
+  border: 1px dashed var(--tan-accent);
+}
+
+.border-stitch-gold {
+  border: 1px dashed var(--gold-accent);
+}
+
+/* Glassmorphism Luxury Overlay */
+.glass-panel {
+  background: rgba(250, 247, 242, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+.glass-panel-dark {
+  background: rgba(31, 19, 14, 0.88);
+  backdrop-filter: blur(12px);
+}
+
+/* Smooth Image Zoom */
+.img-zoom {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.img-zoom:hover {
+  transform: scale(1.05);
+}
