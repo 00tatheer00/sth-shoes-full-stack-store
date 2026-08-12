@@ -3,23 +3,26 @@
 
 @layer base {
   :root {
-    --background: #FFFDF9;
-    --foreground: #0F0C0B;
+    --background: #F8FAFC;
+    --foreground: #0F172A;
     
-    --gold-vibrant: #FFB800;
-    --gold-bright: #FFC700;
-    --gold-deep: #D49B00;
-    --crimson-vibrant: #FF3B30;
-    --terracotta-rich: #E63946;
+    --blue-dark: #0A1128;
+    --blue-deep: #0F172A;
+    --blue-royal: #1D4ED8;
+    --blue-accent: #2563EB;
+    --blue-bright: #3B82F6;
+    --cyan-electric: #00F0FF;
+    
+    --gold-vibrant: #F59E0B;
+    --gold-bright: #FBBF24;
+    --gold-metallic: #D4AF37;
+    --crimson-vibrant: #EF4444;
     --emerald-vibrant: #10B981;
-    --obsidian-dark: #0F0C0B;
-    --espresso-deep: #1A110C;
     
-    --cream-bg: #FFFDF9;
-    --sand-bg: #FAF3E6;
     --card-bg: #FFFFFF;
-    --border-color: #F0E2CD;
-    --border-gold: #FFB800;
+    --border-color: #E2E8F0;
+    --border-blue: #3B82F6;
+    --border-gold: #F59E0B;
   }
 
   body {
@@ -39,48 +42,77 @@
   }
 }
 
-/* Glassmorphism Luxury Overlays */
-.glass-header {
-  background: rgba(255, 253, 249, 0.92);
+/* Glassmorphism Sapphire Header & Cards */
+.glass-header-blue {
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.glass-card-sapphire {
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 184, 0, 0.3);
+  border: 1.5px solid rgba(59, 130, 246, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.1), 0 0 30px rgba(37, 99, 235, 0.15);
 }
 
-.glass-card-3d {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 184, 0, 0.35);
-  box-shadow: 0 15px 35px -10px rgba(15, 12, 11, 0.08), 0 0 25px rgba(255, 184, 0, 0.15);
+.glass-card-dark-blue {
+  background: rgba(10, 17, 40, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(59, 130, 246, 0.4);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 240, 255, 0.2);
 }
 
-/* Saturated Glowing Effects */
+/* Glowing Sapphire Effects */
+.glow-blue {
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.45);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.45);
+}
+
 .glow-gold {
-  box-shadow: 0 0 25px rgba(255, 184, 0, 0.4);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.45);
 }
 
-.glow-crimson {
-  box-shadow: 0 0 25px rgba(255, 59, 48, 0.4);
+/* 3D Sapphire Badges */
+.badge-blue-3d {
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-.badge-3d {
-  background: linear-gradient(135deg, #FFB800 0%, #E69500 100%);
-  color: #0F0C0B;
-  box-shadow: 0 4px 12px rgba(255, 184, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+.badge-gold-3d {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #0F172A;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .badge-sale-3d {
-  background: linear-gradient(135deg, #FF3B30 0%, #C82319 100%);
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(255, 59, 48, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Interactive 3D Card Hover */
-.card-3d-hover {
+/* Card Hover Animations */
+.card-blue-hover {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.card-3d-hover:hover {
+.card-blue-hover:hover {
   transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 25px 45px -12px rgba(15, 12, 11, 0.18), 0 0 30px rgba(255, 184, 0, 0.3);
+  border-color: #2563EB;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.2), 0 0 35px rgba(37, 99, 235, 0.35);
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1.5deg); }
+}
+
+.animate-float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
 }
 
 /* Custom Scrollbar */
@@ -88,9 +120,9 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FFFDF9;
+  background: #F8FAFC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #FFB800;
+  background: #2563EB;
   border-radius: 4px;
 }
