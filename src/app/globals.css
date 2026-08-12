@@ -1,31 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
-    --background: #FAF7F2;
-    --foreground: #1C1917;
+    --background: #FAF6F0;
+    --foreground: #120A07;
     
-    --leather-dark: #1F130E;
-    --leather-saddle: #4A2E1D;
-    --leather-light: #8C5332;
-    --tan-accent: #B87546;
-    --gold-accent: #C59B27;
-    --gold-light: #E6C875;
-    --maroon-accent: #5C1D24;
+    --leather-dark: #120A07;
+    --leather-saddle: #3A2012;
+    --leather-rich: #5C2D18;
+    --tan-accent: #C86D3B;
+    --gold-accent: #D4AF37;
+    --gold-bright: #F3C649;
+    --maroon-accent: #7A1C24;
+    --crimson-accent: #C84B31;
     
-    --cream-bg: #FAF7F2;
-    --sand-bg: #EAE3D2;
+    --cream-bg: #FAF6F0;
+    --sand-bg: #F3EBDD;
     --card-bg: #FFFFFF;
-    --border-color: #E2D7C7;
-    --border-dark: #3A2315;
+    --border-color: #E6D8C3;
+    --border-gold: #D4AF37;
   }
 
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Outfit', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
   }
 }
 
@@ -34,59 +44,64 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF7F2;
+  background: #FAF6F0;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C8B9A6;
+  background: #D4AF37;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #8C5332;
+  background: #3A2012;
 }
 
-/* Custom Utility Classes */
-.bg-leather-dark { background-color: var(--leather-dark); }
-.bg-leather-saddle { background-color: var(--leather-saddle); }
-.bg-tan-accent { background-color: var(--tan-accent); }
-.bg-gold-accent { background-color: var(--gold-accent); }
-.bg-cream { background-color: var(--cream-bg); }
-.bg-sand { background-color: var(--sand-bg); }
-.bg-maroon { background-color: var(--maroon-accent); }
-
-.text-leather-dark { color: var(--leather-dark); }
-.text-leather-saddle { color: var(--leather-saddle); }
-.text-tan-accent { color: var(--tan-accent); }
-.text-gold-accent { color: var(--gold-accent); }
-.text-maroon-accent { color: var(--maroon-accent); }
-
-.border-leather-saddle { border-color: var(--leather-saddle); }
-.border-leather-border { border-color: var(--border-color); }
-.border-gold-accent { border-color: var(--gold-accent); }
-
-/* Leather Stitch Border Effect */
-.border-stitch {
-  border: 1px dashed var(--tan-accent);
+/* Glassmorphism Luxury Overlays */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
 }
 
-.border-stitch-gold {
-  border: 1px dashed var(--gold-accent);
+.glass-card-dark {
+  background: rgba(18, 10, 7, 0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
-/* Glassmorphism Luxury Overlay */
-.glass-panel {
-  background: rgba(250, 247, 242, 0.85);
-  backdrop-filter: blur(12px);
+/* Glowing Shadows */
+.gold-glow {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
 }
 
-.glass-panel-dark {
-  background: rgba(31, 19, 14, 0.88);
-  backdrop-filter: blur(12px);
+.gold-glow-lg {
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
 }
 
-/* Smooth Image Zoom */
-.img-zoom {
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+.card-hover-effect {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.img-zoom:hover {
-  transform: scale(1.05);
+.card-hover-effect:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -10px rgba(58, 32, 18, 0.15), 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.4) 50%, rgba(212,175,55,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
