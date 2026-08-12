@@ -1,25 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
-    --background: #F4F8FF;
-    --foreground: #0B1120;
+    --background: #FFFFFF;
+    --foreground: #0F172A;
     
-    --dodger-blue: #1E90FF;
-    --dodger-blue-dark: #0B63F6;
-    --dodger-blue-deep: #0B1120;
-    --dodger-blue-light: #60A5FA;
-    --cyan-glow: #00E5FF;
+    --minimal-dark: #0F172A;
+    --minimal-gray-900: #1E293B;
+    --minimal-gray-600: #475569;
+    --minimal-gray-300: #CBD5E1;
+    --minimal-gray-100: #F8FAFC;
+    --minimal-gray-50: #F1F5F9;
     
-    --gold-accent: #FFB800;
-    --gold-bright: #FFD700;
-    --crimson-sale: #FF3B30;
-    --emerald-stock: #10B981;
+    --gold-subtle: #C5A059;
+    --gold-accent: #D4AF37;
+    --red-subtle: #E11D48;
+    --green-subtle: #10B981;
     
     --card-bg: #FFFFFF;
-    --border-color: #DBEAFE;
-    --border-dodger: #1E90FF;
+    --border-subtle: #E2E8F0;
   }
 
   body {
@@ -39,77 +39,69 @@
   }
 }
 
-/* Glassmorphism Dodger Blue Header & Panels */
-.glass-dodger-header {
-  background: rgba(11, 17, 32, 0.94);
-  backdrop-filter: blur(24px);
-  border-bottom: 1.5px solid rgba(30, 144, 255, 0.4);
+/* Minimalist Clean Glass & Border Utilities */
+.minimal-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid #E2E8F0;
 }
 
-.glass-dodger-card {
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(30, 144, 255, 0.3);
-  box-shadow: 0 20px 40px -15px rgba(11, 17, 32, 0.08), 0 0 30px rgba(30, 144, 255, 0.15);
+.minimal-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-dodger-dark {
-  background: rgba(11, 17, 32, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(30, 144, 255, 0.45);
-  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6), 0 0 35px rgba(30, 144, 255, 0.3);
+.minimal-card:hover {
+  border-color: #0F172A;
+  box-shadow: 0 12px 30px -10px rgba(15, 23, 42, 0.08);
 }
 
-/* Glowing Dodger Blue Effects */
-.glow-dodger {
-  box-shadow: 0 0 30px rgba(30, 144, 255, 0.5);
+/* Minimal Tags */
+.badge-minimal {
+  background: #0F172A;
+  color: #FFFFFF;
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
 }
 
-.glow-cyan-dodger {
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+.badge-sale-minimal {
+  background: #E11D48;
+  color: #FFFFFF;
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
 }
 
-.glow-gold {
-  box-shadow: 0 0 30px rgba(255, 184, 0, 0.4);
-}
-
-/* 3D Dodger Blue Badges */
-.badge-dodger-3d {
-  background: linear-gradient(135deg, #1E90FF 0%, #0B63F6 100%);
-  color: #ffffff;
-  box-shadow: 0 6px 16px rgba(30, 144, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-.badge-gold-3d {
-  background: linear-gradient(135deg, #FFB800 0%, #D97706 100%);
-  color: #0B1120;
-  box-shadow: 0 6px 16px rgba(255, 184, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-}
-
-.badge-sale-3d {
-  background: linear-gradient(135deg, #FF3B30 0%, #DC2626 100%);
-  color: #ffffff;
-  box-shadow: 0 6px 16px rgba(255, 59, 48, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-/* Smooth Card Hover Motion */
-.card-dodger-hover {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.card-dodger-hover:hover {
-  transform: translateY(-8px) scale(1.01);
-  border-color: #1E90FF;
-  box-shadow: 0 25px 50px -12px rgba(11, 17, 32, 0.18), 0 0 35px rgba(30, 144, 255, 0.35);
+.badge-gold-minimal {
+  background: #C5A059;
+  color: #FFFFFF;
+  font-family: monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F4F8FF;
+  background: #FFFFFF;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1E90FF;
-  border-radius: 4px;
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0F172A;
 }

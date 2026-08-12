@@ -9,9 +9,7 @@ import {
   Heart,
   Search,
   User,
-  Crown,
   ChevronDown,
-  Sparkles,
   Menu,
   X,
   ShieldCheck,
@@ -37,46 +35,43 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-40 glass-dodger-header transition-all duration-300 shadow-2xl">
+    <header className="sticky top-0 z-40 minimal-header transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-22">
-          {/* 1. Mobile Menu Button */}
+        <div className="flex items-center justify-between h-20">
+          {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-white hover:text-[#00E5FF] lg:hidden"
+            className="p-2 text-[#0F172A] hover:text-[#C5A059] lg:hidden"
             aria-label="Toggle mobile menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
 
-          {/* 2. Stunning Dodger Blue Crown Logo */}
-          <Link href="/" className="flex items-center gap-3.5 group">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1E90FF] via-[#0B63F6] to-[#0B1120] border-2 border-[#00E5FF] shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300 glow-[#00E5FF]">
-              <Crown className="w-6 h-6 text-[#FFB800] animate-pulse" />
-            </div>
+          {/* Sleek Minimal Brand Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
             <div className="flex flex-col text-left">
               <div className="flex items-center gap-2">
-                <span className="text-2xl sm:text-3xl font-serif font-extrabold tracking-[0.15em] text-white uppercase group-hover:text-[#00E5FF] transition-colors">
+                <span className="text-xl sm:text-2xl font-serif font-extrabold tracking-[0.18em] text-[#0F172A] uppercase group-hover:text-[#C5A059] transition-colors">
                   TATHEER
                 </span>
-                <span className="px-2 py-0.5 bg-gradient-to-r from-[#1E90FF] to-[#0B63F6] text-white text-[9px] font-mono font-bold uppercase rounded-none shadow-md">
+                <span className="px-2 py-0.5 bg-[#0F172A] text-white text-[9px] font-mono font-bold uppercase tracking-widest">
                   PESHAWAR
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-[10px] font-mono tracking-widest text-[#FFB800] uppercase font-bold">
-                <span>CHAPPALZ</span>
+              <div className="flex items-center gap-2 text-[10px] font-mono tracking-[0.2em] text-[#C5A059] uppercase font-medium">
+                <span>HANDMADE FOOTWEAR</span>
                 <span>•</span>
-                <span className="font-serif text-[#00E5FF]">تطہیر چپل</span>
+                <span className="font-serif text-[#0F172A]">تطہیر چپل</span>
               </div>
             </div>
           </Link>
 
-          {/* 3. Desktop Navigation Menu */}
-          <nav className="hidden lg:flex items-center space-x-8 text-xs font-serif font-bold uppercase tracking-widest text-white">
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center space-x-8 text-xs font-serif font-bold uppercase tracking-[0.15em] text-[#0F172A]">
             <Link
               href="/"
-              className={`hover:text-[#00E5FF] transition-colors py-2 ${
-                pathname === '/' ? 'text-[#00E5FF] border-b-2 border-[#00E5FF]' : ''
+              className={`hover:text-[#C5A059] transition-colors py-2 ${
+                pathname === '/' ? 'text-[#0F172A] border-b-2 border-[#0F172A]' : ''
               }`}
             >
               Home
@@ -84,41 +79,41 @@ export const Navbar: React.FC = () => {
 
             <Link
               href="/shop"
-              className={`hover:text-[#00E5FF] transition-colors py-2 ${
-                pathname === '/shop' ? 'text-[#00E5FF] border-b-2 border-[#00E5FF]' : ''
+              className={`hover:text-[#C5A059] transition-colors py-2 ${
+                pathname === '/shop' ? 'text-[#0F172A] border-b-2 border-[#0F172A]' : ''
               }`}
             >
               Shop Catalog
             </Link>
 
-            {/* Mega Menu Dropdown */}
+            {/* Collections Dropdown */}
             <div
               className="relative py-2"
               onMouseEnter={() => setMegaMenuOpen(true)}
               onMouseLeave={() => setMegaMenuOpen(false)}
             >
-              <button className="flex items-center gap-1 hover:text-[#00E5FF] transition-colors cursor-pointer uppercase">
+              <button className="flex items-center gap-1 hover:text-[#C5A059] transition-colors cursor-pointer uppercase">
                 <span>Collections</span>
-                <ChevronDown className="w-3.5 h-3.5 text-[#FFB800]" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#C5A059]" />
               </button>
 
               {megaMenuOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[720px] glass-dodger-dark p-6 shadow-2xl rounded-none grid grid-cols-2 gap-4 border-2 border-[#1E90FF] animate-in fade-in slide-in-from-top-2">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[650px] bg-white p-6 shadow-xl border border-slate-200 grid grid-cols-2 gap-4 animate-in fade-in">
                   {collections.map((c) => (
                     <Link
                       key={c.slug}
                       href={`/category/${c.slug}`}
-                      className="p-3 bg-[#0B1120] border border-[#1E90FF]/40 hover:border-[#00E5FF] flex gap-3.5 items-center group/item transition-all hover:shadow-lg"
+                      className="p-3 bg-[#F8FAFC] border border-slate-200 hover:border-[#0F172A] flex gap-3.5 items-center group/item transition-all"
                     >
-                      <div className="relative w-16 h-16 bg-white border border-[#1E90FF] flex-shrink-0">
+                      <div className="relative w-14 h-14 bg-white border border-slate-200 flex-shrink-0">
                         <Image src={c.image} alt={c.name} fill className="object-contain p-1" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-serif font-bold text-white group-hover/item:text-[#00E5FF] transition-colors">
+                        <h4 className="text-xs font-serif font-bold text-[#0F172A] group-hover/item:text-[#C5A059] transition-colors">
                           {c.name}
                         </h4>
-                        <p className="text-[10px] text-gray-300 font-sans line-clamp-1">{c.desc}</p>
-                        <span className="text-[9px] font-mono text-[#FFB800] font-bold uppercase">Explore Category →</span>
+                        <p className="text-[10px] text-slate-500 font-sans line-clamp-1">{c.desc}</p>
+                        <span className="text-[9px] font-mono text-[#C5A059] font-semibold uppercase">Explore Category →</span>
                       </div>
                     </Link>
                   ))}
@@ -128,71 +123,69 @@ export const Navbar: React.FC = () => {
 
             <Link
               href="/craft"
-              className={`hover:text-[#00E5FF] transition-colors py-2 ${
-                pathname === '/craft' ? 'text-[#00E5FF] border-b-2 border-[#00E5FF]' : ''
+              className={`hover:text-[#C5A059] transition-colors py-2 ${
+                pathname === '/craft' ? 'text-[#0F172A] border-b-2 border-[#0F172A]' : ''
               }`}
             >
-              Our Craft
+              Our Craftsmanship
             </Link>
 
             <Link
               href="/size-guide"
-              className={`hover:text-[#00E5FF] transition-colors py-2 ${
-                pathname === '/size-guide' ? 'text-[#00E5FF] border-b-2 border-[#00E5FF]' : ''
+              className={`hover:text-[#C5A059] transition-colors py-2 ${
+                pathname === '/size-guide' ? 'text-[#0F172A] border-b-2 border-[#0F172A]' : ''
               }`}
             >
               Size Guide
             </Link>
           </nav>
 
-          {/* 4. Action Buttons (Search, Wishlist, User Menu, Cart Drawer) */}
-          <div className="flex items-center space-x-4">
-            {/* Search Trigger */}
+          {/* Action Bar */}
+          <div className="flex items-center space-x-3">
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="p-2.5 text-white hover:text-[#00E5FF] hover:bg-[#1E90FF]/30 transition-all rounded-full border border-transparent hover:border-[#1E90FF]"
+              className="p-2.5 text-[#0F172A] hover:text-[#C5A059] hover:bg-slate-100 transition-all rounded-full"
               title="Search Catalog"
             >
-              <Search className="w-5 h-5" />
+              <Search className="w-4 h-4" />
             </button>
 
-            {/* Wishlist Button */}
             <Link
               href="/wishlist"
-              className="p-2.5 text-white hover:text-[#FF3B30] hover:bg-[#1E90FF]/30 transition-all rounded-full relative border border-transparent hover:border-[#FF3B30]"
+              className="p-2.5 text-[#0F172A] hover:text-[#E11D48] hover:bg-slate-100 transition-all rounded-full relative"
               title="Wishlist"
             >
-              <Heart className="w-5 h-5" />
+              <Heart className="w-4 h-4" />
               {wishlist.length > 0 && (
-                <span className="absolute top-0 right-0 w-4 h-4 rounded-full bg-[#FF3B30] text-white text-[9px] font-mono font-bold flex items-center justify-center shadow-md animate-pulse">
+                <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#E11D48] text-white text-[9px] font-mono font-bold flex items-center justify-center">
                   {wishlist.length}
                 </span>
               )}
             </Link>
 
-            {/* User Account Menu */}
+            {/* Account Menu */}
             <div className="relative">
               <button
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="p-2.5 text-white hover:text-[#00E5FF] hover:bg-[#1E90FF]/30 transition-all rounded-full flex items-center gap-1 border border-transparent hover:border-[#1E90FF]"
+                className="p-2.5 text-[#0F172A] hover:text-[#C5A059] hover:bg-slate-100 transition-all rounded-full flex items-center gap-1"
                 title="Account Menu"
               >
-                <User className="w-5 h-5" />
+                <User className="w-4 h-4" />
               </button>
 
               {userDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-60 glass-dodger-dark p-3 shadow-2xl border-2 border-[#1E90FF] text-xs font-serif z-50 text-white">
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white p-3 shadow-xl border border-slate-200 text-xs font-serif z-50">
                   {currentUser ? (
-                    <div className="p-3 border-b border-[#1E90FF]/40 space-y-1">
-                      <div className="font-bold text-white">{currentUser.user_metadata?.full_name || 'Patron'}</div>
-                      <div className="text-[10px] text-gray-300 font-mono truncate">{currentUser.email}</div>
+                    <div className="p-2.5 border-b border-slate-100 space-y-1">
+                      <div className="font-bold text-[#0F172A]">{currentUser.user_metadata?.full_name || 'Patron'}</div>
+                      <div className="text-[10px] text-slate-500 font-mono truncate">{currentUser.email}</div>
                     </div>
                   ) : (
-                    <div className="p-2 border-b border-[#1E90FF]/40">
+                    <div className="p-2 border-b border-slate-100">
                       <Link
                         href="/auth/login"
                         onClick={() => setUserDropdownOpen(false)}
-                        className="block w-full py-2.5 bg-gradient-to-r from-[#1E90FF] to-[#0B63F6] text-white text-center font-bold uppercase tracking-wider hover:from-[#0B63F6] hover:to-[#0B1120] shadow-md"
+                        className="block w-full py-2 bg-[#0F172A] text-white text-center font-bold uppercase tracking-wider hover:bg-[#C5A059] transition-colors"
                       >
                         Sign In / Register
                       </Link>
@@ -203,34 +196,34 @@ export const Navbar: React.FC = () => {
                     <Link
                       href="/account"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-white hover:bg-[#1E90FF]/30"
+                      className="flex items-center gap-2 px-3 py-2 text-[#0F172A] hover:bg-slate-50"
                     >
-                      <User className="w-4 h-4 text-[#FFB800]" /> Account Dashboard
+                      <User className="w-4 h-4 text-[#C5A059]" /> Account Dashboard
                     </Link>
                     <Link
                       href="/account/orders"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-white hover:bg-[#1E90FF]/30"
+                      className="flex items-center gap-2 px-3 py-2 text-[#0F172A] hover:bg-slate-50"
                     >
-                      <Package className="w-4 h-4 text-[#FFB800]" /> Order History
+                      <Package className="w-4 h-4 text-[#C5A059]" /> Order History
                     </Link>
                     <Link
                       href="/admin"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-[#00E5FF] font-bold hover:bg-[#1E90FF]/30"
+                      className="flex items-center gap-2 px-3 py-2 text-[#0F172A] font-bold hover:bg-slate-50"
                     >
-                      <ShieldCheck className="w-4 h-4 text-[#00E5FF]" /> SaaS Admin Portal
+                      <ShieldCheck className="w-4 h-4 text-[#0F172A]" /> SaaS Admin Portal
                     </Link>
                   </div>
 
                   {currentUser && (
-                    <div className="pt-2 border-t border-[#1E90FF]/40">
+                    <div className="pt-2 border-t border-slate-100">
                       <button
                         onClick={() => {
                           logoutUser();
                           setUserDropdownOpen(false);
                         }}
-                        className="w-full flex items-center gap-2 px-3 py-2 text-red-400 hover:bg-red-950/40 text-left font-sans"
+                        className="w-full flex items-center gap-2 px-3 py-2 text-red-600 hover:bg-red-50 text-left font-sans"
                       >
                         <LogOut className="w-4 h-4" /> Sign Out
                       </button>
@@ -240,14 +233,14 @@ export const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Shopping Cart Drawer Launcher */}
+            {/* Shopping Cart Drawer Trigger */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="px-5 py-3 bg-gradient-to-r from-[#1E90FF] via-[#0B63F6] to-[#0B1120] text-white hover:from-[#00E5FF] hover:to-[#1E90FF] hover:text-[#0B1120] transition-all font-serif font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-2xl border border-[#00E5FF]/60 rounded-none relative group glow-dodger"
+              className="px-4 py-2.5 bg-[#0F172A] text-white hover:bg-[#C5A059] transition-colors font-serif font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm"
             >
-              <ShoppingBag className="w-4 h-4 text-[#FFB800] group-hover:text-[#0B1120]" />
-              <span className="hidden sm:inline">Cart</span>
-              <span className="px-2 py-0.5 rounded-full bg-[#FF3B30] text-white text-[10px] font-mono font-bold shadow-md animate-bounce">
+              <ShoppingBag className="w-4 h-4 text-[#C5A059] group-hover:text-white" />
+              <span className="hidden sm:inline">Bag</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-white text-[#0F172A] text-[10px] font-mono font-bold">
                 {totalCartItems}
               </span>
             </button>
@@ -257,11 +250,11 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#0B1120] border-b border-[#1E90FF] p-6 space-y-4 font-serif text-sm text-white">
-          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-[#1E90FF]/30">Home</Link>
-          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-[#1E90FF]/30">Shop Catalog</Link>
-          <Link href="/craft" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-[#1E90FF]/30">Our Craftsmanship</Link>
-          <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold text-[#00E5FF]">SaaS Admin Portal</Link>
+        <div className="lg:hidden bg-white border-b border-slate-200 p-6 space-y-4 font-serif text-sm text-[#0F172A]">
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-slate-100">Home</Link>
+          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-slate-100">Shop Catalog</Link>
+          <Link href="/craft" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-slate-100">Our Craftsmanship</Link>
+          <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold text-[#C5A059]">SaaS Admin Portal</Link>
         </div>
       )}
     </header>
