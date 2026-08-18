@@ -1,9 +1,10 @@
 import { supabase } from '@/lib/supabase/client';
-import { CartItem } from '@/types';
+import { CartItem, Order } from '@/types';
 import { shippingService } from './shippingService';
 import { couponService } from './couponService';
 import { PaymentFactory } from '@/lib/payments/paymentFactory';
 import { resendService } from '@/lib/email/resendService';
+import { dataEngine } from './dataEngine';
 
 export interface CreateOrderInput {
   userId?: string;
@@ -40,7 +41,7 @@ export const orderService = {
     }
 
     let serverSubtotal = 0;
-    const validatedItems = [];
+    const validatedItems: Order['items'] = [];
 
     for (const item of input.cartItems) {
       const unitPrice = item.product.salePrice ?? item.product.price;
@@ -49,16 +50,11 @@ export const orderService = {
 
       validatedItems.push({
         productId: item.product.id,
-        variantSize: item.selectedSize,
-        colorName: item.selectedColor.name,
-        colorHex: item.selectedColor.hex,
         productName: item.product.name,
-        sku: `${item.product.id}-EU${item.selectedSize}`,
+        image: item.product.featuredImage,
+        selectedSize: item.selectedSize,
+        selectedColor: item.selectedColor,
         quantity: item.quantity,
-        unitPrice,
-        // Properties for Resend Email
-        size: item.selectedSize,
-        color: item.selectedColor.name,
         price: unitPrice,
       });
     }
@@ -91,6 +87,32 @@ export const orderService = {
       description: `Peshawari Chappal Order #${orderNumber}`,
     });
 
+    // Save to persistent dataEngine
+    dataEngine.createOrder({
+      orderNumber,
+      userId: input.userId,
+      date: new Date().toISOString().split('T')[0],
+      status: 'Processing',
+      items: validatedItems,
+      shippingAddress: {
+        id: `addr-${Date.now()}`,
+        fullName: input.customerName,
+        phone: input.customerPhone,
+        addressLine: input.addressLine,
+        city: input.city,
+        province: input.province,
+        postalCode: input.postalCode || '44000',
+        isDefault: true,
+      },
+      paymentMethod: (input.paymentMethod === 'cod' ? 'Cash on Delivery' : input.paymentMethod.toUpperCase()) as any,
+      paymentStatus: input.paymentMethod === 'cod' ? 'Unpaid' : 'Paid',
+      subtotal: serverSubtotal,
+      shippingFee,
+      discount: discountAmount,
+      total: grandTotal,
+      trackingNumber: `TCS-${orderNumber.replace('PC-2026-', '')}-PK`,
+    });
+
     try {
       if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
         const { data: orderRow, error: orderError } = await supabase
@@ -114,36 +136,37 @@ export const orderService = {
               order_id: orderRow.id,
               product_id: vItem.productId,
               quantity: vItem.quantity,
-              unit_price: vItem.unitPrice,
-            });
-
-            await supabase.from('inventory_transactions').insert({
-              variant_id: vItem.productId,
-              quantity_change: -vItem.quantity,
-              transaction_type: 'sale',
-              notes: `Order #${orderNumber} purchase deduction`,
+              unit_price: vItem.price,
             });
           }
         }
       }
     } catch (dbErr) {
-      console.error('Database insertion warning:', dbErr);
+      console.error('Supabase sync notice:', dbErr);
     }
 
-    await resendService.sendOrderConfirmation({
-      orderNumber,
-      customerName: input.customerName,
-      customerEmail: input.customerEmail,
-      customerPhone: input.customerPhone,
-      items: validatedItems,
-      subtotal: serverSubtotal,
-      discount: discountAmount,
-      shipping: shippingFee,
-      total: grandTotal,
-      paymentMethod: input.paymentMethod.toUpperCase(),
-      shippingAddress: `${input.addressLine}, ${input.city}, ${input.province}`,
-      trackingNumber: `TCS-${orderNumber.replace('PC-2026-', '')}-PK`,
-    });
+    try {
+      await resendService.sendOrderConfirmation({
+        orderNumber,
+        customerName: input.customerName,
+        customerEmail: input.customerEmail,
+        customerPhone: input.customerPhone,
+        items: validatedItems.map((i) => ({
+          name: i.productName,
+          size: i.selectedSize,
+          color: i.selectedColor.name,
+          quantity: i.quantity,
+          price: i.price,
+        })),
+        subtotal: serverSubtotal,
+        discount: discountAmount,
+        shipping: shippingFee,
+        total: grandTotal,
+        paymentMethod: input.paymentMethod.toUpperCase(),
+        shippingAddress: `${input.addressLine}, ${input.city}, ${input.province}`,
+        trackingNumber: `TCS-${orderNumber.replace('PC-2026-', '')}-PK`,
+      });
+    } catch {}
 
     return {
       success: true,
@@ -154,18 +177,20 @@ export const orderService = {
     };
   },
 
+  async getOrders(): Promise<Order[]> {
+    return dataEngine.getOrders();
+  },
+
+  async getOrderById(id: string): Promise<Order | null> {
+    return dataEngine.getOrderById(id);
+  },
+
+  async updateOrderStatus(orderId: string, status: Order['status']): Promise<Order> {
+    return dataEngine.updateOrderStatus(orderId, status);
+  },
+
   async cancelOrder(orderId: string, orderNumber: string) {
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-      return { success: true, message: 'Order cancelled. Inventory restored.' };
-    }
-
-    const { error } = await supabase
-      .from('orders')
-      .update({ status: 'Cancelled' })
-      .eq('id', orderId);
-
-    if (error) throw new Error(error.message);
-
+    dataEngine.updateOrderStatus(orderId, 'Cancelled');
     return { success: true, message: `Order #${orderNumber} cancelled successfully.` };
   },
 };

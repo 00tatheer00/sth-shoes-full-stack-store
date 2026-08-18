@@ -1,14 +1,20 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Product, CartItem, ProductColor } from '@/types';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { Product, CartItem, ProductColor, Order } from '@/types';
 import { productService } from '@/lib/services/productService';
+import { orderService } from '@/lib/services/orderService';
 import { authService } from '@/lib/services/authService';
 
 interface StoreContextType {
   // Products & Categories
   products: Product[];
   isLoadingProducts: boolean;
+  refreshProducts: () => Promise<void>;
+
+  // Orders
+  orders: Order[];
+  refreshOrders: () => Promise<void>;
 
   // Cart
   cart: CartItem[];
@@ -49,6 +55,7 @@ const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [wishlist, setWishlist] = useState<Product[]>([]);
@@ -59,13 +66,31 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<any | null>(null);
 
+  const refreshProducts = useCallback(async () => {
+    try {
+      const data = await productService.getProducts();
+      setProducts(data);
+    } catch (e) {
+      console.error('Failed refreshing products:', e);
+    }
+  }, []);
+
+  const refreshOrders = useCallback(async () => {
+    try {
+      const data = await orderService.getOrders();
+      setOrders(data);
+    } catch (e) {
+      console.error('Failed refreshing orders:', e);
+    }
+  }, []);
+
   // Fetch real products & check user auth session on mount
   useEffect(() => {
     async function initStore() {
       try {
         setIsLoadingProducts(true);
-        const data = await productService.getProducts();
-        setProducts(data);
+        await refreshProducts();
+        await refreshOrders();
 
         // Check Auth Session
         const session = await authService.getSession();
@@ -79,9 +104,25 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
     }
     initStore();
-  }, []);
 
-  // Persistent local storage sync
+    // Listen to live dataEngine events
+    const handleProductsUpdate = () => refreshProducts();
+    const handleOrdersUpdate = () => refreshOrders();
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('tatheer_products_updated', handleProductsUpdate);
+      window.addEventListener('tatheer_orders_updated', handleOrdersUpdate);
+    }
+
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('tatheer_products_updated', handleProductsUpdate);
+        window.removeEventListener('tatheer_orders_updated', handleOrdersUpdate);
+      }
+    };
+  }, [refreshProducts, refreshOrders]);
+
+  // Persistent local storage sync for cart & wishlist
   useEffect(() => {
     try {
       const savedCart = localStorage.getItem('tatheer_cart');
@@ -137,13 +178,13 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         },
       ];
     });
-    showToast(`Added ${product.name} (Size EU ${selectedSize}) to cart`);
+    showToast(`Added ${product.name} (EU ${selectedSize}) to bag`);
     setIsCartOpen(true);
   };
 
   const removeFromCart = (cartItemId: string) => {
     setCart((prev) => prev.filter((item) => item.id !== cartItemId));
-    showToast('Item removed from cart');
+    showToast('Item removed from bag');
   };
 
   const updateQuantity = (cartItemId: string, newQuantity: number) => {
@@ -158,6 +199,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const clearCart = () => {
     setCart([]);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('tatheer_cart');
+    }
   };
 
   const toggleWishlist = (product: Product) => {
@@ -216,6 +260,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       value={{
         products,
         isLoadingProducts,
+        refreshProducts,
+        orders,
+        refreshOrders,
         cart,
         addToCart,
         removeFromCart,

@@ -17,31 +17,41 @@ import {
 import { StatCard } from '@/components/admin/StatCard';
 import { AnalyticsCharts } from '@/components/admin/AnalyticsCharts';
 import { adminService, AdminMetrics } from '@/lib/services/adminService';
-import { MOCK_ORDERS, MOCK_PRODUCTS } from '@/data/mockData';
+import { dataEngine } from '@/lib/services/dataEngine';
 import { formatPKR } from '@/lib/utils';
 import { PrintableInvoiceModal } from '@/components/admin/PrintableInvoiceModal';
 
 export default function AdminDashboardPage() {
   const [metrics, setMetrics] = useState<AdminMetrics | null>(null);
+  const [orders, setOrders] = useState<any[]>([]);
   const [selectedInvoiceOrder, setSelectedInvoiceOrder] = useState<any | null>(null);
 
+  const loadData = async () => {
+    const data = await adminService.getDashboardMetrics();
+    setMetrics(data);
+    setOrders(dataEngine.getOrders().slice(0, 5));
+  };
+
   useEffect(() => {
-    async function loadMetrics() {
-      const data = await adminService.getDashboardMetrics();
-      setMetrics(data);
-    }
-    loadMetrics();
+    loadData();
+    const handleUpdate = () => loadData();
+    window.addEventListener('tatheer_orders_updated', handleUpdate);
+    window.addEventListener('tatheer_products_updated', handleUpdate);
+    return () => {
+      window.removeEventListener('tatheer_orders_updated', handleUpdate);
+      window.removeEventListener('tatheer_products_updated', handleUpdate);
+    };
   }, []);
 
   if (!metrics) {
     return (
-      <div className="space-y-6 animate-pulse">
-        <div className="h-8 bg-[#EAE3D2] w-64"></div>
+      <div className="space-y-6 animate-pulse p-6">
+        <div className="h-8 bg-[#EAE3D5] w-64 rounded"></div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="h-28 bg-white border border-[#E2D7C7]"></div>
-          <div className="h-28 bg-white border border-[#E2D7C7]"></div>
-          <div className="h-28 bg-white border border-[#E2D7C7]"></div>
-          <div className="h-28 bg-white border border-[#E2D7C7]"></div>
+          <div className="h-28 bg-white border border-[#EAE3D5] rounded"></div>
+          <div className="h-28 bg-white border border-[#EAE3D5] rounded"></div>
+          <div className="h-28 bg-white border border-[#EAE3D5] rounded"></div>
+          <div className="h-28 bg-white border border-[#EAE3D5] rounded"></div>
         </div>
       </div>
     );
@@ -50,26 +60,26 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-8 pb-12">
       {/* Top Banner Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E2D7C7] pb-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAE3D5] pb-4">
         <div>
-          <span className="text-xs font-mono uppercase tracking-widest text-[#B87546] font-bold">
+          <span className="text-xs font-mono uppercase tracking-widest text-[#0D3325] font-bold">
             Executive Summary
           </span>
-          <h1 className="text-2xl md:text-3xl font-serif font-bold text-[#1F130E]">
+          <h1 className="text-2xl md:text-3xl font-serif font-bold text-[#1C1917]">
             Atelier SaaS Operations Overview
           </h1>
         </div>
         <div className="flex items-center gap-3">
           <Link
             href="/admin/products/new"
-            className="px-4 py-2.5 bg-[#1F130E] text-[#FAF7F2] text-xs font-serif uppercase tracking-wider flex items-center gap-1.5 hover:bg-[#4A2E1D]"
+            className="btn-forest px-4 py-2.5 text-xs flex items-center gap-1.5 shadow-xs"
           >
-            <Plus className="w-4 h-4 text-[#C59B27]" /> Add New Footwear
+            <Plus className="w-4 h-4 text-[#E5A93C]" /> Add New Footwear
           </Link>
         </div>
       </div>
 
-      {/* 9 Key Metric Stat Cards */}
+      {/* Key Metric Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard
           title="Total Revenue"
@@ -81,7 +91,7 @@ export default function AdminDashboardPage() {
         <StatCard
           title="Today's Revenue"
           value={formatPKR(metrics.todayRevenue)}
-          subtitle="4 new orders today"
+          subtitle="Live calculated today"
           icon={DollarSign}
         />
         <StatCard
@@ -135,15 +145,15 @@ export default function AdminDashboardPage() {
       {/* Recent Orders Table & Low Stock Alert Columns */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Recent Orders Table */}
-        <div className="lg:col-span-8 bg-white border border-[#E2D7C7] p-6 shadow-xs space-y-4">
-          <div className="flex justify-between items-center border-b border-[#E2D7C7] pb-3">
+        <div className="lg:col-span-8 bg-white border border-[#EAE3D5] rounded-lg p-6 shadow-xs space-y-4">
+          <div className="flex justify-between items-center border-b border-[#EAE3D5] pb-3">
             <div>
-              <h3 className="text-base font-serif font-bold text-[#1F130E]">Recent Patron Orders</h3>
-              <p className="text-xs text-[#4A2E1D]/70 font-mono">Latest dispatch requests</p>
+              <h3 className="text-base font-serif font-bold text-[#1C1917]">Recent Patron Orders</h3>
+              <p className="text-xs text-[#5A6578] font-mono">Latest dispatch requests</p>
             </div>
             <Link
               href="/admin/orders"
-              className="text-xs font-serif text-[#B87546] hover:underline flex items-center gap-1"
+              className="text-xs font-serif text-[#0D3325] font-bold hover:underline flex items-center gap-1"
             >
               View All Orders <ArrowRight className="w-3.5 h-3.5" />
             </Link>
@@ -152,7 +162,7 @@ export default function AdminDashboardPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-serif border-collapse">
               <thead>
-                <tr className="bg-[#FAF7F2] border-b border-[#E2D7C7] font-mono text-[11px] text-[#4A2E1D] uppercase">
+                <tr className="bg-[#FAF6EF] border-b border-[#EAE3D5] font-mono text-[11px] text-[#0D3325] uppercase font-bold">
                   <th className="p-3">Order Code</th>
                   <th className="p-3">Patron</th>
                   <th className="p-3">Status</th>
@@ -160,32 +170,36 @@ export default function AdminDashboardPage() {
                   <th className="p-3 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E2D7C7]">
-                {MOCK_ORDERS.map((ord) => (
-                  <tr key={ord.id} className="hover:bg-[#FAF7F2] transition-colors">
-                    <td className="p-3 font-mono font-bold text-[#1F130E]">{ord.orderNumber}</td>
+              <tbody className="divide-y divide-[#EAE3D5]">
+                {orders.map((ord) => (
+                  <tr key={ord.id} className="hover:bg-[#FAF6EF]/60 transition-colors">
+                    <td className="p-3 font-mono font-bold text-[#1C1917]">{ord.orderNumber}</td>
                     <td className="p-3 font-sans">
-                      <div className="font-bold">{ord.shippingAddress.fullName}</div>
-                      <div className="text-[10px] text-[#4A2E1D]/60 font-mono">{ord.shippingAddress.city}</div>
+                      <div className="font-bold text-[#1C1917]">{ord.shippingAddress.fullName}</div>
+                      <div className="text-[10px] text-[#5A6578] font-mono">{ord.shippingAddress.city}</div>
                     </td>
                     <td className="p-3">
                       <span
-                        className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase ${
+                        className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded ${
                           ord.status === 'Dispatched'
                             ? 'bg-blue-100 text-blue-800'
-                            : 'bg-green-100 text-green-800'
+                            : ord.status === 'Delivered'
+                            ? 'bg-green-100 text-green-800'
+                            : ord.status === 'Cancelled'
+                            ? 'bg-red-100 text-red-800'
+                            : 'bg-amber-100 text-amber-800'
                         }`}
                       >
                         {ord.status}
                       </span>
                     </td>
-                    <td className="p-3 text-right font-mono font-bold text-[#1F130E]">
+                    <td className="p-3 text-right font-mono font-bold text-[#1C1917]">
                       {formatPKR(ord.total)}
                     </td>
                     <td className="p-3 text-center">
                       <button
                         onClick={() => setSelectedInvoiceOrder(ord)}
-                        className="p-1.5 bg-[#FAF7F2] border border-[#E2D7C7] hover:bg-[#1F130E] hover:text-[#C59B27] transition-colors"
+                        className="p-1.5 bg-[#FAF6EF] border border-[#EAE3D5] rounded hover:bg-[#0D3325] hover:text-white transition-colors cursor-pointer"
                         title="Print Invoice"
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -199,33 +213,33 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Low Stock Alert List */}
-        <div className="lg:col-span-4 bg-white border border-[#E2D7C7] p-6 shadow-xs space-y-4">
-          <div className="flex items-center justify-between border-b border-[#E2D7C7] pb-3">
+        <div className="lg:col-span-4 bg-white border border-[#EAE3D5] rounded-lg p-6 shadow-xs space-y-4">
+          <div className="flex items-center justify-between border-b border-[#EAE3D5] pb-3">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-red-600" />
-              <h3 className="text-base font-serif font-bold text-[#1F130E]">Low Stock Warning</h3>
+              <h3 className="text-base font-serif font-bold text-[#1C1917]">Low Stock Warning</h3>
             </div>
-            <Link href="/admin/inventory" className="text-xs text-[#B87546] hover:underline font-mono">
+            <Link href="/admin/inventory" className="text-xs text-[#0D3325] font-bold hover:underline font-mono">
               Restock All
             </Link>
           </div>
 
           <div className="space-y-3 text-xs">
-            <div className="p-3 bg-red-50 border border-red-200 space-y-1">
-              <div className="font-serif font-bold text-[#1F130E]">Kaptan Double Sole Dark Chocolate</div>
+            <div className="p-3 bg-red-50 border border-red-200 rounded space-y-1">
+              <div className="font-serif font-bold text-[#1C1917]">Kaptan Double Sole Dark Chocolate</div>
               <div className="flex justify-between text-[11px] font-mono">
                 <span className="text-red-700 font-bold">Variant EU 45: 0 in Stock</span>
-                <Link href="/admin/inventory" className="text-[#4A2E1D] underline">
+                <Link href="/admin/inventory" className="text-[#0D3325] underline font-bold">
                   Restock
                 </Link>
               </div>
             </div>
 
-            <div className="p-3 bg-amber-50 border border-amber-200 space-y-1">
-              <div className="font-serif font-bold text-[#1F130E]">Norozi Heavy Buckle Maroon</div>
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded space-y-1">
+              <div className="font-serif font-bold text-[#1C1917]">Norozi Heavy Buckle Maroon</div>
               <div className="flex justify-between text-[11px] font-mono">
                 <span className="text-amber-800 font-bold">Variant EU 44: 2 in Stock</span>
-                <Link href="/admin/inventory" className="text-[#4A2E1D] underline">
+                <Link href="/admin/inventory" className="text-[#0D3325] underline font-bold">
                   Restock
                 </Link>
               </div>
