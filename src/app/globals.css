@@ -1,94 +1,192 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════
+   TATHEER CHAPPALZ — EXACT PALETTE MATCHING REFERENCE IMAGE
+   • Primary Brand Green: #0D3325 / #0F382A / #082419
+   • Accent Amber Gold:   #E5A93C / #F0B247
+   • Canvas Soft Cream:   #FAF6EF / #F5EFE4
+   • Pure White Card:     #FFFFFF
+   • Jewel Tones:         Emerald (#0A3B2C), Tobacco (#5C3619),
+                          Navy (#153B68), Plum (#4A1266), Crimson (#8B1C28)
+   ═══════════════════════════════════════════════════════════════════ */
 
 @layer base {
   :root {
-    --background: #FFFFFF;
-    --foreground: #0F172A;
-    
-    --minimal-dark: #0F172A;
-    --minimal-gray-900: #1E293B;
-    --minimal-gray-600: #475569;
-    --minimal-gray-300: #CBD5E1;
-    --minimal-gray-100: #F8FAFC;
-    --minimal-gray-50: #F1F5F9;
-    
-    --gold-subtle: #C5A059;
-    --gold-accent: #D4AF37;
-    --red-subtle: #E11D48;
-    --green-subtle: #10B981;
-    
-    --card-bg: #FFFFFF;
-    --border-subtle: #E2E8F0;
+    --forest-dark: #082419;
+    --forest-primary: #0D3325;
+    --forest-emerald: #0F382A;
+    --forest-light: #164634;
+    --forest-subtle: #EAF2ED;
+
+    --amber-gold: #E5A93C;
+    --amber-hover: #D49A30;
+    --amber-light: #FFF8EB;
+
+    --cream-bg: #FAF6EF;
+    --cream-surface: #F5EFE4;
+    --cream-border: #EAE3D5;
+
+    --text-primary: #1C1917;
+    --text-secondary: #5A6578;
+    --text-muted: #8A94A6;
+
+    --card-white: #FFFFFF;
+    --card-border: #ECE6DC;
+
+    --sale-red: #D92D20;
+    --bestseller-gold: #E5A93C;
+    --new-green: #0D3325;
+
+    /* Category Jewel Tones */
+    --cat-classic: #0A3B2C;
+    --cat-premium: #5C3619;
+    --cat-traditional: #153B68;
+    --cat-kaptaan: #4A1266;
+    --cat-new: #8B1C28;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: 'Outfit', sans-serif;
+    background-color: var(--cream-bg);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, .font-serif {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', Georgia, serif;
   }
 
-  .font-cinzel {
-    font-family: 'Cinzel', serif;
+  ::selection {
+    background-color: var(--forest-primary);
+    color: #FFFFFF;
   }
 }
 
-/* Minimalist Clean Glass & Border Utilities */
-.minimal-header {
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTONS & BADGES MATCHING REFERENCE
+   ═══════════════════════════════════════════════════════════════════ */
+
+.btn-forest {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--forest-primary);
+  color: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 12px 24px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-forest:hover {
+  background-color: var(--forest-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(13, 51, 37, 0.25);
+}
+
+.btn-amber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--amber-gold);
+  color: var(--forest-dark);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 12px 24px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-amber:hover {
+  background-color: var(--amber-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(229, 169, 60, 0.35);
+}
+
+.btn-outline-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: 1px solid var(--cream-border);
+  transition: all 0.3s ease;
+}
+
+.btn-outline-dark:hover {
+  border-color: var(--forest-primary);
+  color: var(--forest-primary);
+  background-color: var(--cream-bg);
+}
+
+/* Category Card Styling */
+.category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -8px rgba(13, 51, 37, 0.2);
+}
+
+/* Product Card Styling */
+.product-card-ref {
+  background-color: #FFFFFF;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.product-card-ref:hover {
+  border-color: var(--forest-primary);
+  box-shadow: 0 10px 25px -5px rgba(13, 51, 37, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Floating Trust Bar */
+.floating-trust-bar {
+  background-color: #FFFFFF;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -5px rgba(28, 25, 23, 0.06);
+}
+
+/* Floating Feature Badge on Hero */
+.hero-floating-badge {
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid #E2E8F0;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(234, 227, 213, 0.9);
+  border-radius: 50px;
+  box-shadow: 0 8px 24px -4px rgba(13, 51, 37, 0.12);
+  transition: all 0.3s ease;
 }
 
-.minimal-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.minimal-card:hover {
-  border-color: #0F172A;
-  box-shadow: 0 12px 30px -10px rgba(15, 23, 42, 0.08);
-}
-
-/* Minimal Tags */
-.badge-minimal {
-  background: #0F172A;
-  color: #FFFFFF;
-  font-family: monospace;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 3px 8px;
-}
-
-.badge-sale-minimal {
-  background: #E11D48;
-  color: #FFFFFF;
-  font-family: monospace;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 3px 8px;
-}
-
-.badge-gold-minimal {
-  background: #C5A059;
-  color: #FFFFFF;
-  font-family: monospace;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 3px 8px;
+.hero-floating-badge:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 28px -4px rgba(13, 51, 37, 0.18);
 }
 
 /* Custom Scrollbar */
@@ -96,12 +194,9 @@
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #FFFFFF;
+  background: var(--cream-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: var(--forest-primary);
   border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #0F172A;
 }

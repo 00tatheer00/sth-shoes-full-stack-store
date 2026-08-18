@@ -1,227 +1,211 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   MapPin,
   Phone,
   Mail,
-  ArrowRight,
-  ShieldCheck,
-  Truck,
-  RotateCcw,
-  Sparkles,
+  ChevronUp,
 } from 'lucide-react';
-import { MOCK_CATEGORIES } from '@/data/mockData';
 
 export const Footer: React.FC = () => {
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail.trim()) {
-      setSubscribed(true);
-      setNewsletterEmail('');
-    }
+  useEffect(() => {
+    const checkScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', checkScroll);
+    return () => window.removeEventListener('scroll', checkScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="bg-[#0F172A] text-white border-t border-slate-800 pt-16 pb-8">
-      {/* Brand Value Guarantees Ribbon */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 mb-12 border-b border-slate-800">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex items-center gap-4 p-5 bg-slate-900/80 border border-slate-800">
-            <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-[#C5A059] flex-shrink-0">
-              <ShieldCheck className="w-5 h-5" />
+    <footer className="bg-[#082419] text-white pt-14 pb-8 border-t border-[#0D3325] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main 5-Column Grid Matching Reference */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-white/10 text-xs">
+          {/* Column 1: Brand & Socials (4 Cols) */}
+          <div className="lg:col-span-4 space-y-4">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-[#0D3325] border border-[#E5A93C] flex items-center justify-center p-1.5 shadow-xs">
+                <svg viewBox="0 0 24 24" className="w-full h-full text-[#E5A93C]" fill="currentColor">
+                  <path d="M12 2L14.2 6.4L19 7.1L15.5 10.5L16.3 15.3L12 13L7.7 15.3L8.5 10.5L5 7.1L9.8 6.4L12 2Z" />
+                  <circle cx="12" cy="12" r="3" fill="#082419" />
+                </svg>
+              </div>
+              <div className="flex flex-col text-left leading-tight">
+                <span className="text-xl font-serif font-bold tracking-[0.08em] text-white">
+                  TATHEER
+                </span>
+                <span className="text-[9px] font-sans font-bold tracking-[0.25em] text-[#E5A93C] uppercase -mt-0.5">
+                  CHAPPALZ
+                </span>
+              </div>
             </div>
-            <div>
-              <h4 className="text-sm font-serif font-bold text-white">100% Genuine Leather</h4>
-              <p className="text-xs text-slate-400 mt-0.5">Handpicked full-grain cowhide & imported calfskin</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 p-5 bg-slate-900/80 border border-slate-800">
-            <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-[#C5A059] flex-shrink-0">
-              <Truck className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-serif font-bold text-white">Nationwide COD Express</h4>
-              <p className="text-xs text-slate-400 mt-0.5">Free shipping across Pakistan on orders over Rs. 5,000</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4 p-5 bg-slate-900/80 border border-slate-800">
-            <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-[#C5A059] flex-shrink-0">
-              <RotateCcw className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-serif font-bold text-white">Hassle-Free Exchange</h4>
-              <p className="text-xs text-slate-400 mt-0.5">14 days size replacement & home collection support</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Main Footer Navigation Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
-        {/* Brand Story Column */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex flex-col">
-            <span className="text-2xl font-serif font-bold tracking-[0.18em] text-white uppercase">
-              Tatheer Chappalz
-            </span>
-            <span className="text-[10px] font-mono text-[#C5A059] tracking-widest uppercase font-semibold">
-              Authentic Peshawari Footwear Atelier
-            </span>
-          </div>
-          <p className="text-xs text-slate-400 leading-relaxed max-w-sm font-sans">
-            Handcrafting heirloom-quality Peshawari Chappals in Namak Mandi, Peshawar. Rooted in century-old cobbling traditions, perfected for the modern gentleman.
-          </p>
-          <div className="space-y-2 pt-2 text-xs text-slate-400">
-            <div className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 text-[#C5A059] mt-0.5 flex-shrink-0" />
-              <span>Namak Mandi Bazaar, Opposite Jahangirpura, Peshawar, KP, Pakistan</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-[#C5A059] flex-shrink-0" />
-              <span>+92 300 9876543 / +92 91 5271890</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-[#C5A059] flex-shrink-0" />
-              <span>concierge@tatheerchappalz.com</span>
-            </div>
-          </div>
-        </div>
+            <p className="text-xs text-white/70 leading-relaxed font-sans max-w-sm">
+              Authentic Peshawari Chappal handcrafted with passion, tradition & precision.
+            </p>
 
-        {/* Collections Links */}
-        <div className="space-y-3">
-          <h4 className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold border-b border-slate-800 pb-2">
-            Collections
-          </h4>
-          <ul className="space-y-2 text-xs text-slate-400">
-            {MOCK_CATEGORIES.map((cat) => (
-              <li key={cat.id}>
-                <Link href={`/category/${cat.slug}`} className="hover:text-white transition-colors">
-                  {cat.name}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link href="/shop" className="hover:text-white transition-colors font-bold text-white">
-                View All Footwear →
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Customer Care Links */}
-        <div className="space-y-3">
-          <h4 className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold border-b border-slate-800 pb-2">
-            Customer Care
-          </h4>
-          <ul className="space-y-2 text-xs text-slate-400">
-            <li>
-              <Link href="/size-guide" className="hover:text-white transition-colors">
-                Size & Fit Guide
-              </Link>
-            </li>
-            <li>
-              <Link href="/craft" className="hover:text-white transition-colors">
-                The Art of Peshawari Craft
-              </Link>
-            </li>
-            <li>
-              <Link href="/shipping" className="hover:text-white transition-colors">
-                Shipping & Express COD
-              </Link>
-            </li>
-            <li>
-              <Link href="/returns" className="hover:text-white transition-colors">
-                Returns & Exchanges
-              </Link>
-            </li>
-            <li>
-              <Link href="/faq" className="hover:text-white transition-colors">
-                Frequently Asked Questions
-              </Link>
-            </li>
-            <li>
-              <Link href="/account/orders" className="hover:text-white transition-colors">
-                Track Shipment
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:text-white transition-colors">
-                Contact Concierge
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Newsletter Column */}
-        <div className="space-y-3">
-          <h4 className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold border-b border-slate-800 pb-2">
-            Peshawar Gazette
-          </h4>
-          <p className="text-xs text-slate-400">
-            Subscribe for private preview access to limited-edition drops and artisan stories.
-          </p>
-          {subscribed ? (
-            <div className="p-3 bg-slate-900 text-[#C5A059] text-xs font-medium border border-[#C5A059] flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#C5A059]" />
-              <span>Thank you for joining the Tatheer Circle!</span>
-            </div>
-          ) : (
-            <form onSubmit={handleNewsletterSubmit} className="space-y-2">
-              <input
-                type="email"
-                required
-                placeholder="Enter your email address"
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#C5A059]"
-              />
-              <button
-                type="submit"
-                className="w-full py-2.5 bg-[#C5A059] text-[#0F172A] text-xs font-serif font-bold uppercase tracking-wider hover:bg-white transition-colors flex items-center justify-center gap-2"
+            {/* Social Icons in Circular Green Outlines */}
+            <div className="flex items-center space-x-2.5 pt-1">
+              {/* Facebook */}
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:text-[#E5A93C] hover:border-[#E5A93C] transition-colors"
+                aria-label="Facebook"
               >
-                Subscribe <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </form>
-          )}
-          <div className="pt-2 text-[11px] text-slate-500">
-            Accepting COD nationwide across 200+ cities in Pakistan.
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
+                </svg>
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:text-[#E5A93C] hover:border-[#E5A93C] transition-colors"
+                aria-label="Instagram"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href="https://wa.me/923009876543"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:text-[#E5A93C] hover:border-[#E5A93C] transition-colors"
+                aria-label="WhatsApp"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.159.57 4.185 1.564 5.939l-1.66 6.072 6.224-1.632c1.678.916 3.602 1.443 5.652 1.443 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12z" />
+                </svg>
+              </a>
+
+              {/* YouTube */}
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:text-[#E5A93C] hover:border-[#E5A93C] transition-colors"
+                aria-label="YouTube"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: SHOP (2 Cols) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="font-bold font-sans text-white text-xs uppercase tracking-wider">
+              SHOP
+            </h4>
+            <ul className="space-y-2 text-white/70">
+              <li><Link href="/shop" className="hover:text-white transition-colors">All Products</Link></li>
+              <li><Link href="/shop" className="hover:text-white transition-colors">Collections</Link></li>
+              <li><Link href="/shop" className="hover:text-white transition-colors">New Arrivals</Link></li>
+              <li><Link href="/shop" className="hover:text-white transition-colors">Best Sellers</Link></li>
+              <li><Link href="/size-guide" className="hover:text-white transition-colors">Size Guide</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: CUSTOMER CARE (2 Cols) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="font-bold font-sans text-white text-xs uppercase tracking-wider">
+              CUSTOMER CARE
+            </h4>
+            <ul className="space-y-2 text-white/70">
+              <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">Shipping & Delivery</Link></li>
+              <li><Link href="/returns" className="hover:text-white transition-colors">Returns & Exchange</Link></li>
+              <li><Link href="/faq" className="hover:text-white transition-colors">FAQs</Link></li>
+              <li><Link href="/account/orders" className="hover:text-white transition-colors">Track Your Order</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 4: ABOUT US (2 Cols) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="font-bold font-sans text-white text-xs uppercase tracking-wider">
+              ABOUT US
+            </h4>
+            <ul className="space-y-2 text-white/70">
+              <li><Link href="/about" className="hover:text-white transition-colors">Our Story</Link></li>
+              <li><Link href="/craft" className="hover:text-white transition-colors">Our Craft</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">Artisans</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">Sustainability</Link></li>
+              <li><Link href="/craft" className="hover:text-white transition-colors">Care Instructions</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 5: CONTACT US (2 Cols) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="font-bold font-sans text-white text-xs uppercase tracking-wider">
+              CONTACT US
+            </h4>
+            <div className="space-y-2 text-white/70 text-xs">
+              <div className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-[#E5A93C] flex-shrink-0 mt-0.5" />
+                <span>Namak Mandi, Peshawar, Khyber Pakhtunkhwa, Pakistan</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-[#E5A93C] flex-shrink-0" />
+                <span>+92 300 9876543</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-[#E5A93C] flex-shrink-0" />
+                <span>hello@tatheerchappalz.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar (Matching Reference Image) */}
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/60">
+          <div>
+            © 2026 Tatheer Chappalz. All Rights Reserved.
+          </div>
+
+          <div className="flex items-center space-x-4 text-xs text-white/70">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <span>|</span>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link>
+          </div>
+
+          {/* Payment Badges: Visa, Mastercard, Easypaisa, JazzCash */}
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-0.5 rounded bg-blue-700 text-white font-bold text-[10px]">VISA</span>
+            <span className="px-2 py-0.5 rounded bg-red-600 text-white font-bold text-[10px]">Mastercard</span>
+            <span className="px-2 py-0.5 rounded bg-emerald-600 text-white font-bold text-[10px]">easypaisa</span>
+            <span className="px-2 py-0.5 rounded bg-orange-600 text-white font-bold text-[10px]">JazzCash</span>
           </div>
         </div>
       </div>
 
-      {/* Bottom Legal Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-        <div>
-          © 2026 Tatheer Chappalz. All Rights Reserved. Crafted with pride in Peshawar, Pakistan.
-        </div>
-        <div className="flex items-center space-x-6 text-[11px]">
-          <Link href="/privacy" className="hover:text-white transition-colors">
-            Privacy Policy
-          </Link>
-          <span>•</span>
-          <Link href="/terms" className="hover:text-white transition-colors">
-            Terms & Conditions
-          </Link>
-          <span>•</span>
-          <Link href="/contact" className="hover:text-white transition-colors">
-            Peshawar Flagship
-          </Link>
-        </div>
-        <div className="flex items-center gap-2 font-mono text-[10px] text-[#C5A059] bg-slate-900 px-3 py-1 border border-slate-800">
-          <span>Cash on Delivery</span>
-          <span>|</span>
-          <span>JazzCash</span>
-          <span>|</span>
-          <span>Easypaisa</span>
-          <span>|</span>
-          <span>Cards</span>
-        </div>
-      </div>
+      {/* Floating Amber Scroll-To-Top Button on Bottom Right */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#E5A93C] hover:bg-[#D49A30] text-[#1C1917] flex items-center justify-center shadow-lg transition-all"
+          title="Scroll to top"
+          aria-label="Scroll to top"
+        >
+          <ChevronUp className="w-6 h-6 stroke-[2.5]" />
+        </button>
+      )}
     </footer>
   );
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Search, SlidersHorizontal, ArrowUpDown, Sparkles } from 'lucide-react';
+import { Search, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { FilterSidebar, FilterState } from '@/components/shop/FilterSidebar';
 import { MobileFilterDrawer } from '@/components/shop/MobileFilterDrawer';
@@ -85,7 +85,7 @@ export default function ShopPage() {
     });
   }, [filters, sortBy]);
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 8;
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) || 1;
   const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
@@ -93,17 +93,17 @@ export default function ShopPage() {
   );
 
   return (
-    <div className="bg-[#FAF7F2] min-h-screen pb-20">
+    <div className="bg-[#FAF6EF] min-h-screen pb-20">
       {/* Header Banner */}
-      <div className="bg-[#1F130E] text-[#FAF7F2] py-12 md:py-16 border-b border-[#3A2315]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-          <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#C59B27] flex items-center justify-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" /> All Footwear Catalog
+      <div className="bg-[#0D3325] text-white py-14 md:py-20 border-b border-[#082419] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 relative z-10">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#E5A93C] block">
+            ALL FOOTWEAR CATALOG
           </span>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#FAF7F2]">
+          <h1 className="text-3xl md:text-5xl font-serif font-bold text-white">
             Shop Peshawari Chappals
           </h1>
-          <p className="text-xs sm:text-sm text-[#E2D7C7]/80 max-w-xl mx-auto font-sans font-light">
+          <p className="text-xs sm:text-sm text-white/70 max-w-xl mx-auto font-light">
             Handcrafted in Namak Mandi, Peshawar from full-grain leathers & durable tire soles.
           </p>
         </div>
@@ -111,10 +111,10 @@ export default function ShopPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Search & Utility Bar */}
-        <div className="bg-white border border-[#E2D7C7] p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="bg-white border border-[#EAE3D5] rounded-lg p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs">
           {/* Search Box */}
           <div className="relative w-full md:w-96">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#4A2E1D]/50" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8A94A6]" />
             <input
               type="text"
               placeholder="Search catalog by name or keyword..."
@@ -123,7 +123,7 @@ export default function ShopPage() {
                 setFilters((f) => ({ ...f, search: e.target.value }));
                 setCurrentPage(1);
               }}
-              className="w-full pl-9 pr-4 py-2 bg-[#FAF7F2] border border-[#E2D7C7] text-xs font-serif focus:outline-none focus:border-[#B87546]"
+              className="w-full pl-10 pr-4 py-2 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs focus:outline-none focus:border-[#0D3325]"
             />
           </div>
 
@@ -131,20 +131,20 @@ export default function ShopPage() {
             {/* Mobile Filter Button */}
             <button
               onClick={() => setMobileDrawerOpen(true)}
-              className="lg:hidden px-4 py-2 bg-[#1F130E] text-[#FAF7F2] text-xs font-serif uppercase tracking-wider flex items-center gap-2 border border-[#3A2315]"
+              className="lg:hidden btn-forest text-[10px] py-2 px-3 flex items-center gap-1.5"
             >
-              <SlidersHorizontal className="w-4 h-4 text-[#C59B27]" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#E5A93C]" />
               Filters ({filteredProducts.length})
             </button>
 
             {/* Sort Select */}
-            <div className="flex items-center gap-2 text-xs font-serif text-[#1F130E]">
-              <ArrowUpDown className="w-4 h-4 text-[#B87546] hidden sm:inline" />
-              <span className="hidden sm:inline font-mono uppercase text-[11px] text-[#4A2E1D]/70">Sort By:</span>
+            <div className="flex items-center gap-2 text-xs text-[#1C1917]">
+              <ArrowUpDown className="w-4 h-4 text-[#0D3325] hidden sm:inline" />
+              <span className="hidden sm:inline font-mono uppercase text-[10px] text-[#5A6578] font-bold">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-[#FAF7F2] border border-[#E2D7C7] px-3 py-2 text-xs font-serif focus:outline-none focus:border-[#B87546]"
+                className="bg-[#FAF6EF] border border-[#EAE3D5] rounded px-3 py-2 text-xs focus:outline-none focus:border-[#0D3325]"
               >
                 <option value="featured">Featured Collection</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -159,7 +159,7 @@ export default function ShopPage() {
         {/* Main Grid & Sidebar Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Desktop Filter Sidebar */}
-          <div className="hidden lg:block lg:col-span-1 bg-white border border-[#E2D7C7] p-6 self-start shadow-xs">
+          <div className="hidden lg:block lg:col-span-1 bg-white border border-[#EAE3D5] rounded-lg p-6 self-start shadow-xs">
             <FilterSidebar
               filters={filters}
               setFilters={setFilters}
@@ -169,30 +169,30 @@ export default function ShopPage() {
 
           {/* Product Grid Area */}
           <div className="lg:col-span-3 space-y-8">
-            <div className="flex items-center justify-between text-xs text-[#4A2E1D]/70 font-mono uppercase tracking-wider border-b border-[#E2D7C7] pb-2">
+            <div className="flex items-center justify-between text-xs text-[#5A6578] font-mono uppercase tracking-wider border-b border-[#EAE3D5] pb-2.5">
               <span>Showing {paginatedProducts.length} of {filteredProducts.length} Products</span>
               {filteredProducts.length < MOCK_PRODUCTS.length && (
-                <button onClick={resetFilters} className="text-[#B87546] hover:underline">
+                <button onClick={resetFilters} className="text-[#0D3325] hover:underline font-bold">
                   Clear All Filters
                 </button>
               )}
             </div>
 
             {paginatedProducts.length === 0 ? (
-              <div className="p-12 text-center bg-white border border-[#E2D7C7] space-y-4">
-                <h3 className="text-lg font-serif text-[#1F130E]">No products match your filters</h3>
-                <p className="text-xs text-[#4A2E1D]/70">
+              <div className="p-14 text-center bg-white border border-[#EAE3D5] rounded-lg space-y-4 shadow-xs">
+                <h3 className="text-lg font-serif font-bold text-[#1C1917]">No products match your filters</h3>
+                <p className="text-xs text-[#5A6578]">
                   Try clearing your search query or selecting a different size or color.
                 </p>
                 <button
                   onClick={resetFilters}
-                  className="px-6 py-2.5 bg-[#4A2E1D] text-[#FAF7F2] text-xs font-serif uppercase tracking-wider hover:bg-[#1F130E] transition-colors"
+                  className="btn-forest py-2.5 px-6 text-xs"
                 >
                   Reset All Filters
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {paginatedProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
@@ -205,7 +205,7 @@ export default function ShopPage() {
                 <button
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  className="px-4 py-2 bg-white border border-[#E2D7C7] text-xs font-serif text-[#1F130E] disabled:opacity-40 hover:border-[#B87546]"
+                  className="px-4 py-2 bg-white border border-[#EAE3D5] rounded text-xs font-bold text-[#1C1917] disabled:opacity-40 hover:border-[#0D3325]"
                 >
                   Previous
                 </button>
@@ -215,10 +215,10 @@ export default function ShopPage() {
                     <button
                       key={pageNum}
                       onClick={() => setCurrentPage(pageNum)}
-                      className={`w-9 h-9 text-xs font-mono font-bold border transition-colors ${
+                      className={`w-9 h-9 text-xs font-mono font-bold rounded transition-colors ${
                         currentPage === pageNum
-                          ? 'bg-[#1F130E] text-[#C59B27] border-[#1F130E]'
-                          : 'bg-white text-[#1F130E] border-[#E2D7C7] hover:border-[#B87546]'
+                          ? 'bg-[#0D3325] text-white'
+                          : 'bg-white text-[#1C1917] border border-[#EAE3D5] hover:border-[#0D3325]'
                       }`}
                     >
                       {pageNum}
@@ -228,7 +228,7 @@ export default function ShopPage() {
                 <button
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  className="px-4 py-2 bg-white border border-[#E2D7C7] text-xs font-serif text-[#1F130E] disabled:opacity-40 hover:border-[#B87546]"
+                  className="px-4 py-2 bg-white border border-[#EAE3D5] rounded text-xs font-bold text-[#1C1917] disabled:opacity-40 hover:border-[#0D3325]"
                 >
                   Next
                 </button>

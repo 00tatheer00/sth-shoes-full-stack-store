@@ -5,10 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
-  ShoppingBag,
-  Heart,
   Search,
   User,
+  Heart,
   ChevronDown,
   Menu,
   X,
@@ -22,99 +21,98 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const { cart, wishlist, setIsCartOpen, setIsSearchOpen, currentUser, logoutUser } = useStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
   const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const collections = [
-    { name: 'Kaptan Double Sole', slug: 'kaptan-collection', desc: 'Handcrafted tire sole with royal buckle', image: '/images/kaptaan.png' },
-    { name: 'Zalmi Velvet Suede', slug: 'zalmi-collection', desc: 'Lightweight suede comfort edition', image: '/images/zalmi.png' },
-    { name: 'Norozi Heavy Buckle', slug: 'norozi-heritage', desc: 'Heavy brass buckle & double leather', image: '/images/norozi.png' },
-    { name: 'Royal Calfskin', slug: 'premium-calfskin', desc: 'Full-grain cowhide luxury finish', image: '/images/hero.png' },
+    { name: 'Classic Collection', slug: 'traditional-leather', desc: 'Everyday traditional heritage craft' },
+    { name: 'Premium Leather', slug: 'premium-calfskin', desc: 'Imported full-grain calfskin luxury' },
+    { name: 'Traditional Collection', slug: 'traditional-leather', desc: 'Authentic 100-year Pashtun patterns' },
+    { name: 'Kaptaan Collection', slug: 'kaptan-collection', desc: 'Double tire sole with royal buckle' },
+    { name: 'Zalmi Velvet Suede', slug: 'zalmi-collection', desc: 'Contemporary lightweight suede' },
   ];
 
   return (
-    <header className="sticky top-0 z-40 minimal-header transition-all duration-300">
+    <header className="sticky top-0 z-40 bg-white border-b border-[#EAE3D5] shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-[#0F172A] hover:text-[#C5A059] lg:hidden"
-            aria-label="Toggle mobile menu"
+            className="p-2 text-[#1C1917] hover:text-[#0D3325] lg:hidden"
+            aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
-          {/* Sleek Minimal Brand Logo */}
+          {/* Brand Logo (Matching Reference: Mandala Icon + Tatheer Chappalz) */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="flex flex-col text-left">
-              <div className="flex items-center gap-2">
-                <span className="text-xl sm:text-2xl font-serif font-extrabold tracking-[0.18em] text-[#0F172A] uppercase group-hover:text-[#C5A059] transition-colors">
-                  TATHEER
-                </span>
-                <span className="px-2 py-0.5 bg-[#0F172A] text-white text-[9px] font-mono font-bold uppercase tracking-widest">
-                  PESHAWAR
-                </span>
-              </div>
-              <div className="flex items-center gap-2 text-[10px] font-mono tracking-[0.2em] text-[#C5A059] uppercase font-medium">
-                <span>HANDMADE FOOTWEAR</span>
-                <span>•</span>
-                <span className="font-serif text-[#0F172A]">تطہیر چپل</span>
-              </div>
+            {/* Geometric Mandala / Brass Emblem Icon */}
+            <div className="w-10 h-10 rounded-full bg-[#FAF6EF] border border-[#E5A93C] flex items-center justify-center p-1.5 shadow-xs">
+              <svg viewBox="0 0 24 24" className="w-full h-full text-[#B87A44]" fill="currentColor">
+                <path d="M12 2L14.2 6.4L19 7.1L15.5 10.5L16.3 15.3L12 13L7.7 15.3L8.5 10.5L5 7.1L9.8 6.4L12 2Z" />
+                <circle cx="12" cy="12" r="3" fill="#0D3325" />
+              </svg>
+            </div>
+            <div className="flex flex-col text-left leading-tight">
+              <span className="text-xl sm:text-2xl font-serif font-bold tracking-[0.08em] text-[#1C1917]">
+                TATHEER
+              </span>
+              <span className="text-[9px] font-sans font-bold tracking-[0.25em] text-[#5A6578] uppercase -mt-0.5">
+                CHAPPALZ
+              </span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-8 text-xs font-serif font-bold uppercase tracking-[0.15em] text-[#0F172A]">
+          <nav className="hidden lg:flex items-center space-x-7 text-[12px] font-bold uppercase tracking-[0.08em] text-[#1C1917]">
             <Link
               href="/"
-              className={`hover:text-[#C5A059] transition-colors py-2 ${
-                pathname === '/' ? 'text-[#0F172A] border-b-2 border-[#0F172A]' : ''
+              className={`relative py-2 transition-colors hover:text-[#0D3325] ${
+                pathname === '/' ? 'text-[#0D3325]' : 'text-[#1C1917]'
               }`}
             >
-              Home
+              HOME
+              {pathname === '/' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#E5A93C] rounded-full" />
+              )}
             </Link>
 
             <Link
               href="/shop"
-              className={`hover:text-[#C5A059] transition-colors py-2 ${
-                pathname === '/shop' ? 'text-[#0F172A] border-b-2 border-[#0F172A]' : ''
+              className={`relative py-2 transition-colors hover:text-[#0D3325] ${
+                pathname === '/shop' ? 'text-[#0D3325]' : 'text-[#1C1917]'
               }`}
             >
-              Shop Catalog
+              SHOP
+              {pathname === '/shop' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#E5A93C] rounded-full" />
+              )}
             </Link>
 
             {/* Collections Dropdown */}
             <div
               className="relative py-2"
-              onMouseEnter={() => setMegaMenuOpen(true)}
-              onMouseLeave={() => setMegaMenuOpen(false)}
+              onMouseEnter={() => setCollectionsOpen(true)}
+              onMouseLeave={() => setCollectionsOpen(false)}
             >
-              <button className="flex items-center gap-1 hover:text-[#C5A059] transition-colors cursor-pointer uppercase">
-                <span>Collections</span>
-                <ChevronDown className="w-3.5 h-3.5 text-[#C5A059]" />
+              <button className="flex items-center gap-1 hover:text-[#0D3325] transition-colors cursor-pointer uppercase font-bold text-[12px]">
+                <span>COLLECTIONS</span>
+                <ChevronDown className="w-3.5 h-3.5 text-[#5A6578]" />
               </button>
 
-              {megaMenuOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[650px] bg-white p-6 shadow-xl border border-slate-200 grid grid-cols-2 gap-4 animate-in fade-in">
+              {collectionsOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-64 bg-white p-3 shadow-xl border border-[#EAE3D5] rounded-md space-y-1">
                   {collections.map((c) => (
                     <Link
                       key={c.slug}
                       href={`/category/${c.slug}`}
-                      className="p-3 bg-[#F8FAFC] border border-slate-200 hover:border-[#0F172A] flex gap-3.5 items-center group/item transition-all"
+                      className="block p-2.5 rounded hover:bg-[#FAF6EF] transition-colors"
                     >
-                      <div className="relative w-14 h-14 bg-white border border-slate-200 flex-shrink-0">
-                        <Image src={c.image} alt={c.name} fill className="object-contain p-1" />
-                      </div>
-                      <div>
-                        <h4 className="text-xs font-serif font-bold text-[#0F172A] group-hover/item:text-[#C5A059] transition-colors">
-                          {c.name}
-                        </h4>
-                        <p className="text-[10px] text-slate-500 font-sans line-clamp-1">{c.desc}</p>
-                        <span className="text-[9px] font-mono text-[#C5A059] font-semibold uppercase">Explore Category →</span>
-                      </div>
+                      <div className="text-xs font-serif font-bold text-[#1C1917]">{c.name}</div>
+                      <div className="text-[10px] text-[#5A6578]">{c.desc}</div>
                     </Link>
                   ))}
                 </div>
@@ -123,69 +121,77 @@ export const Navbar: React.FC = () => {
 
             <Link
               href="/craft"
-              className={`hover:text-[#C5A059] transition-colors py-2 ${
-                pathname === '/craft' ? 'text-[#0F172A] border-b-2 border-[#0F172A]' : ''
+              className={`relative py-2 transition-colors hover:text-[#0D3325] ${
+                pathname === '/craft' ? 'text-[#0D3325]' : 'text-[#1C1917]'
               }`}
             >
-              Our Craftsmanship
+              OUR CRAFT
+              {pathname === '/craft' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#E5A93C] rounded-full" />
+              )}
             </Link>
 
             <Link
               href="/size-guide"
-              className={`hover:text-[#C5A059] transition-colors py-2 ${
-                pathname === '/size-guide' ? 'text-[#0F172A] border-b-2 border-[#0F172A]' : ''
+              className={`relative py-2 transition-colors hover:text-[#0D3325] ${
+                pathname === '/size-guide' ? 'text-[#0D3325]' : 'text-[#1C1917]'
               }`}
             >
-              Size Guide
+              SIZE GUIDE
+              {pathname === '/size-guide' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#E5A93C] rounded-full" />
+              )}
+            </Link>
+
+            <Link
+              href="/about"
+              className={`relative py-2 transition-colors hover:text-[#0D3325] ${
+                pathname === '/about' ? 'text-[#0D3325]' : 'text-[#1C1917]'
+              }`}
+            >
+              ABOUT US
+              {pathname === '/about' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#E5A93C] rounded-full" />
+              )}
             </Link>
           </nav>
 
-          {/* Action Bar */}
+          {/* Right Action Icons (Matching Reference: Search, User, Wishlist, Amber Cart Button) */}
           <div className="flex items-center space-x-3">
+            {/* Search Icon */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="p-2.5 text-[#0F172A] hover:text-[#C5A059] hover:bg-slate-100 transition-all rounded-full"
-              title="Search Catalog"
+              className="p-2 text-[#1C1917] hover:text-[#0D3325] transition-colors"
+              title="Search"
+              aria-label="Search catalog"
             >
-              <Search className="w-4 h-4" />
+              <Search className="w-5 h-5" />
             </button>
-
-            <Link
-              href="/wishlist"
-              className="p-2.5 text-[#0F172A] hover:text-[#E11D48] hover:bg-slate-100 transition-all rounded-full relative"
-              title="Wishlist"
-            >
-              <Heart className="w-4 h-4" />
-              {wishlist.length > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#E11D48] text-white text-[9px] font-mono font-bold flex items-center justify-center">
-                  {wishlist.length}
-                </span>
-              )}
-            </Link>
 
             {/* Account Menu */}
             <div className="relative">
               <button
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="p-2.5 text-[#0F172A] hover:text-[#C5A059] hover:bg-slate-100 transition-all rounded-full flex items-center gap-1"
-                title="Account Menu"
+                className="p-2 text-[#1C1917] hover:text-[#0D3325] transition-colors"
+                title="Account"
+                aria-label="User Account"
               >
-                <User className="w-4 h-4" />
+                <User className="w-5 h-5" />
               </button>
 
               {userDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-56 bg-white p-3 shadow-xl border border-slate-200 text-xs font-serif z-50">
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white p-3 shadow-xl border border-[#EAE3D5] rounded-md text-xs z-50">
                   {currentUser ? (
-                    <div className="p-2.5 border-b border-slate-100 space-y-1">
-                      <div className="font-bold text-[#0F172A]">{currentUser.user_metadata?.full_name || 'Patron'}</div>
-                      <div className="text-[10px] text-slate-500 font-mono truncate">{currentUser.email}</div>
+                    <div className="p-2 border-b border-[#FAF6EF]">
+                      <div className="font-bold text-[#1C1917]">{currentUser.user_metadata?.full_name || 'Patron'}</div>
+                      <div className="text-[10px] text-[#5A6578] truncate">{currentUser.email}</div>
                     </div>
                   ) : (
-                    <div className="p-2 border-b border-slate-100">
+                    <div className="p-2 border-b border-[#FAF6EF]">
                       <Link
                         href="/auth/login"
                         onClick={() => setUserDropdownOpen(false)}
-                        className="block w-full py-2 bg-[#0F172A] text-white text-center font-bold uppercase tracking-wider hover:bg-[#C5A059] transition-colors"
+                        className="btn-forest w-full text-center py-2 text-[10px]"
                       >
                         Sign In / Register
                       </Link>
@@ -196,34 +202,34 @@ export const Navbar: React.FC = () => {
                     <Link
                       href="/account"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-[#0F172A] hover:bg-slate-50"
+                      className="flex items-center gap-2 px-3 py-2 text-[#1C1917] hover:bg-[#FAF6EF] rounded"
                     >
-                      <User className="w-4 h-4 text-[#C5A059]" /> Account Dashboard
+                      <User className="w-4 h-4 text-[#0D3325]" /> Account Dashboard
                     </Link>
                     <Link
                       href="/account/orders"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-[#0F172A] hover:bg-slate-50"
+                      className="flex items-center gap-2 px-3 py-2 text-[#1C1917] hover:bg-[#FAF6EF] rounded"
                     >
-                      <Package className="w-4 h-4 text-[#C5A059]" /> Order History
+                      <Package className="w-4 h-4 text-[#0D3325]" /> Order History
                     </Link>
                     <Link
                       href="/admin"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-[#0F172A] font-bold hover:bg-slate-50"
+                      className="flex items-center gap-2 px-3 py-2 text-[#1C1917] font-semibold hover:bg-[#FAF6EF] rounded"
                     >
-                      <ShieldCheck className="w-4 h-4 text-[#0F172A]" /> SaaS Admin Portal
+                      <ShieldCheck className="w-4 h-4 text-[#0D3325]" /> SaaS Admin Portal
                     </Link>
                   </div>
 
                   {currentUser && (
-                    <div className="pt-2 border-t border-slate-100">
+                    <div className="pt-2 border-t border-[#FAF6EF]">
                       <button
                         onClick={() => {
                           logoutUser();
                           setUserDropdownOpen(false);
                         }}
-                        className="w-full flex items-center gap-2 px-3 py-2 text-red-600 hover:bg-red-50 text-left font-sans"
+                        className="w-full flex items-center gap-2 px-3 py-2 text-red-600 hover:bg-red-50 text-left rounded"
                       >
                         <LogOut className="w-4 h-4" /> Sign Out
                       </button>
@@ -233,28 +239,39 @@ export const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Shopping Cart Drawer Trigger */}
+            {/* Wishlist Heart Icon with Count Badge */}
+            <Link
+              href="/wishlist"
+              className="p-2 text-[#1C1917] hover:text-red-600 transition-colors relative"
+              title="Wishlist"
+              aria-label="Wishlist"
+            >
+              <Heart className="w-5 h-5" />
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#0D3325] text-white text-[9px] font-mono font-bold flex items-center justify-center">
+                {wishlist.length}
+              </span>
+            </Link>
+
+            {/* CART (0) Button in Warm Amber Gold */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="px-4 py-2.5 bg-[#0F172A] text-white hover:bg-[#C5A059] transition-colors font-serif font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-sm"
+              className="px-4 py-2 bg-[#E5A93C] hover:bg-[#D49A30] text-[#1C1917] font-bold text-xs uppercase tracking-wider rounded-sm flex items-center gap-1.5 transition-all shadow-xs"
             >
-              <ShoppingBag className="w-4 h-4 text-[#C5A059] group-hover:text-white" />
-              <span className="hidden sm:inline">Bag</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-white text-[#0F172A] text-[10px] font-mono font-bold">
-                {totalCartItems}
-              </span>
+              <span>CART ({totalCartItems})</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 p-6 space-y-4 font-serif text-sm text-[#0F172A]">
-          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-slate-100">Home</Link>
-          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-slate-100">Shop Catalog</Link>
-          <Link href="/craft" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold border-b border-slate-100">Our Craftsmanship</Link>
-          <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="block py-2 font-bold text-[#C5A059]">SaaS Admin Portal</Link>
+        <div className="lg:hidden bg-white border-t border-[#EAE3D5] p-6 space-y-3 font-semibold text-sm text-[#1C1917]">
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#FAF6EF]">HOME</Link>
+          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#FAF6EF]">SHOP</Link>
+          <Link href="/craft" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#FAF6EF]">OUR CRAFT</Link>
+          <Link href="/size-guide" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#FAF6EF]">SIZE GUIDE</Link>
+          <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#FAF6EF]">ABOUT US</Link>
+          <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-[#0D3325] font-bold">SAAS ADMIN PORTAL</Link>
         </div>
       )}
     </header>

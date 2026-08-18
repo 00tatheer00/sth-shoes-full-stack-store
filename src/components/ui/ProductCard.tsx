@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Star, ShoppingBag, Eye, Clock, Check } from 'lucide-react';
+import { Heart, Star, ShoppingBag } from 'lucide-react';
 import { Product } from '@/types';
 import { useStore } from '@/context/StoreContext';
 import { formatPKR, calculateDiscountPercentage } from '@/lib/utils';
@@ -14,11 +14,10 @@ interface ProductCardProps {
   showCountdown?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, showCountdown }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart, toggleWishlist, isInWishlist } = useStore();
   const isSaved = isInWishlist(product.id);
   const discountPercent = calculateDiscountPercentage(product.price, product.salePrice);
-  const [added, setAdded] = useState(false);
 
   // Dynamic Color Swatch Preview State
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
@@ -29,9 +28,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, showCountdown
     e.stopPropagation();
     const availableSize = product.sizes.find((s) => s.inStock)?.size ?? product.sizes[0].size;
     addToCart(product, selectedColor, availableSize, 1);
-    setAdded(true);
     triggerConfetti();
-    setTimeout(() => setAdded(false), 2000);
   };
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
@@ -48,98 +45,81 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, showCountdown
   };
 
   return (
-    <div className="group bg-white border border-slate-200 hover:border-[#0F172A] minimal-card flex flex-col justify-between overflow-hidden relative rounded-none shadow-2xs">
+    <div className="product-card-ref flex flex-col justify-between overflow-hidden relative group">
       {/* Product Image Stage */}
-      <div className="relative aspect-square bg-[#F8FAFC] overflow-hidden">
-        <Link href={`/product/${product.slug}`} className="block w-full h-full">
+      <div className="relative aspect-square bg-[#F8F5EE] p-4 flex items-center justify-center overflow-hidden">
+        <Link href={`/product/${product.slug}`} className="block w-full h-full relative">
           <Image
             src={product.images[currentImageIndex] || product.featuredImage}
             alt={product.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
           />
         </Link>
 
-        {/* Top Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1 z-10 pointer-events-none">
+        {/* Top Badges (Red Sale, Gold Best Seller, Green New Arrival) */}
+        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10 pointer-events-none">
           {discountPercent > 0 && (
-            <span className="badge-sale-minimal">
+            <span className="px-2 py-0.5 bg-[#D92D20] text-white text-[9px] font-bold uppercase tracking-wider rounded-xs shadow-2xs">
               -{discountPercent}% OFF
             </span>
           )}
-          {product.isNew && (
-            <span className="badge-minimal">
-              NEW ARRIVAL
+          {product.isBestSeller && (
+            <span className="px-2 py-0.5 bg-[#E5A93C] text-[#1C1917] text-[9px] font-extrabold uppercase tracking-wider rounded-xs shadow-2xs">
+              BEST SELLER
             </span>
           )}
-          {product.isBestSeller && !product.isNew && (
-            <span className="badge-gold-minimal">
-              BESTSELLER
+          {product.isNew && !product.isBestSeller && (
+            <span className="px-2 py-0.5 bg-[#0D3325] text-white text-[9px] font-bold uppercase tracking-wider rounded-xs shadow-2xs">
+              NEW ARRIVAL
             </span>
           )}
         </div>
 
-        {/* Wishlist Heart Button */}
+        {/* Wishlist Heart Icon Button (Top Right) */}
         <button
           onClick={handleWishlistToggle}
-          className={`absolute top-3 right-3 p-2.5 rounded-full transition-all duration-300 z-20 shadow-xs ${
-            isSaved
-              ? 'bg-[#E11D48] text-white scale-105'
-              : 'bg-white/90 text-[#0F172A] hover:bg-[#0F172A] hover:text-white'
+          className={`absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/90 border border-[#EAE3D5] flex items-center justify-center transition-colors z-20 shadow-xs ${
+            isSaved ? 'text-[#D92D20]' : 'text-[#5A6578] hover:text-[#D92D20]'
           }`}
-          aria-label="Save to Wishlist"
-          title="Save to Wishlist"
+          aria-label="Wishlist"
         >
           <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
         </button>
 
-        {/* Quick Action Hover Bar */}
-        {!showCountdown && (
-          <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 flex gap-2 z-20">
+        {/* 3 Color Swatch Dots (Bottom Right of Image) */}
+        <div className="absolute bottom-2.5 right-2.5 flex items-center space-x-1 z-10 bg-white/80 backdrop-blur-xs p-1 rounded-full border border-[#EAE3D5]">
+          {product.colors.map((color, idx) => (
             <button
-              onClick={handleQuickAdd}
-              className="flex-1 py-2.5 bg-[#0F172A] text-white hover:bg-[#C5A059] text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md transition-colors"
-            >
-              {added ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-green-400" />
-                  <span>Added!</span>
-                </>
-              ) : (
-                <>
-                  <ShoppingBag className="w-3.5 h-3.5 text-[#C5A059]" />
-                  <span>Quick Add</span>
-                </>
-              )}
-            </button>
-            <Link
-              href={`/product/${product.slug}`}
-              className="p-2.5 bg-white text-[#0F172A] hover:bg-slate-100 shadow-md flex items-center justify-center transition-colors border border-slate-200"
-              title="Quick View Details"
-            >
-              <Eye className="w-3.5 h-3.5 text-[#0F172A]" />
-            </Link>
-          </div>
-        )}
+              key={color.name}
+              onMouseEnter={() => handleColorHover(idx)}
+              onClick={() => handleColorHover(idx)}
+              className={`w-2.5 h-2.5 rounded-full border transition-all ${
+                selectedColor.name === color.name
+                  ? 'border-[#0D3325] scale-125'
+                  : 'border-transparent opacity-80'
+              }`}
+              style={{ backgroundColor: color.hex }}
+              title={color.name}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Product Details Section */}
-      <div className="p-4 flex-1 flex flex-col justify-between bg-white border-t border-slate-100 space-y-3">
+      <div className="p-3.5 flex flex-col justify-between flex-1 bg-white space-y-2">
         <div>
-          <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-semibold mb-1 flex justify-between items-center">
-            <span>{product.category}</span>
-            <span className="text-[9px] font-mono text-slate-400">EU 39-46</span>
-          </div>
-
-          <Link href={`/product/${product.slug}`} className="block group-hover:text-[#C5A059] transition-colors">
-            <h3 className="text-sm font-serif font-bold text-[#0F172A] line-clamp-1">
+          {/* Title */}
+          <Link href={`/product/${product.slug}`} className="block group-hover:text-[#0D3325] transition-colors">
+            <h3 className="text-xs font-serif font-bold text-[#1C1917] line-clamp-1 leading-snug">
               {product.name}
             </h3>
           </Link>
 
-          <div className="flex items-center gap-1.5 mt-1 text-xs text-[#C5A059]">
-            <div className="flex">
+          {/* Star Rating with Count */}
+          <div className="flex items-center gap-1 mt-1 text-[11px]">
+            <div className="flex text-[#E5A93C]">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
@@ -149,40 +129,33 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, showCountdown
                 />
               ))}
             </div>
-            <span className="text-[11px] font-mono font-bold text-[#0F172A]">{product.rating}</span>
-            <span className="text-[11px] font-mono text-slate-400">({product.reviewsCount})</span>
+            <span className="font-semibold text-[#1C1917]">{product.rating}</span>
+            <span className="text-[#8A94A6]">({product.reviewsCount})</span>
           </div>
         </div>
 
-        {/* Pricing & Interactive Color Swatches */}
-        <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-          <div className="flex items-baseline gap-2">
-            <span className="text-base font-serif font-bold text-[#0F172A]">
+        {/* Price & Circular Forest Green Cart Button */}
+        <div className="pt-2 border-t border-[#FAF6EF] flex items-center justify-between">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-sm font-bold text-[#1C1917]">
               {formatPKR(product.salePrice ?? product.price)}
             </span>
             {product.salePrice && (
-              <span className="text-xs text-slate-400 line-through font-mono">
+              <span className="text-[11px] text-[#8A94A6] line-through">
                 {formatPKR(product.price)}
               </span>
             )}
           </div>
 
-          <div className="flex items-center space-x-1">
-            {product.colors.map((color, idx) => (
-              <button
-                key={color.name}
-                onMouseEnter={() => handleColorHover(idx)}
-                onClick={() => handleColorHover(idx)}
-                className={`w-3.5 h-3.5 rounded-full border transition-all ${
-                  selectedColor.name === color.name
-                    ? 'border-[#0F172A] scale-125 ring-2 ring-slate-300'
-                    : 'border-slate-300 opacity-80 hover:opacity-100'
-                }`}
-                style={{ backgroundColor: color.hex }}
-                title={`${color.name} - Hover to preview`}
-              />
-            ))}
-          </div>
+          {/* Circular Forest Green Cart Button */}
+          <button
+            onClick={handleQuickAdd}
+            className="w-8 h-8 rounded-full bg-[#0D3325] hover:bg-[#082419] text-white flex items-center justify-center transition-all shadow-xs"
+            title="Add to Cart"
+            aria-label="Add to Cart"
+          >
+            <ShoppingBag className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>
