@@ -92,7 +92,12 @@ export default function AccountDashboardPage() {
               {/* Progress Steps */}
               <div className="py-4">
                 <div className="grid grid-cols-4 gap-2 text-center text-xs font-mono">
-                  {recentOrder.timeline.slice(0, 4).map((step, idx) => (
+                  {(recentOrder.timeline || [
+                    { title: 'Confirmed', date: recentOrder.date, completed: true },
+                    { title: 'Crafting', date: recentOrder.date, completed: true },
+                    { title: 'Dispatched', date: 'In Transit', completed: recentOrder.status === 'Dispatched' || recentOrder.status === 'Delivered' },
+                    { title: 'Delivered', date: 'Pending', completed: recentOrder.status === 'Delivered' },
+                  ]).slice(0, 4).map((step, idx) => (
                     <div key={idx} className="space-y-2">
                       <div
                         className={`w-6 h-6 rounded-full mx-auto flex items-center justify-center text-[10px] font-bold ${

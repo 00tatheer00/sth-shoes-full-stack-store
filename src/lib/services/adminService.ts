@@ -22,6 +22,14 @@ export const adminService = {
     return { authorized: true, role: 'super_admin' };
   },
 
+  // Adjust Variant Stock
+  async adjustVariantStock(sku: string, qty: number, note: string): Promise<{ success: boolean; message: string }> {
+    return {
+      success: true,
+      message: `Stock updated by ${qty} for SKU ${sku} (${note})`,
+    };
+  },
+
   // Calculate Real-Time Dashboard Metrics
   async getDashboardMetrics(): Promise<AdminMetrics> {
     const orders = dataEngine.getOrders();

@@ -129,10 +129,11 @@ export const dataEngine = {
     try {
       const products = this.getProducts();
       order.items.forEach((item) => {
-        const product = products.find((p) => p.id === item.productId);
+        const product = products.find((p) => (item.productId && p.id === item.productId) || p.name === item.productName);
         if (product) {
+          const targetSize = item.size ?? item.selectedSize;
           const updatedSizes = product.sizes.map((s) =>
-            s.size === item.selectedSize ? { ...s, inStock: true } : s
+            s.size === targetSize ? { ...s, inStock: true } : s
           );
           this.updateProduct(product.id, { sizes: updatedSizes });
         }

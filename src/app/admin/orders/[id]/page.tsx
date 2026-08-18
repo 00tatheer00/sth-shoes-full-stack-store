@@ -76,7 +76,7 @@ export default function OrderDetailsPage() {
             <div className="pt-4 border-t border-[#E2D7C7] text-xs font-mono space-y-1.5 text-right">
               <div className="flex justify-between"><span>Subtotal:</span> <span>{formatPKR(order.subtotal)}</span></div>
               {order.discount > 0 && <div className="flex justify-between text-green-700"><span>Discount:</span> <span>-{formatPKR(order.discount)}</span></div>}
-              <div className="flex justify-between"><span>Shipping:</span> <span>{formatPKR(order.shipping)}</span></div>
+              <div className="flex justify-between"><span>Shipping:</span> <span>{formatPKR(order.shipping ?? order.shippingFee ?? 0)}</span></div>
               <div className="flex justify-between text-sm font-serif font-bold text-[#1F130E] pt-2 border-t border-[#E2D7C7]">
                 <span>Total Paid / Payable:</span>
                 <span className="text-[#B87546] font-mono text-base">{formatPKR(order.total)}</span>

@@ -88,7 +88,12 @@ export default function AccountOrdersPage() {
                           Live Dispatch Timeline
                         </h4>
                         <div className="p-4 bg-[#FAF7F2] border border-[#E2D7C7] space-y-3">
-                          {order.timeline.map((step, idx) => (
+                          {(order.timeline || [
+                            { title: 'Order Placed & Verified', date: order.date, completed: true },
+                            { title: 'Artisan Workshop Crafting', date: order.date, completed: true },
+                            { title: 'Courier Express Dispatch', date: 'In Transit', completed: order.status === 'Dispatched' || order.status === 'Delivered' },
+                            { title: 'Delivered to Doorstep', date: 'Pending', completed: order.status === 'Delivered' },
+                          ]).map((step, idx) => (
                             <div key={idx} className="flex items-start gap-3">
                               <div
                                 className={`w-5 h-5 rounded-full flex items-center justify-center text-xs mt-0.5 flex-shrink-0 ${

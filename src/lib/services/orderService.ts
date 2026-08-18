@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase/client';
-import { CartItem, Order } from '@/types';
+import { CartItem, Order, OrderItem } from '@/types';
 import { shippingService } from './shippingService';
 import { couponService } from './couponService';
 import { PaymentFactory } from '@/lib/payments/paymentFactory';
@@ -41,7 +41,7 @@ export const orderService = {
     }
 
     let serverSubtotal = 0;
-    const validatedItems: Order['items'] = [];
+    const validatedItems: OrderItem[] = [];
 
     for (const item of input.cartItems) {
       const unitPrice = item.product.salePrice ?? item.product.price;
@@ -52,6 +52,8 @@ export const orderService = {
         productId: item.product.id,
         productName: item.product.name,
         image: item.product.featuredImage,
+        color: item.selectedColor.name,
+        size: item.selectedSize,
         selectedSize: item.selectedSize,
         selectedColor: item.selectedColor,
         quantity: item.quantity,
@@ -96,6 +98,7 @@ export const orderService = {
       items: validatedItems,
       shippingAddress: {
         id: `addr-${Date.now()}`,
+        title: 'Delivery Address',
         fullName: input.customerName,
         phone: input.customerPhone,
         addressLine: input.addressLine,
@@ -134,7 +137,7 @@ export const orderService = {
           for (const vItem of validatedItems) {
             await supabase.from('order_items').insert({
               order_id: orderRow.id,
-              product_id: vItem.productId,
+              product_id: vItem.productId || vItem.productName,
               quantity: vItem.quantity,
               unit_price: vItem.price,
             });
@@ -152,9 +155,9 @@ export const orderService = {
         customerEmail: input.customerEmail,
         customerPhone: input.customerPhone,
         items: validatedItems.map((i) => ({
-          name: i.productName,
-          size: i.selectedSize,
-          color: i.selectedColor.name,
+          productName: i.productName,
+          size: i.size,
+          color: i.color,
           quantity: i.quantity,
           price: i.price,
         })),

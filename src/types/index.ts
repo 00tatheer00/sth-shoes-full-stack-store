@@ -77,7 +77,7 @@ export interface CraftStep {
 
 export interface Address {
   id: string;
-  title: string;
+  title?: string;
   fullName: string;
   phone: string;
   addressLine: string;
@@ -88,26 +88,32 @@ export interface Address {
 }
 
 export interface OrderItem {
+  productId?: string;
   productName: string;
   color: string;
   size: number;
   quantity: number;
   price: number;
   image: string;
+  selectedColor?: ProductColor;
+  selectedSize?: number;
 }
 
 export interface Order {
   id: string;
   orderNumber: string;
+  userId?: string;
   date: string;
   status: 'Processing' | 'Dispatched' | 'Delivered' | 'Cancelled';
-  timeline: { title: string; date: string; completed: boolean }[];
+  timeline?: { title: string; date: string; completed: boolean }[];
   items: OrderItem[];
   subtotal: number;
-  shipping: number;
+  shipping?: number;
+  shippingFee?: number;
   discount: number;
   total: number;
   paymentMethod: string;
+  paymentStatus?: string;
   shippingAddress: Address;
   trackingNumber: string;
 }
