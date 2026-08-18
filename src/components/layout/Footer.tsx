@@ -174,19 +174,19 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar (Matching Reference Image) */}
-        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left text-xs text-white/60">
           <div>
             © 2026 Tatheer Chappalz. All Rights Reserved.
           </div>
 
-          <div className="flex items-center space-x-4 text-xs text-white/70">
+          <div className="flex flex-wrap items-center justify-center space-x-3 sm:space-x-4 text-xs text-white/70">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <span>|</span>
             <Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link>
           </div>
 
           {/* Payment Badges: Visa, Mastercard, Easypaisa, JazzCash */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="px-2 py-0.5 rounded bg-blue-700 text-white font-bold text-[10px]">VISA</span>
             <span className="px-2 py-0.5 rounded bg-red-600 text-white font-bold text-[10px]">Mastercard</span>
             <span className="px-2 py-0.5 rounded bg-emerald-600 text-white font-bold text-[10px]">easypaisa</span>

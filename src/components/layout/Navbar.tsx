@@ -48,19 +48,19 @@ export const Navbar: React.FC = () => {
           </button>
 
           {/* Brand Logo (Matching Reference: Mandala Icon + Tatheer Chappalz) */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
             {/* Geometric Mandala / Brass Emblem Icon */}
-            <div className="w-10 h-10 rounded-full bg-[#FAF6EF] border border-[#E5A93C] flex items-center justify-center p-1.5 shadow-xs">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAF6EF] border border-[#E5A93C] flex items-center justify-center p-1 sm:p-1.5 shadow-xs flex-shrink-0">
               <svg viewBox="0 0 24 24" className="w-full h-full text-[#B87A44]" fill="currentColor">
                 <path d="M12 2L14.2 6.4L19 7.1L15.5 10.5L16.3 15.3L12 13L7.7 15.3L8.5 10.5L5 7.1L9.8 6.4L12 2Z" />
                 <circle cx="12" cy="12" r="3" fill="#0D3325" />
               </svg>
             </div>
             <div className="flex flex-col text-left leading-tight">
-              <span className="text-xl sm:text-2xl font-serif font-bold tracking-[0.08em] text-[#1C1917]">
+              <span className="text-lg sm:text-2xl font-serif font-bold tracking-[0.08em] text-[#1C1917]">
                 TATHEER
               </span>
-              <span className="text-[9px] font-sans font-bold tracking-[0.25em] text-[#5A6578] uppercase -mt-0.5">
+              <span className="text-[8px] sm:text-[9px] font-sans font-bold tracking-[0.22em] text-[#5A6578] uppercase -mt-0.5">
                 CHAPPALZ
               </span>
             </div>
@@ -255,7 +255,7 @@ export const Navbar: React.FC = () => {
             {/* CART (0) Button in Warm Amber Gold */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="px-4 py-2 bg-[#E5A93C] hover:bg-[#D49A30] text-[#1C1917] font-bold text-xs uppercase tracking-wider rounded-sm flex items-center gap-1.5 transition-all shadow-xs"
+              className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-[#E5A93C] hover:bg-[#D49A30] text-[#1C1917] font-bold text-[11px] sm:text-xs uppercase tracking-wider rounded-sm flex items-center gap-1 sm:gap-1.5 transition-all shadow-xs"
             >
               <span>CART ({totalCartItems})</span>
             </button>

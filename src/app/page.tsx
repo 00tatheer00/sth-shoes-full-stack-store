@@ -300,11 +300,11 @@ export default function HomePage() {
             </div>
 
             {/* Right Column: Pedestal Shoe Stage with 3 Floating Feature Badges */}
-            <div className="lg:col-span-6 relative flex justify-center items-center py-6">
+            <div className="lg:col-span-6 relative flex flex-col items-center justify-center py-4 lg:py-6">
               {/* Central Elevated Pedestal Display */}
-              <div className="relative w-full max-w-[460px] aspect-square flex items-center justify-center">
+              <div className="relative w-full max-w-[360px] sm:max-w-[420px] lg:max-w-[460px] aspect-square flex items-center justify-center">
                 {/* Stone / Wooden Round Base Effect */}
-                <div className="absolute bottom-6 w-3/4 h-24 rounded-full bg-gradient-to-t from-[#D8CEBE] to-[#EDE5D8] shadow-lg blur-xs border border-[#C5BBAA]/40" />
+                <div className="absolute bottom-6 w-3/4 h-20 sm:h-24 rounded-full bg-gradient-to-t from-[#D8CEBE] to-[#EDE5D8] shadow-lg blur-xs border border-[#C5BBAA]/40" />
 
                 {/* Hero Peshawari Chappal */}
                 <div className="relative w-full h-full z-10">
@@ -313,50 +313,64 @@ export default function HomePage() {
                     alt="Authentic Peshawari Chappal Handmade in Peshawar"
                     fill
                     priority
-                    className="object-contain p-4 drop-shadow-2xl hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 460px"
+                    className="object-contain p-2 sm:p-4 drop-shadow-2xl hover:scale-105 transition-transform duration-700"
                   />
                 </div>
 
                 {/* Floating Badge 1 (Top Right: Premium Leather) */}
-                <div className="hero-floating-badge absolute -top-2 sm:top-2 right-0 sm:right-2 p-2 sm:p-2.5 pr-4 flex items-center gap-2.5 z-20">
-                  <div className="w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
-                    <ShieldCheck className="w-4 h-4 text-[#E5A93C]" />
+                <div className="hero-floating-badge hidden sm:flex absolute top-1 sm:top-2 right-0 sm:right-2 p-2 sm:p-2.5 pr-4 items-center gap-2.5 z-20 scale-90 sm:scale-100 origin-top-right">
+                  <div className="w-7 h-7 sm:w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
+                    <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E5A93C]" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[11px] font-bold text-[#1C1917] leading-tight">Premium Leather</div>
-                    <div className="text-[9px] text-[#5A6578] leading-tight">Finest quality leather for comfort</div>
+                    <div className="text-[10px] sm:text-[11px] font-bold text-[#1C1917] leading-tight">Premium Leather</div>
+                    <div className="text-[8px] sm:text-[9px] text-[#5A6578] leading-tight">Finest quality comfort</div>
                   </div>
                 </div>
 
                 {/* Floating Badge 2 (Mid Left: Hand Stitched) */}
-                <div className="hero-floating-badge absolute bottom-28 sm:bottom-32 -left-2 sm:left-0 p-2 sm:p-2.5 pr-4 flex items-center gap-2.5 z-20">
-                  <div className="w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
-                    <Scissors className="w-4 h-4 text-[#E5A93C]" />
+                <div className="hero-floating-badge hidden sm:flex absolute bottom-24 sm:bottom-32 -left-2 sm:left-0 p-2 sm:p-2.5 pr-4 items-center gap-2.5 z-20 scale-90 sm:scale-100 origin-bottom-left">
+                  <div className="w-7 h-7 sm:w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
+                    <Scissors className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E5A93C]" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[11px] font-bold text-[#1C1917] leading-tight">Hand Stitched</div>
-                    <div className="text-[9px] text-[#5A6578] leading-tight">Precision stitching by master artisans</div>
+                    <div className="text-[10px] sm:text-[11px] font-bold text-[#1C1917] leading-tight">Hand Stitched</div>
+                    <div className="text-[8px] sm:text-[9px] text-[#5A6578] leading-tight">Master cobbler precision</div>
                   </div>
                 </div>
 
                 {/* Floating Badge 3 (Bottom Right: Durable Sole) */}
-                <div className="hero-floating-badge absolute -bottom-4 sm:bottom-0 right-2 sm:right-4 p-2 sm:p-2.5 pr-4 flex items-center gap-2.5 z-20">
-                  <div className="w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
-                    <Layers className="w-4 h-4 text-[#E5A93C]" />
+                <div className="hero-floating-badge hidden sm:flex absolute -bottom-2 sm:bottom-0 right-2 sm:right-4 p-2 sm:p-2.5 pr-4 items-center gap-2.5 z-20 scale-90 sm:scale-100 origin-bottom-right">
+                  <div className="w-7 h-7 sm:w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
+                    <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E5A93C]" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[11px] font-bold text-[#1C1917] leading-tight">Durable Sole</div>
-                    <div className="text-[9px] text-[#5A6578] leading-tight">Double tire rubber sole for grip</div>
+                    <div className="text-[10px] sm:text-[11px] font-bold text-[#1C1917] leading-tight">Durable Sole</div>
+                    <div className="text-[8px] sm:text-[9px] text-[#5A6578] leading-tight">Double tire rubber grip</div>
                   </div>
                 </div>
 
                 {/* 360° VIEW Pill on Bottom Right */}
-                <div className="absolute bottom-3 right-0 z-30">
-                  <div className="px-2.5 py-1 rounded-full bg-white/90 border border-[#E5A93C] text-[#E5A93C] text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-xs">
+                <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-0 z-30">
+                  <div className="px-2.5 py-1 rounded-full bg-white/90 border border-[#E5A93C] text-[#E5A93C] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-xs">
                     <span>360°</span>
                     <span>VIEW</span>
                   </div>
                 </div>
+              </div>
+
+              {/* Mobile Features Strip under shoe on small screens (<640px) */}
+              <div className="flex sm:hidden flex-wrap items-center justify-center gap-2 mt-4 z-20">
+                <span className="px-2.5 py-1 bg-white border border-[#EAE3D5] rounded-full text-[10px] font-semibold text-[#0D3325] shadow-xs">
+                  ✓ 100% Genuine Leather
+                </span>
+                <span className="px-2.5 py-1 bg-white border border-[#EAE3D5] rounded-full text-[10px] font-semibold text-[#0D3325] shadow-xs">
+                  ✓ Hand Stitched
+                </span>
+                <span className="px-2.5 py-1 bg-white border border-[#EAE3D5] rounded-full text-[10px] font-semibold text-[#0D3325] shadow-xs">
+                  ✓ Double Tyre Sole
+                </span>
               </div>
             </div>
           </div>

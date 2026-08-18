@@ -5,9 +5,13 @@ import { Search, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { FilterSidebar, FilterState } from '@/components/shop/FilterSidebar';
 import { MobileFilterDrawer } from '@/components/shop/MobileFilterDrawer';
+import { useStore } from '@/context/StoreContext';
 import { MOCK_PRODUCTS } from '@/data/mockData';
 
 export default function ShopPage() {
+  const { products: storeProducts } = useStore();
+  const allAvailableProducts = storeProducts && storeProducts.length > 0 ? storeProducts : MOCK_PRODUCTS;
+
   const [filters, setFilters] = useState<FilterState>({
     category: 'all',
     size: null,
@@ -36,7 +40,7 @@ export default function ShopPage() {
 
   // Filter & Sort Logic
   const filteredProducts = useMemo(() => {
-    return MOCK_PRODUCTS.filter((product) => {
+    return allAvailableProducts.filter((product) => {
       // Category
       if (filters.category !== 'all' && product.categorySlug !== filters.category) {
         return false;

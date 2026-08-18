@@ -5,11 +5,11 @@ import { MapPin, Truck, RotateCcw, Phone } from 'lucide-react';
 
 export const AnnouncementBar: React.FC = () => {
   return (
-    <div className="bg-[#0D3325] text-white/90 py-2 px-4 border-b border-[#082419] text-[11px] font-medium tracking-wide">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-y-1 gap-x-4">
+    <div className="bg-[#0D3325] text-white/90 py-2 px-3 sm:px-4 border-b border-[#082419] text-[10px] sm:text-[11px] font-medium tracking-wide">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center sm:justify-between gap-y-1.5 gap-x-4">
         {/* Item 1: Handcrafted */}
         <div className="flex items-center gap-1.5 text-white/95">
-          <MapPin className="w-3.5 h-3.5 text-[#E5A93C]" />
+          <MapPin className="w-3.5 h-3.5 text-[#E5A93C] flex-shrink-0" />
           <span>Handcrafted in <strong className="text-white font-semibold">Peshawar, Pakistan</strong></span>
         </div>
 
