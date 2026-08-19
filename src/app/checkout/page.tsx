@@ -255,9 +255,9 @@ export default function CheckoutPage() {
               <div className="space-y-3">
                 <label
                   onClick={() => setPaymentMethod('cod')}
-                  className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-colors ${
+                  className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-all ${
                     paymentMethod === 'cod'
-                      ? 'bg-slate-50 border-slate-900'
+                      ? 'bg-blue-50/50 border-blue-600 ring-2 ring-blue-500/20 shadow-2xs'
                       : 'bg-white border-slate-200 hover:border-slate-300'
                   }`}
                 >
@@ -266,7 +266,7 @@ export default function CheckoutPage() {
                     name="payment"
                     checked={paymentMethod === 'cod'}
                     onChange={() => setPaymentMethod('cod')}
-                    className="mt-1 accent-slate-900"
+                    className="mt-1 accent-blue-600"
                   />
                   <div>
                     <div className="text-xs font-bold text-slate-900">
@@ -280,9 +280,9 @@ export default function CheckoutPage() {
 
                 <label
                   onClick={() => setPaymentMethod('jazzcash')}
-                  className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-colors ${
+                  className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-all ${
                     paymentMethod === 'jazzcash'
-                      ? 'bg-slate-50 border-slate-900'
+                      ? 'bg-blue-50/50 border-blue-600 ring-2 ring-blue-500/20 shadow-2xs'
                       : 'bg-white border-slate-200 hover:border-slate-300'
                   }`}
                 >
@@ -291,7 +291,7 @@ export default function CheckoutPage() {
                     name="payment"
                     checked={paymentMethod === 'jazzcash'}
                     onChange={() => setPaymentMethod('jazzcash')}
-                    className="mt-1 accent-slate-900"
+                    className="mt-1 accent-blue-600"
                   />
                   <div>
                     <div className="text-xs font-bold text-slate-900">JazzCash Mobile Wallet</div>
@@ -303,9 +303,9 @@ export default function CheckoutPage() {
 
                 <label
                   onClick={() => setPaymentMethod('easypaisa')}
-                  className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-colors ${
+                  className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-all ${
                     paymentMethod === 'easypaisa'
-                      ? 'bg-slate-50 border-slate-900'
+                      ? 'bg-blue-50/50 border-blue-600 ring-2 ring-blue-500/20 shadow-2xs'
                       : 'bg-white border-slate-200 hover:border-slate-300'
                   }`}
                 >
@@ -314,7 +314,7 @@ export default function CheckoutPage() {
                     name="payment"
                     checked={paymentMethod === 'easypaisa'}
                     onChange={() => setPaymentMethod('easypaisa')}
-                    className="mt-1 accent-slate-900"
+                    className="mt-1 accent-blue-600"
                   />
                   <div>
                     <div className="text-xs font-bold text-slate-900">Easypaisa Mobile Wallet</div>

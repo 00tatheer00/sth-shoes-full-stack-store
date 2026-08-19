@@ -160,8 +160,10 @@ export default function ProductDetailsPage() {
                   <button
                     key={idx}
                     onClick={() => setSelectedImageIndex(idx)}
-                    className={`relative w-20 h-20 bg-white border-2 rounded-xl flex-shrink-0 overflow-hidden cursor-pointer ${
-                      selectedImageIndex === idx ? 'border-slate-900 shadow-xs' : 'border-slate-200 opacity-70 hover:opacity-100'
+                    className={`relative w-20 h-20 bg-white border-2 rounded-xl flex-shrink-0 overflow-hidden cursor-pointer transition-all ${
+                      selectedImageIndex === idx
+                        ? 'border-slate-900 ring-2 ring-slate-900/20 shadow-xs opacity-100 scale-102'
+                        : 'border-slate-200 opacity-60 hover:opacity-100 hover:border-slate-400'
                     }`}
                   >
                     <Image src={img} alt={`View ${idx}`} fill className="object-contain p-1" />
@@ -206,12 +208,10 @@ export default function ProductDetailsPage() {
                     </span>
                   )}
                 </div>
-                <p className="text-[11px] text-slate-500">
-                  Includes nationwide express delivery & premium packaging
-                </p>
+                <div className="text-xs text-slate-500 font-medium">Inclusive of all local taxes & courier handling</div>
               </div>
-              {discountPercent > 0 && (
-                <span className="px-3 py-1 bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold uppercase rounded-lg">
+              {product.salePrice && (
+                <span className="px-2.5 py-1 bg-rose-50 text-rose-700 text-xs font-bold rounded-lg border border-rose-200">
                   Save {discountPercent}%
                 </span>
               )}
@@ -224,26 +224,29 @@ export default function ProductDetailsPage() {
                   Color: <span className="text-slate-900 font-bold">{selectedColor.name}</span>
                 </span>
               </div>
-              <div className="flex gap-2.5">
-                {product.colors?.map((color: any) => (
-                  <button
-                    key={color.name}
-                    onClick={() => setSelectedColor(color)}
-                    className={`p-2 border rounded-xl transition-all flex items-center gap-2 cursor-pointer ${
-                      selectedColor.name === color.name
-                        ? 'border-slate-900 bg-white shadow-xs'
-                        : 'border-slate-200 bg-slate-50 opacity-70 hover:opacity-100'
-                    }`}
-                  >
-                    <span
-                      className="w-4 h-4 rounded-full border border-slate-300"
-                      style={{ backgroundColor: color.hex }}
-                    />
-                    <span className="text-xs font-medium px-1 text-slate-800 hidden sm:inline">
-                      {color.name}
-                    </span>
-                  </button>
-                ))}
+              <div className="flex flex-wrap gap-2.5">
+                {product.colors?.map((color: any) => {
+                  const isSelected = selectedColor.name === color.name;
+                  return (
+                    <button
+                      key={color.name}
+                      onClick={() => setSelectedColor(color)}
+                      className={`px-3 py-2 border rounded-xl transition-all flex items-center gap-2 cursor-pointer ${
+                        isSelected
+                          ? 'border-slate-900 bg-slate-900 text-white shadow-xs ring-2 ring-slate-900/20'
+                          : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50'
+                      }`}
+                    >
+                      <span
+                        className={`w-3.5 h-3.5 rounded-full border ${isSelected ? 'border-white ring-1 ring-white/50' : 'border-slate-300'}`}
+                        style={{ backgroundColor: color.hex }}
+                      />
+                      <span className="text-xs font-semibold">
+                        {color.name}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -261,22 +264,25 @@ export default function ProductDetailsPage() {
                 </Link>
               </div>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-                {product.sizes?.map((s: any) => (
-                  <button
-                    key={s.size}
-                    disabled={!s.inStock}
-                    onClick={() => setSelectedSize(s.size)}
-                    className={`py-2 text-xs font-mono transition-all border rounded-lg font-bold cursor-pointer ${
-                      !s.inStock
-                        ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed line-through'
-                        : selectedSize === s.size
-                        ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
-                        : 'bg-white text-slate-800 border-slate-200 hover:border-slate-400'
-                    }`}
-                  >
-                    {s.size}
-                  </button>
-                ))}
+                {product.sizes?.map((s: any) => {
+                  const isSelected = selectedSize === s.size;
+                  return (
+                    <button
+                      key={s.size}
+                      disabled={!s.inStock}
+                      onClick={() => setSelectedSize(s.size)}
+                      className={`py-2.5 text-xs font-mono transition-all border rounded-lg font-bold cursor-pointer ${
+                        !s.inStock
+                          ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed line-through'
+                          : isSelected
+                          ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-slate-900/20'
+                          : 'bg-white text-slate-800 border-slate-200 hover:border-slate-400 hover:bg-slate-50'
+                      }`}
+                    >
+                      {s.size}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 

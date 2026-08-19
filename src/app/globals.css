@@ -3,7 +3,6 @@
 
 /* ═══════════════════════════════════════════════════════════════════
    TATHEER CHAPPALZ — CLEAN MODERN SLATE & ROYAL BLUE PALETTE
-   (Matching Modern SaaS Admin Dashboard Aesthetics)
    • Primary Dark:       #0F172A (Slate 900)
    • Primary Accent:     #2563EB (Royal Blue 600) / #3B82F6 (Blue 500)
    • Secondary Accent:   #059669 (Emerald 600) / #D97706 (Amber 600)
@@ -56,8 +55,27 @@
     font-weight: 700;
   }
 
+  /* Ultra Clean Modern SaaS Text Selection (Apple/Stripe/Linear style) */
   ::selection {
-    background-color: var(--brand-blue);
+    background-color: #DBEAFE;
+    color: #1E3A8A;
+  }
+  ::-moz-selection {
+    background-color: #DBEAFE;
+    color: #1E3A8A;
+  }
+
+  /* Form Element Selections */
+  select {
+    color-scheme: light;
+  }
+  select option {
+    background-color: #FFFFFF;
+    color: #0F172A;
+    padding: 8px 12px;
+  }
+  select option:checked {
+    background-color: #0F172A;
     color: #FFFFFF;
   }
 }
@@ -146,7 +164,7 @@
 
 .category-card:hover {
   transform: translateY(-4px);
-  border-color: #CBD5E1;
+  border-color: #94A3B8;
   box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.08);
 }
 

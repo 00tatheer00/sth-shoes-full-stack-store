@@ -422,20 +422,20 @@ export default function HomePage() {
             <Link
               key={idx}
               href={`/category/${cat.slug}`}
-              className={`category-card ${cat.bgClass} text-white p-5 min-h-[220px] flex flex-col justify-between group shadow-xs`}
+              className="category-card bg-white border border-slate-200 hover:border-slate-400 text-slate-900 p-4 min-h-[220px] flex flex-col justify-between group shadow-2xs transition-all hover:-translate-y-1 rounded-2xl"
             >
-              <div className="relative w-full h-28 my-auto">
+              <div className="relative w-full h-28 my-auto bg-slate-50 border border-slate-100 rounded-xl p-2 flex items-center justify-center overflow-hidden">
                 <Image
                   src={cat.image}
                   alt={cat.title}
                   fill
-                  className="object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-md"
+                  className="object-contain p-2 group-hover:scale-110 transition-transform duration-300 drop-shadow-xs"
                 />
               </div>
 
-              <div className="relative z-10 text-left pt-2">
-                <h3 className="text-sm font-bold leading-snug">{cat.title}</h3>
-                <span className="text-[11px] font-mono text-slate-300 uppercase tracking-wider block mt-0.5">
+              <div className="relative z-10 text-left pt-3">
+                <h3 className="text-xs sm:text-sm font-bold leading-snug text-slate-900">{cat.title}</h3>
+                <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider block mt-0.5 font-semibold">
                   {cat.itemsCount}
                 </span>
               </div>
@@ -467,10 +467,10 @@ export default function HomePage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id)}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activeCategory === tab.id
-                    ? 'bg-slate-900 text-white shadow-xs'
-                    : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-400'
+                    ? 'bg-slate-900 text-white shadow-xs ring-2 ring-slate-900/20'
+                    : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-400 hover:bg-slate-50'
                 }`}
               >
                 {tab.label}
