@@ -1,3 +1,5 @@
+import { dataEngine } from './dataEngine';
+
 export interface ShippingRateCalculation {
   shippingFee: number;
   isFreeShipping: boolean;
@@ -9,9 +11,12 @@ export interface ShippingRateCalculation {
 
 export const shippingService = {
   calculateShipping(subtotal: number, city?: string): ShippingRateCalculation {
-    const freeThreshold = 5000;
+    const settings = dataEngine.getSettings();
+    const freeThreshold = settings.freeThreshold || 5000;
+    const codFee = settings.codFee || 300;
+
     const isFreeShipping = subtotal >= freeThreshold || subtotal === 0;
-    const shippingFee = isFreeShipping ? 0 : 300;
+    const shippingFee = isFreeShipping ? 0 : codFee;
     const amountNeededForFreeShipping = Math.max(0, freeThreshold - subtotal);
 
     // City-based estimated delivery timeframe

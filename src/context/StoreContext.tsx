@@ -1,20 +1,31 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { Product, CartItem, ProductColor, Order } from '@/types';
+import { Product, CartItem, ProductColor, Order, Category, Coupon, StoreSettings } from '@/types';
 import { productService } from '@/lib/services/productService';
 import { orderService } from '@/lib/services/orderService';
 import { authService } from '@/lib/services/authService';
+import { dataEngine } from '@/lib/services/dataEngine';
 
 interface StoreContextType {
   // Products & Categories
   products: Product[];
   isLoadingProducts: boolean;
   refreshProducts: () => Promise<void>;
+  categories: Category[];
+  refreshCategories: () => Promise<void>;
 
   // Orders
   orders: Order[];
   refreshOrders: () => Promise<void>;
+
+  // Coupons
+  coupons: Coupon[];
+  refreshCoupons: () => Promise<void>;
+
+  // Storefront Settings
+  storeSettings: StoreSettings;
+  refreshSettings: () => Promise<void>;
 
   // Cart
   cart: CartItem[];
@@ -30,6 +41,7 @@ interface StoreContextType {
   couponCode: string;
   discount: number;
   applyCoupon: (code: string) => { success: boolean; message: string };
+  removeCoupon: () => void;
   total: number;
 
   // Wishlist
@@ -55,7 +67,10 @@ const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [storeSettings, setStoreSettings] = useState<StoreSettings>(dataEngine.getSettings());
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [wishlist, setWishlist] = useState<Product[]>([]);
@@ -75,6 +90,15 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, []);
 
+  const refreshCategories = useCallback(async () => {
+    try {
+      const data = dataEngine.getCategories();
+      setCategories(data);
+    } catch (e) {
+      console.error('Failed refreshing categories:', e);
+    }
+  }, []);
+
   const refreshOrders = useCallback(async () => {
     try {
       const data = await orderService.getOrders();
@@ -84,13 +108,34 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, []);
 
-  // Fetch real products & check user auth session on mount
+  const refreshCoupons = useCallback(async () => {
+    try {
+      const data = dataEngine.getCoupons();
+      setCoupons(data);
+    } catch (e) {
+      console.error('Failed refreshing coupons:', e);
+    }
+  }, []);
+
+  const refreshSettings = useCallback(async () => {
+    try {
+      const data = dataEngine.getSettings();
+      setStoreSettings(data);
+    } catch (e) {
+      console.error('Failed refreshing settings:', e);
+    }
+  }, []);
+
+  // Fetch real data & check user auth session on mount
   useEffect(() => {
     async function initStore() {
       try {
         setIsLoadingProducts(true);
         await refreshProducts();
+        await refreshCategories();
         await refreshOrders();
+        await refreshCoupons();
+        await refreshSettings();
 
         // Check Auth Session
         const session = await authService.getSession();
@@ -106,21 +151,33 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     initStore();
 
     // Listen to live dataEngine events
-    const handleProductsUpdate = () => refreshProducts();
+    const handleProductsUpdate = () => {
+      refreshProducts();
+      refreshCategories();
+    };
     const handleOrdersUpdate = () => refreshOrders();
+    const handleCategoriesUpdate = () => refreshCategories();
+    const handleCouponsUpdate = () => refreshCoupons();
+    const handleSettingsUpdate = () => refreshSettings();
 
     if (typeof window !== 'undefined') {
       window.addEventListener('tatheer_products_updated', handleProductsUpdate);
       window.addEventListener('tatheer_orders_updated', handleOrdersUpdate);
+      window.addEventListener('tatheer_categories_updated', handleCategoriesUpdate);
+      window.addEventListener('tatheer_coupons_updated', handleCouponsUpdate);
+      window.addEventListener('tatheer_settings_updated', handleSettingsUpdate);
     }
 
     return () => {
       if (typeof window !== 'undefined') {
         window.removeEventListener('tatheer_products_updated', handleProductsUpdate);
         window.removeEventListener('tatheer_orders_updated', handleOrdersUpdate);
+        window.removeEventListener('tatheer_categories_updated', handleCategoriesUpdate);
+        window.removeEventListener('tatheer_coupons_updated', handleCouponsUpdate);
+        window.removeEventListener('tatheer_settings_updated', handleSettingsUpdate);
       }
     };
-  }, [refreshProducts, refreshOrders]);
+  }, [refreshProducts, refreshCategories, refreshOrders, refreshCoupons, refreshSettings]);
 
   // Persistent local storage sync for cart & wishlist
   useEffect(() => {
@@ -199,6 +256,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const clearCart = () => {
     setCart([]);
+    setCouponCode('');
+    setDiscountPercent(0);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('tatheer_cart');
     }
@@ -221,21 +280,46 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return wishlist.some((p) => p.id === productId);
   };
 
+  const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  const subtotal = cart.reduce((acc, item) => {
+    const itemPrice = item.product.salePrice ?? item.product.price;
+    return acc + itemPrice * item.quantity;
+  }, 0);
+
   const applyCoupon = (code: string) => {
     const clean = code.trim().toUpperCase();
-    if (clean === 'PESHAWAR10') {
-      setCouponCode(clean);
-      setDiscountPercent(10);
-      showToast('Coupon PESHAWAR10 applied (10% OFF)');
-      return { success: true, message: '10% Discount applied successfully!' };
-    } else if (clean === 'TATHEER15') {
-      setCouponCode(clean);
-      setDiscountPercent(15);
-      showToast('Coupon TATHEER15 applied (15% OFF)');
-      return { success: true, message: '15% Heritage Discount applied!' };
-    } else {
-      return { success: false, message: 'Invalid coupon code. Try PESHAWAR10' };
+    const match = dataEngine.getCouponByCode(clean);
+
+    if (!match) {
+      return { success: false, message: 'Invalid coupon code. Try PESHAWAR10 or TATHEER15' };
     }
+
+    if (!match.active) {
+      return { success: false, message: `Coupon ${clean} is currently disabled.` };
+    }
+
+    if (match.minOrder && subtotal < match.minOrder) {
+      return {
+        success: false,
+        message: `Coupon ${clean} requires minimum order of Rs. ${match.minOrder.toLocaleString()}`,
+      };
+    }
+
+    if (match.validUntil && new Date(match.validUntil) < new Date()) {
+      return { success: false, message: `Coupon ${clean} has expired.` };
+    }
+
+    setCouponCode(clean);
+    setDiscountPercent(match.discount);
+    showToast(`Coupon ${clean} applied (${match.discount}% OFF)`);
+    return { success: true, message: `${match.discount}% Discount applied successfully!` };
+  };
+
+  const removeCoupon = () => {
+    setCouponCode('');
+    setDiscountPercent(0);
+    showToast('Coupon removed');
   };
 
   const logoutUser = async () => {
@@ -244,14 +328,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     showToast('Signed out of Tatheer account');
   };
 
-  const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
-
-  const subtotal = cart.reduce((acc, item) => {
-    const itemPrice = item.product.salePrice ?? item.product.price;
-    return acc + itemPrice * item.quantity;
-  }, 0);
-
-  const shippingFee = subtotal >= 5000 || subtotal === 0 ? 0 : 300;
+  const freeThreshold = storeSettings.freeThreshold || 5000;
+  const codFee = storeSettings.codFee || 300;
+  const shippingFee = subtotal >= freeThreshold || subtotal === 0 ? 0 : codFee;
   const discount = Math.round((subtotal * discountPercent) / 100);
   const total = Math.max(0, subtotal - discount + shippingFee);
 
@@ -261,8 +340,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         products,
         isLoadingProducts,
         refreshProducts,
+        categories,
+        refreshCategories,
         orders,
         refreshOrders,
+        coupons,
+        refreshCoupons,
+        storeSettings,
+        refreshSettings,
         cart,
         addToCart,
         removeFromCart,
@@ -276,6 +361,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         couponCode,
         discount,
         applyCoupon,
+        removeCoupon,
         total,
         wishlist,
         toggleWishlist,

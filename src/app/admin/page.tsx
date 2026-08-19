@@ -225,25 +225,30 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="space-y-3 text-xs">
-            <div className="p-3 bg-red-50 border border-red-200 rounded space-y-1">
-              <div className="font-serif font-bold text-[#1C1917]">Kaptan Double Sole Dark Chocolate</div>
-              <div className="flex justify-between text-[11px] font-mono">
-                <span className="text-red-700 font-bold">Variant EU 45: 0 in Stock</span>
-                <Link href="/admin/inventory" className="text-[#0D3325] underline font-bold">
-                  Restock
-                </Link>
-              </div>
-            </div>
-
-            <div className="p-3 bg-amber-50 border border-amber-200 rounded space-y-1">
-              <div className="font-serif font-bold text-[#1C1917]">Norozi Heavy Buckle Maroon</div>
-              <div className="flex justify-between text-[11px] font-mono">
-                <span className="text-amber-800 font-bold">Variant EU 44: 2 in Stock</span>
-                <Link href="/admin/inventory" className="text-[#0D3325] underline font-bold">
-                  Restock
-                </Link>
-              </div>
-            </div>
+            {dataEngine
+              .getAllInventoryVariants()
+              .filter((v) => v.stockCount <= 4)
+              .slice(0, 4)
+              .map((v, i) => (
+                <div
+                  key={i}
+                  className={`p-3 rounded space-y-1 border ${
+                    v.stockCount === 0
+                      ? 'bg-red-50 border-red-200 text-red-900'
+                      : 'bg-amber-50 border-amber-200 text-amber-900'
+                  }`}
+                >
+                  <div className="font-serif font-bold text-[#1C1917]">{v.productName}</div>
+                  <div className="flex justify-between text-[11px] font-mono">
+                    <span className={v.stockCount === 0 ? 'text-red-700 font-bold' : 'text-amber-800 font-bold'}>
+                      EU {v.size} ({v.color}): {v.stockCount} in Stock
+                    </span>
+                    <Link href="/admin/inventory" className="text-[#0D3325] underline font-bold">
+                      Restock
+                    </Link>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </div>

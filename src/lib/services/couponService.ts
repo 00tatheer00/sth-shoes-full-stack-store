@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase/client';
+import { dataEngine } from './dataEngine';
 
 export interface CouponValidationResult {
   valid: boolean;
@@ -28,83 +29,51 @@ export const couponService = {
       };
     }
 
-    // Default hardcoded fallback for PESHAWAR10 & TATHEER15
-    if (cleanCode === 'PESHAWAR10') {
-      const discountAmount = Math.round((subtotal * 10) / 100);
-      return {
-        valid: true,
-        code: 'PESHAWAR10',
-        discountType: 'percentage',
-        discountValue: 10,
-        discountAmount,
-        message: '10% Heritage Discount applied successfully!',
-      };
-    } else if (cleanCode === 'TATHEER15') {
-      if (subtotal < 8000) {
+    // 1. Check in persistent dataEngine
+    const match = dataEngine.getCouponByCode(cleanCode);
+    if (match) {
+      if (!match.active) {
         return {
           valid: false,
-          code: 'TATHEER15',
-          discountType: 'percentage',
-          discountValue: 15,
-          discountAmount: 0,
-          message: 'Coupon TATHEER15 requires a minimum order of Rs. 8,000.',
-        };
-      }
-      const discountAmount = Math.round((subtotal * 15) / 100);
-      return {
-        valid: true,
-        code: 'TATHEER15',
-        discountType: 'percentage',
-        discountValue: 15,
-        discountAmount,
-        message: '15% Royal Patron Discount applied!',
-      };
-    }
-
-    try {
-      if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
-        const { data, error } = await supabase
-          .from('coupons')
-          .select('*')
-          .eq('code', cleanCode)
-          .eq('active', true)
-          .single();
-
-        if (error || !data) {
-          return {
-            valid: false,
-            code: cleanCode,
-            discountType: 'percentage',
-            discountValue: 0,
-            discountAmount: 0,
-            message: 'Invalid or expired promo code.',
-          };
-        }
-
-        // Expiry check
-        if (data.valid_until && new Date(data.valid_until) < new Date()) {
-          return {
-            valid: false,
-            code: cleanCode,
-            discountType: 'percentage',
-            discountValue: 0,
-            discountAmount: 0,
-            message: 'This promo code has expired.',
-          };
-        }
-
-        const discountAmount = Math.round((subtotal * data.discount_percent) / 100);
-        return {
-          valid: true,
           code: cleanCode,
           discountType: 'percentage',
-          discountValue: data.discount_percent,
-          discountAmount,
-          message: `${data.discount_percent}% discount applied!`,
+          discountValue: 0,
+          discountAmount: 0,
+          message: `Coupon ${cleanCode} is currently disabled.`,
         };
       }
-    } catch (e) {
-      console.error('Coupon validation error:', e);
+
+      if (match.minOrder && subtotal < match.minOrder) {
+        return {
+          valid: false,
+          code: cleanCode,
+          discountType: 'percentage',
+          discountValue: match.discount,
+          discountAmount: 0,
+          message: `Coupon ${cleanCode} requires a minimum order of Rs. ${match.minOrder.toLocaleString()}.`,
+        };
+      }
+
+      if (match.validUntil && new Date(match.validUntil) < new Date()) {
+        return {
+          valid: false,
+          code: cleanCode,
+          discountType: 'percentage',
+          discountValue: 0,
+          discountAmount: 0,
+          message: `Coupon ${cleanCode} has expired.`,
+        };
+      }
+
+      const discountAmount = Math.round((subtotal * match.discount) / 100);
+      return {
+        valid: true,
+        code: cleanCode,
+        discountType: 'percentage',
+        discountValue: match.discount,
+        discountAmount,
+        message: `${match.discount}% Promo Discount applied!`,
+      };
     }
 
     return {
@@ -113,7 +82,7 @@ export const couponService = {
       discountType: 'percentage',
       discountValue: 0,
       discountAmount: 0,
-      message: 'Invalid coupon code. Try PESHAWAR10',
+      message: 'Invalid coupon code. Try PESHAWAR10 or TATHEER15',
     };
   },
 };

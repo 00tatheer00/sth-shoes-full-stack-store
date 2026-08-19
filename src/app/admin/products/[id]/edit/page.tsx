@@ -155,6 +155,42 @@ export default function EditProductPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1">
+            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Category</label>
+            <select
+              value={category}
+              onChange={(e) => {
+                const cats = dataEngine.getCategories();
+                const match = cats.find((c) => c.name === e.target.value);
+                setCategory(e.target.value);
+                if (match) setCategorySlug(match.slug);
+              }}
+              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif"
+            >
+              {dataEngine.getCategories().map((c) => (
+                <option key={c.id} value={c.name}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Product Image Asset</label>
+            <select
+              value={featuredImage}
+              onChange={(e) => setFeaturedImage(e.target.value)}
+              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono"
+            >
+              <option value="/images/kaptaan.png">/images/kaptaan.png (Kaptaan)</option>
+              <option value="/images/zalmi.png">/images/zalmi.png (Zalmi)</option>
+              <option value="/images/norozi.png">/images/norozi.png (Norozi)</option>
+              <option value="/images/hero.png">/images/hero.png (Royal Calfskin)</option>
+              <option value="/images/craft.png">/images/craft.png (Namak Mandi)</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-1">
             <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Sole Type</label>
             <input
               type="text"

@@ -23,10 +23,28 @@ export const adminService = {
   },
 
   // Adjust Variant Stock
-  async adjustVariantStock(sku: string, qty: number, note: string): Promise<{ success: boolean; message: string }> {
+  async adjustVariantStock(
+    skuOrProductId: string,
+    qty: number,
+    note: string,
+    size?: number
+  ): Promise<{ success: boolean; message: string }> {
+    const variants = dataEngine.getAllInventoryVariants();
+    const match = variants.find(
+      (v) => v.sku === skuOrProductId || (v.productId === skuOrProductId && (!size || v.size === size))
+    );
+
+    if (match) {
+      dataEngine.adjustStock(match.productId, match.size, qty, false);
+      return {
+        success: true,
+        message: `Stock adjusted by ${qty > 0 ? '+' : ''}${qty} for ${match.productName} (EU ${match.size}) [${note}]`,
+      };
+    }
+
     return {
       success: true,
-      message: `Stock updated by ${qty} for SKU ${sku} (${note})`,
+      message: `Stock updated by ${qty} (${note})`,
     };
   },
 
@@ -34,6 +52,7 @@ export const adminService = {
   async getDashboardMetrics(): Promise<AdminMetrics> {
     const orders = dataEngine.getOrders();
     const products = dataEngine.getProducts();
+    const customers = dataEngine.getCustomers();
 
     const nonCancelledOrders = orders.filter((o) => o.status !== 'Cancelled');
     const totalRevenue = nonCancelledOrders.reduce((sum, o) => sum + o.total, 0);
@@ -87,20 +106,22 @@ export const adminService = {
       { month: 'Nov', revenue: 610000, orders: 48 },
       { month: 'Dec', revenue: 890000, orders: 69 },
       { month: 'Jan', revenue: 780000, orders: 58 },
-      { month: 'Feb', revenue: totalRevenue, orders: orders.length },
+      { month: 'Current', revenue: totalRevenue, orders: orders.length },
     ];
+
+    const lowStockVariants = dataEngine.getAllInventoryVariants().filter((v) => v.stockCount <= 3);
 
     return {
       totalRevenue: totalRevenue || 3450000,
-      todayRevenue: todayRevenue || 52990,
+      todayRevenue: todayRevenue || (todayOrders.length > 0 ? todayRevenue : 26500),
       monthlyRevenue: totalRevenue || 1280000,
       totalOrders: orders.length,
       pendingOrders,
       dispatchedOrders,
       deliveredOrders,
       cancelledOrders,
-      totalCustomers: Math.max(orders.length + 15, 2500),
-      lowStockCount: products.filter((p) => p.sizes.some((s) => !s.inStock)).length,
+      totalCustomers: customers.length,
+      lowStockCount: lowStockVariants.length,
       revenueChart,
       cityOrders: cityOrders.length > 0 ? cityOrders : [
         { city: 'Lahore', count: 45, percentage: 38 },
@@ -109,7 +130,7 @@ export const adminService = {
         { city: 'Peshawar', count: 15, percentage: 11 },
       ],
       topProducts: topProducts.length > 0 ? topProducts : [
-        { name: 'Kaptaan Double Sole Dark Chocolate', salesCount: 142, revenue: 1845858 },
+        { name: 'Kaptan Double Sole Dark Chocolate', salesCount: 142, revenue: 1845858 },
         { name: 'Zalmi Velvet-Suede Camel Edition', salesCount: 108, revenue: 1511892 },
         { name: 'Norozi Heavy Buckle Heritage Maroon', salesCount: 88, revenue: 1319912 },
         { name: 'Royal Calfskin Atelier Tan', salesCount: 65, revenue: 1104935 },

@@ -8,8 +8,10 @@ import {
   Mail,
   ChevronUp,
 } from 'lucide-react';
+import { useStore } from '@/context/StoreContext';
 
 export const Footer: React.FC = () => {
+  const { storeSettings } = useStore();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -159,15 +161,15 @@ export const Footer: React.FC = () => {
             <div className="space-y-2 text-white/70 text-xs">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#E5A93C] flex-shrink-0 mt-0.5" />
-                <span>Namak Mandi, Peshawar, Khyber Pakhtunkhwa, Pakistan</span>
+                <span>{storeSettings?.address || 'Namak Mandi, Peshawar, Khyber Pakhtunkhwa, Pakistan'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#E5A93C] flex-shrink-0" />
-                <span>+92 300 9876543</span>
+                <span>{storeSettings?.phone || '+92 300 9876543'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#E5A93C] flex-shrink-0" />
-                <span>hello@tatheerchappalz.com</span>
+                <span>{storeSettings?.email || 'hello@tatheerchappalz.com'}</span>
               </div>
             </div>
           </div>

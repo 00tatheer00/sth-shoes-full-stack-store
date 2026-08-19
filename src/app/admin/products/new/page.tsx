@@ -5,16 +5,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Save, Plus, Trash2, AlertCircle } from 'lucide-react';
 import { productService } from '@/lib/services/productService';
+import { dataEngine } from '@/lib/services/dataEngine';
 import { useStore } from '@/context/StoreContext';
 
 export default function NewProductPage() {
   const router = useRouter();
   const { showToast } = useStore();
+  const [categoriesList, setCategoriesList] = useState(dataEngine.getCategories());
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
-  const [category, setCategory] = useState('Kaptan Collection');
-  const [categorySlug, setCategorySlug] = useState('kaptan-collection');
+  const [category, setCategory] = useState(categoriesList[0]?.name || 'Kaptan Collection');
+  const [categorySlug, setCategorySlug] = useState(categoriesList[0]?.slug || 'kaptan-collection');
   const [price, setPrice] = useState('14500');
   const [salePrice, setSalePrice] = useState('12999');
   const [shortDescription, setShortDescription] = useState('Handcrafted in Peshawar using genuine full-grain leather.');
@@ -292,13 +294,18 @@ export default function NewProductPage() {
               <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Category</label>
               <select
                 value={category}
-                onChange={(e) => handleCategoryChange(e.target.value)}
+                onChange={(e) => {
+                  const selected = categoriesList.find((c) => c.name === e.target.value);
+                  setCategory(e.target.value);
+                  if (selected) setCategorySlug(selected.slug);
+                }}
                 className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif"
               >
-                <option value="Kaptan Collection">Kaptan Collection</option>
-                <option value="Zalmi Collection">Zalmi Collection</option>
-                <option value="Traditional Leather">Traditional Leather</option>
-                <option value="Premium Calfskin">Premium Calfskin</option>
+                {categoriesList.map((c) => (
+                  <option key={c.id} value={c.name}>
+                    {c.name}
+                  </option>
+                ))}
               </select>
             </div>
 

@@ -117,3 +117,46 @@ export interface Order {
   shippingAddress: Address;
   trackingNumber: string;
 }
+
+export interface Coupon {
+  id: string;
+  code: string;
+  discount: number; // e.g. 10 for 10%
+  minOrder?: number;
+  active: boolean;
+  usageCount: number;
+  validUntil: string;
+}
+
+export interface StoreSettings {
+  announcement: string;
+  phone: string;
+  email: string;
+  address: string;
+  freeThreshold: number;
+  codFee: number;
+}
+
+export interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  city: string;
+  ordersCount: number;
+  totalSpent: number;
+  role: string;
+  lastOrderDate?: string;
+}
+
+export interface InventoryVariant {
+  productId: string;
+  productName: string;
+  category: string;
+  size: number;
+  color: string;
+  sku: string;
+  inStock: boolean;
+  stockCount: number;
+}
+
