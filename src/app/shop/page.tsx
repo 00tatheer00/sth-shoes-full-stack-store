@@ -87,7 +87,7 @@ export default function ShopPage() {
       if (sortBy === 'newest') return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
       return 0; // featured default
     });
-  }, [filters, sortBy]);
+  }, [allAvailableProducts, filters, sortBy]);
 
   const itemsPerPage = 8;
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) || 1;
@@ -97,17 +97,17 @@ export default function ShopPage() {
   );
 
   return (
-    <div className="bg-[#FAF6EF] min-h-screen pb-20">
+    <div className="bg-slate-50 min-h-screen pb-20 font-sans">
       {/* Header Banner */}
-      <div className="bg-[#0D3325] text-white py-14 md:py-20 border-b border-[#082419] relative overflow-hidden">
+      <div className="bg-slate-900 text-white py-14 md:py-16 border-b border-slate-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 relative z-10">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#E5A93C] block">
-            ALL FOOTWEAR CATALOG
+          <span className="text-xs font-semibold uppercase tracking-wider text-blue-400 block">
+            FOOTWEAR CATALOG
           </span>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold text-white">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
             Shop Peshawari Chappals
           </h1>
-          <p className="text-xs sm:text-sm text-white/70 max-w-xl mx-auto font-light">
+          <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
             Handcrafted in Namak Mandi, Peshawar from full-grain leathers & durable tire soles.
           </p>
         </div>
@@ -115,10 +115,10 @@ export default function ShopPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Search & Utility Bar */}
-        <div className="bg-white border border-[#EAE3D5] rounded-lg p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs">
+        <div className="bg-white border border-slate-200 rounded-xl p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xs">
           {/* Search Box */}
           <div className="relative w-full md:w-96">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8A94A6]" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Search catalog by name or keyword..."
@@ -127,7 +127,7 @@ export default function ShopPage() {
                 setFilters((f) => ({ ...f, search: e.target.value }));
                 setCurrentPage(1);
               }}
-              className="w-full pl-10 pr-4 py-2 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs focus:outline-none focus:border-[#0D3325]"
+              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white"
             />
           </div>
 
@@ -135,20 +135,20 @@ export default function ShopPage() {
             {/* Mobile Filter Button */}
             <button
               onClick={() => setMobileDrawerOpen(true)}
-              className="lg:hidden btn-forest text-[10px] py-2 px-3 flex items-center gap-1.5"
+              className="lg:hidden px-3.5 py-2 bg-slate-900 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5"
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-[#E5A93C]" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-blue-400" />
               Filters ({filteredProducts.length})
             </button>
 
             {/* Sort Select */}
-            <div className="flex items-center gap-2 text-xs text-[#1C1917]">
-              <ArrowUpDown className="w-4 h-4 text-[#0D3325] hidden sm:inline" />
-              <span className="hidden sm:inline font-mono uppercase text-[10px] text-[#5A6578] font-bold">Sort:</span>
+            <div className="flex items-center gap-2 text-xs text-slate-700">
+              <ArrowUpDown className="w-4 h-4 text-slate-400 hidden sm:inline" />
+              <span className="hidden sm:inline font-semibold text-slate-500 uppercase text-[11px]">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-[#FAF6EF] border border-[#EAE3D5] rounded px-3 py-2 text-xs focus:outline-none focus:border-[#0D3325]"
+                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900"
               >
                 <option value="featured">Featured Collection</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -163,7 +163,7 @@ export default function ShopPage() {
         {/* Main Grid & Sidebar Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Desktop Filter Sidebar */}
-          <div className="hidden lg:block lg:col-span-1 bg-white border border-[#EAE3D5] rounded-lg p-6 self-start shadow-xs">
+          <div className="hidden lg:block lg:col-span-1 bg-white border border-slate-200 rounded-xl p-6 self-start shadow-2xs">
             <FilterSidebar
               filters={filters}
               setFilters={setFilters}
@@ -173,24 +173,24 @@ export default function ShopPage() {
 
           {/* Product Grid Area */}
           <div className="lg:col-span-3 space-y-8">
-            <div className="flex items-center justify-between text-xs text-[#5A6578] font-mono uppercase tracking-wider border-b border-[#EAE3D5] pb-2.5">
+            <div className="flex items-center justify-between text-xs text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2.5">
               <span>Showing {paginatedProducts.length} of {filteredProducts.length} Products</span>
-              {filteredProducts.length < MOCK_PRODUCTS.length && (
-                <button onClick={resetFilters} className="text-[#0D3325] hover:underline font-bold">
+              {filteredProducts.length < allAvailableProducts.length && (
+                <button onClick={resetFilters} className="text-blue-600 hover:underline font-semibold cursor-pointer">
                   Clear All Filters
                 </button>
               )}
             </div>
 
             {paginatedProducts.length === 0 ? (
-              <div className="p-14 text-center bg-white border border-[#EAE3D5] rounded-lg space-y-4 shadow-xs">
-                <h3 className="text-lg font-serif font-bold text-[#1C1917]">No products match your filters</h3>
-                <p className="text-xs text-[#5A6578]">
+              <div className="p-14 text-center bg-white border border-slate-200 rounded-xl space-y-4 shadow-2xs">
+                <h3 className="text-base font-bold text-slate-900">No products match your filters</h3>
+                <p className="text-xs text-slate-500">
                   Try clearing your search query or selecting a different size or color.
                 </p>
                 <button
                   onClick={resetFilters}
-                  className="btn-forest py-2.5 px-6 text-xs"
+                  className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold"
                 >
                   Reset All Filters
                 </button>
@@ -209,7 +209,7 @@ export default function ShopPage() {
                 <button
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  className="px-4 py-2 bg-white border border-[#EAE3D5] rounded text-xs font-bold text-[#1C1917] disabled:opacity-40 hover:border-[#0D3325]"
+                  className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 disabled:opacity-40 hover:bg-slate-50 cursor-pointer"
                 >
                   Previous
                 </button>
@@ -219,10 +219,10 @@ export default function ShopPage() {
                     <button
                       key={pageNum}
                       onClick={() => setCurrentPage(pageNum)}
-                      className={`w-9 h-9 text-xs font-mono font-bold rounded transition-colors ${
+                      className={`w-9 h-9 text-xs font-mono font-bold rounded-lg transition-colors cursor-pointer ${
                         currentPage === pageNum
-                          ? 'bg-[#0D3325] text-white'
-                          : 'bg-white text-[#1C1917] border border-[#EAE3D5] hover:border-[#0D3325]'
+                          ? 'bg-slate-900 text-white shadow-xs'
+                          : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
                       }`}
                     >
                       {pageNum}
@@ -232,7 +232,7 @@ export default function ShopPage() {
                 <button
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  className="px-4 py-2 bg-white border border-[#EAE3D5] rounded text-xs font-bold text-[#1C1917] disabled:opacity-40 hover:border-[#0D3325]"
+                  className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 disabled:opacity-40 hover:bg-slate-50 cursor-pointer"
                 >
                   Next
                 </button>

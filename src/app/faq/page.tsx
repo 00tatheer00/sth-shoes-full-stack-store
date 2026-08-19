@@ -26,7 +26,7 @@ export default function FAQPage() {
     },
     {
       question: 'What is your size exchange policy?',
-      answer: 'We offer a 14-day hassle-free size exchange. If the size does not fit comfortably, contact our WhatsApp concierge team, and we will arrange a home collection and swap your size.',
+      answer: 'We offer a 7-day hassle-free size exchange. If the size does not fit comfortably, contact our WhatsApp concierge team, and we will arrange a doorstep exchange.',
     },
     {
       question: 'How should I care for and polish my leather Peshawari Chappal?',
@@ -41,14 +41,14 @@ export default function FAQPage() {
   );
 
   return (
-    <div className="bg-[#FAF7F2] min-h-screen pb-20">
-      <div className="bg-[#1F130E] text-[#FAF7F2] py-16 md:py-20 border-b border-[#3A2315]">
+    <div className="bg-slate-50 min-h-screen pb-20 font-sans">
+      <div className="bg-slate-900 text-white py-16 md:py-20 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-          <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#C59B27] flex items-center justify-center gap-1.5">
+          <span className="text-xs font-semibold uppercase tracking-wider text-blue-400 flex items-center justify-center gap-1.5">
             <HelpCircle className="w-4 h-4" /> Patron Assistance
           </span>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold">Frequently Asked Questions</h1>
-          <p className="text-xs sm:text-sm text-[#E2D7C7]/80 max-w-xl mx-auto font-sans font-light">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">Frequently Asked Questions</h1>
+          <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
             Answers to common queries regarding ordering, sizing, leather care, and nationwide shipping.
           </p>
         </div>
@@ -57,41 +57,41 @@ export default function FAQPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-8">
         {/* Search input */}
         <div className="relative">
-          <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-[#4A2E1D]/50" />
+          <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
             placeholder="Search questions (e.g. Sizing, Delivery, Leather care)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-white border border-[#E2D7C7] text-xs font-serif focus:outline-none focus:border-[#B87546] shadow-xs"
+            className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 shadow-2xs"
           />
         </div>
 
         {/* Accordions */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {filteredFaqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="bg-white border border-[#E2D7C7] transition-all shadow-xs overflow-hidden"
+                className="bg-white border border-slate-200 rounded-xl transition-all shadow-2xs overflow-hidden"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full p-5 text-left flex justify-between items-center gap-4 bg-[#FAF7F2] hover:bg-white transition-colors"
+                  className="w-full p-5 text-left flex justify-between items-center gap-4 bg-white hover:bg-slate-50 transition-colors cursor-pointer"
                 >
-                  <span className="text-sm sm:text-base font-serif font-bold text-[#1F130E]">
+                  <span className="text-sm font-bold text-slate-900">
                     {faq.question}
                   </span>
                   {isOpen ? (
-                    <ChevronUp className="w-5 h-5 text-[#B87546] flex-shrink-0" />
+                    <ChevronUp className="w-4 h-4 text-blue-600 flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-[#4A2E1D]/50 flex-shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 flex-shrink-0" />
                   )}
                 </button>
 
                 {isOpen && (
-                  <div className="p-5 border-t border-[#E2D7C7] text-xs sm:text-sm text-[#1F130E]/80 leading-relaxed font-sans bg-white">
+                  <div className="p-5 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed bg-slate-50/50">
                     {faq.answer}
                   </div>
                 )}

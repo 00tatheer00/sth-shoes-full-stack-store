@@ -377,8 +377,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     >
       {children}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0D3325] text-white px-5 py-3 rounded-lg border-l-4 border-[#E5A93C] shadow-2xl flex items-center gap-3 transition-all duration-300">
-          <span className="w-2 h-2 rounded-full bg-[#E5A93C] animate-pulse"></span>
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-xl border border-slate-700 shadow-2xl flex items-center gap-3 transition-all duration-300 font-sans">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span className="text-xs font-semibold tracking-wide">{toastMessage}</span>
         </div>
       )}

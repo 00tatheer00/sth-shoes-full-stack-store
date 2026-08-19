@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Package, Truck, CheckCircle2, Clock, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { AccountSidebar } from '@/components/account/AccountSidebar';
 import { MOCK_ORDERS } from '@/data/mockData';
 import { formatPKR } from '@/lib/utils';
@@ -11,13 +11,13 @@ export default function AccountOrdersPage() {
   const [expandedOrder, setExpandedOrder] = useState<string | null>('ord-1001');
 
   return (
-    <div className="bg-[#FAF7F2] min-h-screen pb-20">
-      <div className="bg-[#1F130E] text-[#FAF7F2] py-12 border-b border-[#3A2315]">
+    <div className="bg-slate-50 min-h-screen pb-20 font-sans">
+      <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#C59B27]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
             Order History
           </span>
-          <h1 className="text-2xl md:text-4xl font-serif font-bold text-[#FAF7F2]">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
             Your Purchases & Tracking
           </h1>
         </div>
@@ -30,7 +30,7 @@ export default function AccountOrdersPage() {
           </div>
 
           <div className="lg:col-span-8 space-y-6">
-            <div className="text-xs font-mono uppercase text-[#4A2E1D] font-bold border-b border-[#E2D7C7] pb-2">
+            <div className="text-xs uppercase text-slate-500 font-semibold tracking-wider border-b border-slate-200 pb-2">
               All Orders ({MOCK_ORDERS.length})
             </div>
 
@@ -39,40 +39,40 @@ export default function AccountOrdersPage() {
               return (
                 <div
                   key={order.id}
-                  className="bg-white border border-[#E2D7C7] shadow-xs overflow-hidden"
+                  className="bg-white border border-slate-200 rounded-2xl shadow-2xs overflow-hidden"
                 >
                   {/* Order Header */}
-                  <div className="p-5 bg-[#FAF7F2] border-b border-[#E2D7C7] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="p-5 bg-slate-50/50 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-serif font-bold text-base text-[#1F130E]">
+                        <span className="font-bold text-sm text-slate-900">
                           Order #{order.orderNumber}
                         </span>
                         <span
-                          className={`px-2.5 py-0.5 text-[10px] font-mono uppercase font-bold ${
+                          className={`px-2.5 py-0.5 text-[10px] font-mono uppercase font-bold rounded-full ${
                             order.status === 'Dispatched'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-green-100 text-green-800'
+                              ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                              : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           }`}
                         >
                           {order.status}
                         </span>
                       </div>
-                      <div className="text-xs text-[#4A2E1D]/70 font-mono mt-0.5">
+                      <div className="text-xs text-slate-500 font-mono mt-0.5">
                         Placed on {order.date} • Tracking: {order.trackingNumber}
                       </div>
                     </div>
 
                     <div className="flex items-center gap-4 justify-between sm:justify-end">
                       <div className="text-right">
-                        <div className="text-sm font-serif font-bold text-[#1F130E]">
+                        <div className="text-sm font-bold font-mono text-slate-900">
                           {formatPKR(order.total)}
                         </div>
-                        <div className="text-[10px] text-[#4A2E1D]/60 font-mono">{order.paymentMethod}</div>
+                        <div className="text-[10px] text-slate-500 font-mono">{order.paymentMethod}</div>
                       </div>
                       <button
                         onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
-                        className="p-1.5 text-[#1F130E] hover:text-[#B87546]"
+                        className="p-1.5 text-slate-400 hover:text-slate-900 rounded-lg cursor-pointer"
                       >
                         {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       </button>
@@ -84,10 +84,10 @@ export default function AccountOrdersPage() {
                     <div className="p-6 space-y-6">
                       {/* Timeline Tracker */}
                       <div className="space-y-3">
-                        <h4 className="text-xs font-mono uppercase text-[#4A2E1D] font-bold">
+                        <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                           Live Dispatch Timeline
                         </h4>
-                        <div className="p-4 bg-[#FAF7F2] border border-[#E2D7C7] space-y-3">
+                        <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
                           {(order.timeline || [
                             { title: 'Order Placed & Verified', date: order.date, completed: true },
                             { title: 'Artisan Workshop Crafting', date: order.date, completed: true },
@@ -98,21 +98,21 @@ export default function AccountOrdersPage() {
                               <div
                                 className={`w-5 h-5 rounded-full flex items-center justify-center text-xs mt-0.5 flex-shrink-0 ${
                                   step.completed
-                                    ? 'bg-green-600 text-white'
-                                    : 'bg-gray-200 text-gray-400'
+                                    ? 'bg-emerald-600 text-white'
+                                    : 'bg-slate-200 text-slate-400'
                                 }`}
                               >
                                 ✓
                               </div>
                               <div className="flex-1 flex justify-between items-center text-xs">
                                 <span
-                                  className={`font-serif ${
-                                    step.completed ? 'font-bold text-[#1F130E]' : 'text-[#4A2E1D]/60'
+                                  className={`${
+                                    step.completed ? 'font-bold text-slate-900' : 'text-slate-400'
                                   }`}
                                 >
                                   {step.title}
                                 </span>
-                                <span className="font-mono text-[11px] text-[#4A2E1D]/60">
+                                <span className="font-mono text-[11px] text-slate-400">
                                   {step.date}
                                 </span>
                               </div>
@@ -123,26 +123,26 @@ export default function AccountOrdersPage() {
 
                       {/* Items */}
                       <div className="space-y-3">
-                        <h4 className="text-xs font-mono uppercase text-[#4A2E1D] font-bold">
+                        <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                           Ordered Items
                         </h4>
                         {order.items.map((item, idx) => (
                           <div
                             key={idx}
-                            className="p-3 bg-white border border-[#E2D7C7] flex items-center gap-4"
+                            className="p-3 bg-white border border-slate-200 rounded-xl flex items-center gap-4 shadow-2xs"
                           >
-                            <div className="relative w-16 h-16 bg-[#FAF7F2] border border-[#E2D7C7]">
+                            <div className="relative w-16 h-16 bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex-shrink-0">
                               <Image src={item.image} alt={item.productName} fill className="object-cover" />
                             </div>
                             <div className="flex-1">
-                              <h5 className="text-sm font-serif font-bold text-[#1F130E]">
+                              <h5 className="text-xs font-bold text-slate-900">
                                 {item.productName}
                               </h5>
-                              <p className="text-xs text-[#4A2E1D]/70 font-mono">
+                              <p className="text-[11px] text-slate-500 font-mono">
                                 Shade: {item.color} • Size: EU {item.size} • Qty: {item.quantity}
                               </p>
                             </div>
-                            <div className="text-sm font-serif font-bold text-[#1F130E]">
+                            <div className="text-xs font-bold font-mono text-slate-900">
                               {formatPKR(item.price * item.quantity)}
                             </div>
                           </div>
@@ -150,13 +150,13 @@ export default function AccountOrdersPage() {
                       </div>
 
                       {/* Shipping Address */}
-                      <div className="p-4 bg-[#FAF7F2] border border-[#E2D7C7] text-xs text-[#4A2E1D]">
-                        <div className="font-mono uppercase font-bold text-[#1F130E] mb-1">
+                      <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700">
+                        <div className="font-bold text-slate-900 mb-1">
                           Delivery Destination:
                         </div>
                         <div>{order.shippingAddress.fullName}</div>
                         <div>{order.shippingAddress.addressLine}, {order.shippingAddress.city}</div>
-                        <div>Phone: {order.shippingAddress.phone}</div>
+                        <div className="text-slate-500 font-mono pt-0.5">Phone: {order.shippingAddress.phone}</div>
                       </div>
                     </div>
                   )}

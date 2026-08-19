@@ -4,9 +4,11 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Package, User, MapPin, Heart, LogOut } from 'lucide-react';
+import { useStore } from '@/context/StoreContext';
 
 export const AccountSidebar: React.FC = () => {
   const pathname = usePathname();
+  const { currentUser, logoutUser } = useStore();
 
   const menu = [
     { name: 'Dashboard', href: '/account', icon: LayoutDashboard },
@@ -17,15 +19,15 @@ export const AccountSidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-full bg-white border border-[#E2D7C7] p-6 shadow-xs space-y-6">
+    <aside className="w-full bg-white border border-slate-200 rounded-2xl p-6 shadow-2xs space-y-6 font-sans">
       {/* Customer Avatar & Welcome header */}
-      <div className="flex items-center gap-3 border-b border-[#E2D7C7] pb-4">
-        <div className="w-12 h-12 rounded-full bg-[#1F130E] text-[#C59B27] font-serif font-bold text-lg flex items-center justify-center border border-[#C59B27]">
-          SK
+      <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+        <div className="w-11 h-11 rounded-xl bg-slate-900 text-white font-bold text-base flex items-center justify-center shadow-xs">
+          {currentUser?.user_metadata?.full_name ? currentUser.user_metadata.full_name.substring(0, 2).toUpperCase() : 'SK'}
         </div>
         <div>
-          <h3 className="text-sm font-serif font-bold text-[#1F130E]">Shahzaib Khan</h3>
-          <p className="text-[11px] text-[#4A2E1D]/70 font-mono">Islamabad, Pakistan</p>
+          <h3 className="text-sm font-bold text-slate-900">{currentUser?.user_metadata?.full_name || 'Shahzaib Khan'}</h3>
+          <p className="text-xs text-slate-500 font-mono">{currentUser?.email || 'shahzaib@example.com'}</p>
         </div>
       </div>
 
@@ -37,27 +39,27 @@ export const AccountSidebar: React.FC = () => {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 text-xs font-serif transition-colors ${
+              className={`flex items-center gap-3 px-3.5 py-2.5 text-xs font-semibold rounded-lg transition-colors ${
                 isActive
-                  ? 'bg-[#1F130E] text-[#C59B27] font-bold'
-                  : 'text-[#1F130E] hover:bg-[#FAF7F2] hover:text-[#B87546]'
+                  ? 'bg-slate-900 text-white shadow-2xs'
+                  : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-[#C59B27]' : 'text-[#4A2E1D]/60'}`} />
+              <Icon className={`w-4 h-4 ${isActive ? 'text-blue-400' : 'text-slate-400'}`} />
               <span>{item.name}</span>
             </Link>
           );
         })}
       </nav>
 
-      <div className="pt-4 border-t border-[#E2D7C7]">
-        <Link
-          href="/auth/login"
-          className="flex items-center gap-3 px-3 py-2 text-xs font-serif text-red-700 hover:bg-red-50 transition-colors"
+      <div className="pt-4 border-t border-slate-100">
+        <button
+          onClick={() => logoutUser()}
+          className="w-full flex items-center gap-3 px-3.5 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer text-left"
         >
           <LogOut className="w-4 h-4" />
-          <span>Sign Out Account</span>
-        </Link>
+          <span>Sign Out</span>
+        </button>
       </div>
     </aside>
   );

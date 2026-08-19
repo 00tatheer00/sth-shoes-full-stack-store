@@ -36,33 +36,33 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   ];
 
   return (
-    <aside className="w-full space-y-6 text-[#1F130E]">
+    <aside className="w-full space-y-6 text-slate-900 font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[#E2D7C7] pb-3">
-        <div className="flex items-center gap-2 text-sm font-serif font-bold uppercase tracking-wider">
-          <Filter className="w-4 h-4 text-[#B87546]" />
-          <span>Refine Selection</span>
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-900">
+          <Filter className="w-4 h-4 text-blue-600" />
+          <span>Filters</span>
         </div>
         <button
           onClick={resetFilters}
-          className="text-xs text-[#B87546] hover:underline flex items-center gap-1 font-mono"
+          className="text-xs text-blue-600 hover:underline flex items-center gap-1 font-semibold cursor-pointer"
         >
           <RotateCcw className="w-3 h-3" /> Reset
         </button>
       </div>
 
       {/* Category Filter */}
-      <div className="space-y-2 border-b border-[#E2D7C7] pb-5">
-        <h4 className="text-xs font-mono uppercase tracking-widest text-[#4A2E1D] font-bold">
+      <div className="space-y-2 border-b border-slate-100 pb-5">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
           Categories
         </h4>
-        <div className="space-y-1.5 pt-1">
+        <div className="space-y-1 pt-1">
           <button
             onClick={() => setFilters((f) => ({ ...f, category: 'all' }))}
-            className={`w-full text-left px-2.5 py-1.5 text-xs font-serif flex items-center justify-between transition-colors ${
+            className={`w-full text-left px-3 py-2 text-xs rounded-lg flex items-center justify-between transition-colors cursor-pointer ${
               filters.category === 'all'
-                ? 'bg-[#1F130E] text-[#C59B27] font-semibold'
-                : 'hover:bg-[#EAE3D2] text-[#1F130E]'
+                ? 'bg-slate-900 text-white font-semibold shadow-2xs'
+                : 'hover:bg-slate-50 text-slate-700'
             }`}
           >
             <span>All Collections</span>
@@ -71,45 +71,47 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             <button
               key={cat.id}
               onClick={() => setFilters((f) => ({ ...f, category: cat.slug }))}
-              className={`w-full text-left px-2.5 py-1.5 text-xs font-serif flex items-center justify-between transition-colors ${
+              className={`w-full text-left px-3 py-2 text-xs rounded-lg flex items-center justify-between transition-colors cursor-pointer ${
                 filters.category === cat.slug
-                  ? 'bg-[#1F130E] text-[#C59B27] font-semibold'
-                  : 'hover:bg-[#EAE3D2] text-[#1F130E]'
+                  ? 'bg-slate-900 text-white font-semibold shadow-2xs'
+                  : 'hover:bg-slate-50 text-slate-700'
               }`}
             >
               <span>{cat.name}</span>
-              <span className="text-[10px] font-mono text-[#4A2E1D]/60">({cat.itemCount})</span>
+              <span className={`text-[10px] font-mono ${filters.category === cat.slug ? 'text-slate-300' : 'text-slate-400'}`}>
+                ({cat.itemCount})
+              </span>
             </button>
           ))}
         </div>
       </div>
 
       {/* Size Filter */}
-      <div className="space-y-2 border-b border-[#E2D7C7] pb-5">
+      <div className="space-y-2 border-b border-slate-100 pb-5">
         <div className="flex justify-between items-center">
-          <h4 className="text-xs font-mono uppercase tracking-widest text-[#4A2E1D] font-bold">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Size (EU)
           </h4>
           {filters.size && (
             <button
               onClick={() => setFilters((f) => ({ ...f, size: null }))}
-              className="text-[10px] text-[#B87546]"
+              className="text-[11px] text-blue-600 font-medium cursor-pointer"
             >
               Clear
             </button>
           )}
         </div>
-        <div className="grid grid-cols-4 gap-2 pt-1">
+        <div className="grid grid-cols-4 gap-1.5 pt-1">
           {sizes.map((s) => (
             <button
               key={s}
               onClick={() =>
                 setFilters((f) => ({ ...f, size: f.size === s ? null : s }))
               }
-              className={`py-2 text-xs font-mono border transition-all ${
+              className={`py-2 text-xs font-mono rounded-lg border transition-all cursor-pointer ${
                 filters.size === s
-                  ? 'bg-[#4A2E1D] text-[#FAF7F2] border-[#1F130E] font-bold'
-                  : 'bg-white text-[#1F130E] border-[#E2D7C7] hover:border-[#B87546]'
+                  ? 'bg-slate-900 text-white border-slate-900 font-bold shadow-2xs'
+                  : 'bg-white text-slate-800 border-slate-200 hover:border-slate-400'
               }`}
             >
               EU {s}
@@ -119,52 +121,52 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       </div>
 
       {/* Color Filter */}
-      <div className="space-y-2 border-b border-[#E2D7C7] pb-5">
+      <div className="space-y-2 border-b border-slate-100 pb-5">
         <div className="flex justify-between items-center">
-          <h4 className="text-xs font-mono uppercase tracking-widest text-[#4A2E1D] font-bold">
-            Leather Shade
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Color
           </h4>
           {filters.color && (
             <button
               onClick={() => setFilters((f) => ({ ...f, color: '' }))}
-              className="text-[10px] text-[#B87546]"
+              className="text-[11px] text-blue-600 font-medium cursor-pointer"
             >
               Clear
             </button>
           )}
         </div>
-        <div className="space-y-1.5 pt-1">
+        <div className="space-y-1 pt-1">
           {colors.map((c) => (
             <button
               key={c.name}
               onClick={() =>
                 setFilters((f) => ({ ...f, color: f.color === c.name ? '' : c.name }))
               }
-              className={`w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-serif transition-colors border ${
+              className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-lg transition-colors border cursor-pointer ${
                 filters.color === c.name
-                  ? 'bg-[#1F130E] text-[#FAF7F2] border-[#1F130E]'
-                  : 'bg-white text-[#1F130E] border-[#E2D7C7] hover:border-[#B87546]'
+                  ? 'bg-slate-900 text-white border-slate-900 font-semibold shadow-2xs'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
               }`}
             >
               <div className="flex items-center gap-2">
                 <span
-                  className="w-3.5 h-3.5 rounded-full border border-gray-400"
+                  className="w-3.5 h-3.5 rounded-full border border-slate-300"
                   style={{ backgroundColor: c.hex }}
                 />
                 <span>{c.name}</span>
               </div>
-              {filters.color === c.name && <Check className="w-3.5 h-3.5 text-[#C59B27]" />}
+              {filters.color === c.name && <Check className="w-3.5 h-3.5 text-blue-400" />}
             </button>
           ))}
         </div>
       </div>
 
       {/* Price Range Filter */}
-      <div className="space-y-3 border-b border-[#E2D7C7] pb-5">
-        <h4 className="text-xs font-mono uppercase tracking-widest text-[#4A2E1D] font-bold">
+      <div className="space-y-3 border-b border-slate-100 pb-5">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
           Price Range (PKR)
         </h4>
-        <div className="flex items-center justify-between text-xs font-mono text-[#1F130E]">
+        <div className="flex items-center justify-between text-xs font-mono font-semibold text-slate-800">
           <span>Rs. {filters.minPrice.toLocaleString()}</span>
           <span>Rs. {filters.maxPrice.toLocaleString()}</span>
         </div>
@@ -177,20 +179,20 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           onChange={(e) =>
             setFilters((f) => ({ ...f, maxPrice: Number(e.target.value) }))
           }
-          className="w-full accent-[#4A2E1D]"
+          className="w-full accent-slate-900 cursor-pointer"
         />
       </div>
 
       {/* In Stock Only */}
       <div className="pt-1">
-        <label className="flex items-center gap-2 cursor-pointer text-xs font-serif text-[#1F130E]">
+        <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-800">
           <input
             type="checkbox"
             checked={filters.inStockOnly}
             onChange={(e) =>
               setFilters((f) => ({ ...f, inStockOnly: e.target.checked }))
             }
-            className="w-4 h-4 accent-[#4A2E1D]"
+            className="w-4 h-4 rounded text-slate-900 accent-slate-900"
           />
           <span>In Stock Items Only</span>
         </label>

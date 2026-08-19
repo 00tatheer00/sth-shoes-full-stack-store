@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MapPin, Plus, Trash2, ShieldCheck, AlertCircle } from 'lucide-react';
+import { MapPin, Plus, Trash2, AlertCircle } from 'lucide-react';
 import { AccountSidebar } from '@/components/account/AccountSidebar';
 import { addressService } from '@/lib/services/addressService';
 import { useStore } from '@/context/StoreContext';
@@ -58,13 +58,13 @@ export default function AddressesPage() {
   };
 
   return (
-    <div className="bg-[#FAF7F2] min-h-screen pb-20">
-      <div className="bg-[#1F130E] text-[#FAF7F2] py-12 border-b border-[#3A2315]">
+    <div className="bg-slate-50 min-h-screen pb-20 font-sans">
+      <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#C59B27]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
             Delivery Destinations
           </span>
-          <h1 className="text-2xl md:text-4xl font-serif font-bold text-[#FAF7F2]">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
             Saved Addresses
           </h1>
         </div>
@@ -77,20 +77,20 @@ export default function AddressesPage() {
           </div>
 
           <div className="lg:col-span-8 space-y-6">
-            <div className="flex items-center justify-between border-b border-[#E2D7C7] pb-3">
-              <span className="text-xs font-mono uppercase text-[#4A2E1D] font-bold">
-                Your Saved Locations ({addresses.length})
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <span className="text-xs font-semibold uppercase text-slate-500 tracking-wider">
+                Saved Locations ({addresses.length})
               </span>
               <button
                 onClick={() => setShowAddForm(!showAddForm)}
-                className="px-4 py-2 bg-[#1F130E] text-[#FAF7F2] text-xs font-serif uppercase tracking-wider flex items-center gap-1.5 hover:bg-[#4A2E1D]"
+                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
               >
-                <Plus className="w-4 h-4 text-[#C59B27]" /> Add New Address
+                <Plus className="w-4 h-4" /> Add New Address
               </button>
             </div>
 
             {errorMsg && (
-              <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
+              <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 rounded-lg">
                 <AlertCircle className="w-4 h-4 flex-shrink-0" />
                 <span>{errorMsg}</span>
               </div>
@@ -98,8 +98,8 @@ export default function AddressesPage() {
 
             {/* Add Address Form Box */}
             {showAddForm && (
-              <form onSubmit={handleAddAddress} className="p-6 bg-white border border-[#E2D7C7] space-y-4 shadow-md">
-                <h3 className="text-sm font-serif font-bold text-[#1F130E]">Add Delivery Destination</h3>
+              <form onSubmit={handleAddAddress} className="p-6 bg-white border border-slate-200 rounded-2xl space-y-4 shadow-md">
+                <h3 className="text-sm font-bold text-slate-900">Add Delivery Destination</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input
                     type="text"
@@ -107,7 +107,7 @@ export default function AddressesPage() {
                     placeholder="Address Title (e.g. Home, Office)"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
-                    className="p-3 bg-[#FAF7F2] border border-[#E2D7C7] text-xs font-serif"
+                    className="p-3 bg-white border border-slate-300 rounded-lg text-xs text-slate-900"
                   />
                   <input
                     type="text"
@@ -115,7 +115,7 @@ export default function AddressesPage() {
                     placeholder="Recipient Full Name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="p-3 bg-[#FAF7F2] border border-[#E2D7C7] text-xs font-serif"
+                    className="p-3 bg-white border border-slate-300 rounded-lg text-xs text-slate-900"
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -125,7 +125,7 @@ export default function AddressesPage() {
                     placeholder="Phone Number"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="p-3 bg-[#FAF7F2] border border-[#E2D7C7] text-xs font-serif"
+                    className="p-3 bg-white border border-slate-300 rounded-lg text-xs font-mono text-slate-900"
                   />
                   <input
                     type="text"
@@ -133,7 +133,7 @@ export default function AddressesPage() {
                     placeholder="City (e.g. Islamabad, Lahore)"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="p-3 bg-[#FAF7F2] border border-[#E2D7C7] text-xs font-serif"
+                    className="p-3 bg-white border border-slate-300 rounded-lg text-xs text-slate-900"
                   />
                 </div>
                 <input
@@ -142,19 +142,19 @@ export default function AddressesPage() {
                   placeholder="Full Street Address & House Number"
                   value={addressLine}
                   onChange={(e) => setAddressLine(e.target.value)}
-                  className="w-full p-3 bg-[#FAF7F2] border border-[#E2D7C7] text-xs font-serif"
+                  className="w-full p-3 bg-white border border-slate-300 rounded-lg text-xs text-slate-900"
                 />
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => setShowAddForm(false)}
-                    className="px-4 py-2 bg-gray-200 text-xs font-serif text-gray-700"
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-xs font-medium text-slate-700 rounded-lg"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2 bg-[#4A2E1D] text-[#FAF7F2] text-xs font-serif uppercase"
+                    className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-xs"
                   >
                     Save Address
                   </button>
@@ -167,35 +167,35 @@ export default function AddressesPage() {
               {addresses.map((addr) => (
                 <div
                   key={addr.id}
-                  className={`p-6 bg-white border space-y-3 relative shadow-xs ${
-                    addr.isDefault ? 'border-[#4A2E1D]' : 'border-[#E2D7C7]'
+                  className={`p-6 bg-white border rounded-2xl space-y-3 relative shadow-2xs ${
+                    addr.isDefault ? 'border-slate-900' : 'border-slate-200'
                   }`}
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-[#B87546]" />
-                      <h4 className="text-sm font-serif font-bold text-[#1F130E]">{addr.title}</h4>
+                      <MapPin className="w-4 h-4 text-blue-600" />
+                      <h4 className="text-sm font-bold text-slate-900">{addr.title}</h4>
                     </div>
                     {addr.isDefault && (
-                      <span className="px-2 py-0.5 bg-green-100 text-green-800 text-[10px] font-mono font-bold">
+                      <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-mono font-bold rounded-full">
                         Default COD
                       </span>
                     )}
                   </div>
 
-                  <div className="text-xs text-[#4A2E1D]/80 space-y-1 font-sans">
-                    <div className="font-bold text-[#1F130E]">{addr.fullName}</div>
+                  <div className="text-xs text-slate-600 space-y-1">
+                    <div className="font-bold text-slate-900">{addr.fullName}</div>
                     <div>{addr.addressLine}</div>
                     <div>{addr.city}, {addr.province} {addr.postalCode}</div>
-                    <div className="font-mono text-[#4A2E1D]/60 pt-1">Phone: {addr.phone}</div>
+                    <div className="font-mono text-slate-400 pt-1">Phone: {addr.phone}</div>
                   </div>
 
-                  <div className="pt-3 border-t border-[#E2D7C7] flex justify-end items-center">
+                  <div className="pt-3 border-t border-slate-100 flex justify-end items-center">
                     <button
                       onClick={() => handleDelete(addr.id)}
-                      className="text-red-700 hover:underline text-xs flex items-center gap-1"
+                      className="text-rose-600 hover:underline text-xs flex items-center gap-1 cursor-pointer"
                     >
-                      <Trash2 className="w-3.5 h-3.5" /> Remove Location
+                      <Trash2 className="w-3.5 h-3.5" /> Remove
                     </button>
                   </div>
                 </div>

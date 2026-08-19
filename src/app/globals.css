@@ -2,52 +2,48 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════════
-   TATHEER CHAPPALZ — EXACT PALETTE MATCHING REFERENCE IMAGE
-   • Primary Brand Green: #0D3325 / #0F382A / #082419
-   • Accent Amber Gold:   #E5A93C / #F0B247
-   • Canvas Soft Cream:   #FAF6EF / #F5EFE4
-   • Pure White Card:     #FFFFFF
-   • Jewel Tones:         Emerald (#0A3B2C), Tobacco (#5C3619),
-                          Navy (#153B68), Plum (#4A1266), Crimson (#8B1C28)
+   TATHEER CHAPPALZ — CLEAN MODERN SLATE & ROYAL BLUE PALETTE
+   (Matching Modern SaaS Admin Dashboard Aesthetics)
+   • Primary Dark:       #0F172A (Slate 900)
+   • Primary Accent:     #2563EB (Royal Blue 600) / #3B82F6 (Blue 500)
+   • Secondary Accent:   #059669 (Emerald 600) / #D97706 (Amber 600)
+   • Neutral Background: #F8FAFC (Slate 50)
+   • Surface Card:       #FFFFFF (Pure White)
+   • Neutral Border:     #E2E8F0 (Slate 200)
+   • High-Contrast Text: #0F172A (Slate 900) / #475569 (Slate 600)
    ═══════════════════════════════════════════════════════════════════ */
 
 @layer base {
   :root {
-    --forest-dark: #082419;
-    --forest-primary: #0D3325;
-    --forest-emerald: #0F382A;
-    --forest-light: #164634;
-    --forest-subtle: #EAF2ED;
+    --slate-dark: #0F172A;
+    --slate-navy: #1E293B;
+    --slate-subtle: #334155;
+    
+    --brand-blue: #2563EB;
+    --brand-blue-hover: #1D4ED8;
+    --brand-blue-light: #EFF6FF;
 
-    --amber-gold: #E5A93C;
-    --amber-hover: #D49A30;
-    --amber-light: #FFF8EB;
+    --brand-emerald: #059669;
+    --brand-amber: #D97706;
 
-    --cream-bg: #FAF6EF;
-    --cream-surface: #F5EFE4;
-    --cream-border: #EAE3D5;
+    --canvas-bg: #F8FAFC;
+    --canvas-surface: #FFFFFF;
+    --canvas-border: #E2E8F0;
 
-    --text-primary: #1C1917;
-    --text-secondary: #5A6578;
-    --text-muted: #8A94A6;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
 
     --card-white: #FFFFFF;
-    --card-border: #ECE6DC;
+    --card-border: #E2E8F0;
 
-    --sale-red: #D92D20;
-    --bestseller-gold: #E5A93C;
-    --new-green: #0D3325;
-
-    /* Category Jewel Tones */
-    --cat-classic: #0A3B2C;
-    --cat-premium: #5C3619;
-    --cat-traditional: #153B68;
-    --cat-kaptaan: #4A1266;
-    --cat-new: #8B1C28;
+    --sale-red: #E11D48;
+    --bestseller-badge: #2563EB;
+    --new-badge: #059669;
   }
 
   body {
-    background-color: var(--cream-bg);
+    background-color: var(--canvas-bg);
     color: var(--text-primary);
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -56,63 +52,64 @@
   }
 
   h1, h2, h3, h4, .font-serif {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 700;
   }
 
   ::selection {
-    background-color: var(--forest-primary);
+    background-color: var(--brand-blue);
     color: #FFFFFF;
   }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   BUTTONS & BADGES MATCHING REFERENCE
+   BUTTONS & BADGES MATCHING CLEAN SAAS PALETTE
    ═══════════════════════════════════════════════════════════════════ */
 
-.btn-forest {
+.btn-forest, .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: var(--forest-primary);
+  background-color: #0F172A;
   color: #FFFFFF;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 12px 24px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-.btn-forest:hover {
-  background-color: var(--forest-dark);
+.btn-forest:hover, .btn-primary:hover {
+  background-color: #1E293B;
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(13, 51, 37, 0.25);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
 }
 
-.btn-amber {
+.btn-amber, .btn-accent {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: var(--amber-gold);
-  color: var(--forest-dark);
+  background-color: #2563EB;
+  color: #FFFFFF;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 800;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 12px 24px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-.btn-amber:hover {
-  background-color: var(--amber-hover);
+.btn-amber:hover, .btn-accent:hover {
+  background-color: #1D4ED8;
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(229, 169, 60, 0.35);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-outline-dark {
@@ -121,72 +118,73 @@
   justify-content: center;
   gap: 8px;
   background-color: #FFFFFF;
-  color: var(--text-primary);
+  color: #0F172A;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 12px 24px;
-  border-radius: 4px;
-  border: 1px solid var(--cream-border);
-  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
 }
 
 .btn-outline-dark:hover {
-  border-color: var(--forest-primary);
-  color: var(--forest-primary);
-  background-color: var(--cream-bg);
+  border-color: #0F172A;
+  background-color: #F8FAFC;
 }
 
 /* Category Card Styling */
 .category-card {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .category-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 32px -8px rgba(13, 51, 37, 0.2);
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.08);
 }
 
 /* Product Card Styling */
 .product-card-ref {
   background-color: #FFFFFF;
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  transition: all 0.3s ease;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  transition: all 0.25s ease;
 }
 
 .product-card-ref:hover {
-  border-color: var(--forest-primary);
-  box-shadow: 0 10px 25px -5px rgba(13, 51, 37, 0.1);
+  border-color: #94A3B8;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
   transform: translateY(-2px);
 }
 
 /* Floating Trust Bar */
 .floating-trust-bar {
   background-color: #FFFFFF;
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  box-shadow: 0 10px 30px -5px rgba(28, 25, 23, 0.06);
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05);
 }
 
 /* Floating Feature Badge on Hero */
 .hero-floating-badge {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(234, 227, 213, 0.9);
+  border: 1px solid #E2E8F0;
   border-radius: 50px;
-  box-shadow: 0 8px 24px -4px rgba(13, 51, 37, 0.12);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.08);
+  transition: all 0.2s ease;
 }
 
 .hero-floating-badge:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 28px -4px rgba(13, 51, 37, 0.18);
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px -2px rgba(15, 23, 42, 0.12);
 }
 
 /* Custom Scrollbar */
@@ -194,9 +192,12 @@
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--cream-bg);
+  background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--forest-primary);
+  background: #94A3B8;
   border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
 }

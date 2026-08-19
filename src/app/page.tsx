@@ -21,13 +21,11 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { ProductCard } from '@/components/ui/ProductCard';
-import { MOCK_PRODUCTS } from '@/data/mockData';
 import { JsonLd } from '@/components/seo/JsonLd';
 
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
 
-  // Filter products for the 5-item bestsellers row
   const allBestsellers = [
     {
       id: 'prod-1',
@@ -171,140 +169,128 @@ export default function HomePage() {
       ? allBestsellers
       : allBestsellers.filter((p) => p.categorySlug === activeCategory);
 
-  // 5 Jewel-Toned Collections (Matching Reference Image)
   const collectionsData = [
     {
       title: 'Classic Collection',
       itemsCount: '12 ITEMS',
-      bgClass: 'bg-[#0A3B2C]', // Forest Emerald
+      bgClass: 'bg-slate-900',
       image: '/images/craft.png',
       slug: 'traditional-leather',
     },
     {
       title: 'Premium Leather',
       itemsCount: '10 ITEMS',
-      bgClass: 'bg-[#5C3619]', // Saddle Tobacco Brown
+      bgClass: 'bg-slate-800',
       image: '/images/hero.png',
       slug: 'premium-calfskin',
     },
     {
       title: 'Traditional Collection',
       itemsCount: '09 ITEMS',
-      bgClass: 'bg-[#153B68]', // Royal Navy
+      bgClass: 'bg-blue-950',
       image: '/images/norozi.png',
       slug: 'traditional-leather',
     },
     {
       title: 'Kaptaan Collection',
       itemsCount: '08 ITEMS',
-      bgClass: 'bg-[#4A1266]', // Imperial Plum Purple
+      bgClass: 'bg-slate-900',
       image: '/images/kaptaan.png',
       slug: 'kaptan-collection',
     },
     {
       title: 'New Arrivals',
       itemsCount: '15 ITEMS',
-      bgClass: 'bg-[#8B1C28]', // Crimson Ruby Red
+      bgClass: 'bg-indigo-950',
       image: '/images/zalmi.png',
       slug: 'zalmi-collection',
     },
   ];
 
   return (
-    <div className="bg-[#FAF6EF] min-h-screen text-[#1C1917]">
+    <div className="bg-slate-50 min-h-screen text-slate-900 font-sans">
       {/* Schema.org Structured Data */}
       <JsonLd type="Organization" data={{}} />
       <JsonLd type="WebSite" data={{}} />
 
-      {/* ══════════════════════════════════════════════════════
-          1. HERO SECTION (MATCHING REFERENCE IMAGE)
-          ══════════════════════════════════════════════════════ */}
-      <section className="relative bg-[#FAF6EF] pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden">
-        {/* Subtle Peshawar Historic Architecture Silhouette Backdrop */}
-        <div
-          className="absolute right-0 top-0 bottom-0 w-full lg:w-1/2 opacity-15 pointer-events-none bg-contain bg-no-repeat bg-right"
-          style={{
-            backgroundImage: "radial-gradient(circle at center, rgba(13,51,37,0.12) 0%, transparent 70%)",
-          }}
-        />
-
+      {/* HERO SECTION */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-24 border-b border-slate-200 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Column: Heading & Narrative */}
             <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
-              {/* Green Pill Tag */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#EAF2ED] border border-[#D5E5DA] rounded-full">
-                <span className="text-xs">🌿</span>
-                <span className="text-[10px] font-mono font-bold tracking-[0.18em] text-[#0D3325] uppercase">
-                  AUTHENTIC • PREMIUM • TIMELESS
+              {/* Pill Tag */}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full">
+                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                <span className="text-[11px] font-bold tracking-wider text-blue-700 uppercase">
+                  AUTHENTIC • HANDCRAFTED • TIMELESS
                 </span>
               </div>
 
               {/* Display Heading */}
-              <h1 className="text-4xl sm:text-6xl lg:text-[64px] font-serif font-bold text-[#1C1917] leading-[1.08] tracking-tight">
-                The Legacy of <br />
-                <span className="text-[#0D3325]">Peshawar</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight tracking-tight">
+                The Heritage of <br />
+                <span className="text-blue-600">Peshawar</span>
               </h1>
 
               {/* Subtitle */}
-              <p className="text-xs sm:text-sm text-[#5A6578] max-w-lg leading-relaxed font-sans">
-                Experience the finest handmade Peshawari Chappal, crafted by skilled artisans using premium leather and centuries-old tradition.
+              <p className="text-sm text-slate-600 max-w-lg leading-relaxed font-sans">
+                Experience authentic handmade Peshawari Chappal, crafted by master cobblers using full-grain calfskin leather and centuries-old Pashtun tradition.
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
                 <Link
                   href="/shop"
-                  className="btn-forest px-7 py-3.5 text-xs shadow-md"
+                  className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors"
                 >
                   <span>SHOP COLLECTION</span>
-                  <ArrowRight className="w-4 h-4 ml-1" />
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <Link
                   href="/craft"
-                  className="btn-outline-dark px-7 py-3.5 text-xs shadow-2xs"
+                  className="px-6 py-3 bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 rounded-xl text-xs font-semibold transition-colors"
                 >
                   <span>OUR CRAFT</span>
                 </Link>
               </div>
 
-              {/* Social Proof Avatars & 4.9/5 Rating */}
+              {/* Social Proof */}
               <div className="flex items-center justify-center lg:justify-start gap-3.5 pt-4">
                 <div className="flex -space-x-2 overflow-hidden">
-                  <div className="w-8 h-8 rounded-full border-2 border-white bg-[#0D3325] text-white text-[10px] font-bold flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full border-2 border-white bg-slate-900 text-white text-[10px] font-bold flex items-center justify-center">
                     SK
                   </div>
-                  <div className="w-8 h-8 rounded-full border-2 border-white bg-[#5C3619] text-white text-[10px] font-bold flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full border-2 border-white bg-blue-600 text-white text-[10px] font-bold flex items-center justify-center">
                     TM
                   </div>
-                  <div className="w-8 h-8 rounded-full border-2 border-white bg-[#153B68] text-white text-[10px] font-bold flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full border-2 border-white bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center">
                     BA
                   </div>
-                  <div className="w-8 h-8 rounded-full border-2 border-white bg-[#E5A93C] text-[#1C1917] text-[10px] font-bold flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full border-2 border-white bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">
                     HF
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
-                    <span className="font-bold text-xs text-[#1C1917]">4.9/5</span>
-                    <div className="flex text-[#E5A93C]">
+                    <span className="font-bold text-xs text-slate-900">4.9/5</span>
+                    <div className="flex text-amber-400">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star key={i} className="w-3 h-3 fill-current" />
                       ))}
                     </div>
                   </div>
-                  <p className="text-[11px] text-[#5A6578]">From 2,500+ Happy Customers</p>
+                  <p className="text-xs text-slate-500">From 2,500+ Verified Customers</p>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Pedestal Shoe Stage with 3 Floating Feature Badges */}
-            <div className="lg:col-span-6 relative flex flex-col items-center justify-center py-4 lg:py-6">
-              {/* Central Elevated Pedestal Display */}
-              <div className="relative w-full max-w-[360px] sm:max-w-[420px] lg:max-w-[460px] aspect-square flex items-center justify-center">
-                {/* Stone / Wooden Round Base Effect */}
-                <div className="absolute bottom-6 w-3/4 h-20 sm:h-24 rounded-full bg-gradient-to-t from-[#D8CEBE] to-[#EDE5D8] shadow-lg blur-xs border border-[#C5BBAA]/40" />
+            {/* Right Column: Shoe Stage */}
+            <div className="lg:col-span-6 relative flex flex-col items-center justify-center py-4">
+              <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
+                {/* Clean Stage Backdrop */}
+                <div className="absolute inset-4 rounded-full bg-slate-100/80 blur-xl" />
 
                 {/* Hero Peshawari Chappal */}
                 <div className="relative w-full h-full z-10">
@@ -314,178 +300,142 @@ export default function HomePage() {
                     fill
                     priority
                     sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 460px"
-                    className="object-contain p-2 sm:p-4 drop-shadow-2xl hover:scale-105 transition-transform duration-700"
+                    className="object-contain p-4 drop-shadow-xl hover:scale-105 transition-transform duration-500"
                   />
                 </div>
 
-                {/* Floating Badge 1 (Top Right: Premium Leather) */}
-                <div className="hero-floating-badge hidden sm:flex absolute top-1 sm:top-2 right-0 sm:right-2 p-2 sm:p-2.5 pr-4 items-center gap-2.5 z-20 scale-90 sm:scale-100 origin-top-right">
-                  <div className="w-7 h-7 sm:w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
-                    <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E5A93C]" />
+                {/* Floating Badge 1 */}
+                <div className="hero-floating-badge hidden sm:flex absolute top-2 right-2 p-2.5 pr-4 items-center gap-2.5 z-20">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                    <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] sm:text-[11px] font-bold text-[#1C1917] leading-tight">Premium Leather</div>
-                    <div className="text-[8px] sm:text-[9px] text-[#5A6578] leading-tight">Finest quality comfort</div>
+                    <div className="text-xs font-bold text-slate-900 leading-tight">Premium Leather</div>
+                    <div className="text-[10px] text-slate-500 leading-tight">100% full-grain cowhide</div>
                   </div>
                 </div>
 
-                {/* Floating Badge 2 (Mid Left: Hand Stitched) */}
-                <div className="hero-floating-badge hidden sm:flex absolute bottom-24 sm:bottom-32 -left-2 sm:left-0 p-2 sm:p-2.5 pr-4 items-center gap-2.5 z-20 scale-90 sm:scale-100 origin-bottom-left">
-                  <div className="w-7 h-7 sm:w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
-                    <Scissors className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E5A93C]" />
+                {/* Floating Badge 2 */}
+                <div className="hero-floating-badge hidden sm:flex absolute bottom-28 -left-2 p-2.5 pr-4 items-center gap-2.5 z-20">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                    <Scissors className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] sm:text-[11px] font-bold text-[#1C1917] leading-tight">Hand Stitched</div>
-                    <div className="text-[8px] sm:text-[9px] text-[#5A6578] leading-tight">Master cobbler precision</div>
+                    <div className="text-xs font-bold text-slate-900 leading-tight">Hand Stitched</div>
+                    <div className="text-[10px] text-slate-500 leading-tight">Master cobbler precision</div>
                   </div>
                 </div>
 
-                {/* Floating Badge 3 (Bottom Right: Durable Sole) */}
-                <div className="hero-floating-badge hidden sm:flex absolute -bottom-2 sm:bottom-0 right-2 sm:right-4 p-2 sm:p-2.5 pr-4 items-center gap-2.5 z-20 scale-90 sm:scale-100 origin-bottom-right">
-                  <div className="w-7 h-7 sm:w-8 h-8 rounded-full bg-[#0D3325] text-white flex items-center justify-center flex-shrink-0">
-                    <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E5A93C]" />
+                {/* Floating Badge 3 */}
+                <div className="hero-floating-badge hidden sm:flex absolute -bottom-2 right-4 p-2.5 pr-4 items-center gap-2.5 z-20">
+                  <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
+                    <Layers className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] sm:text-[11px] font-bold text-[#1C1917] leading-tight">Durable Sole</div>
-                    <div className="text-[8px] sm:text-[9px] text-[#5A6578] leading-tight">Double tire rubber grip</div>
+                    <div className="text-xs font-bold text-slate-900 leading-tight">Durable Sole</div>
+                    <div className="text-[10px] text-slate-500 leading-tight">Double tire rubber grip</div>
                   </div>
                 </div>
-
-                {/* 360° VIEW Pill on Bottom Right */}
-                <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-0 z-30">
-                  <div className="px-2.5 py-1 rounded-full bg-white/90 border border-[#E5A93C] text-[#E5A93C] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-xs">
-                    <span>360°</span>
-                    <span>VIEW</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Mobile Features Strip under shoe on small screens (<640px) */}
-              <div className="flex sm:hidden flex-wrap items-center justify-center gap-2 mt-4 z-20">
-                <span className="px-2.5 py-1 bg-white border border-[#EAE3D5] rounded-full text-[10px] font-semibold text-[#0D3325] shadow-xs">
-                  ✓ 100% Genuine Leather
-                </span>
-                <span className="px-2.5 py-1 bg-white border border-[#EAE3D5] rounded-full text-[10px] font-semibold text-[#0D3325] shadow-xs">
-                  ✓ Hand Stitched
-                </span>
-                <span className="px-2.5 py-1 bg-white border border-[#EAE3D5] rounded-full text-[10px] font-semibold text-[#0D3325] shadow-xs">
-                  ✓ Double Tyre Sole
-                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          2. FLOATING 5-FEATURE TRUST BAR (MATCHING REFERENCE)
-          ══════════════════════════════════════════════════════ */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-10 relative z-20 mb-16">
-        <div className="floating-trust-bar p-5 sm:p-6 grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-0 md:divide-x divide-[#EAE3D5]">
-          {/* 1. Free Delivery */}
+      {/* FLOATING 5-FEATURE TRUST BAR */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20 mb-16">
+        <div className="floating-trust-bar p-5 sm:p-6 grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-0 md:divide-x divide-slate-100">
           <div className="flex items-center gap-3 md:px-4">
-            <div className="w-9 h-9 rounded-full bg-[#EAF2ED] flex items-center justify-center text-[#0D3325] flex-shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
               <Truck className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-[11px] font-bold text-[#1C1917] uppercase tracking-wide">FREE DELIVERY</h4>
-              <p className="text-[10px] text-[#5A6578]">On orders above Rs. 5,000</p>
+              <h4 className="text-xs font-bold text-slate-900 uppercase">FREE DELIVERY</h4>
+              <p className="text-[11px] text-slate-500">On orders above Rs. 5,000</p>
             </div>
           </div>
 
-          {/* 2. Genuine Leather */}
           <div className="flex items-center gap-3 md:px-4">
-            <div className="w-9 h-9 rounded-full bg-[#EAF2ED] flex items-center justify-center text-[#0D3325] flex-shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 flex-shrink-0">
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-[11px] font-bold text-[#1C1917] uppercase tracking-wide">GENUINE LEATHER</h4>
-              <p className="text-[10px] text-[#5A6578]">100% Premium Leather</p>
+              <h4 className="text-xs font-bold text-slate-900 uppercase">GENUINE LEATHER</h4>
+              <p className="text-[11px] text-slate-500">100% Premium Quality</p>
             </div>
           </div>
 
-          {/* 3. Secure Payments */}
           <div className="flex items-center gap-3 md:px-4">
-            <div className="w-9 h-9 rounded-full bg-[#EAF2ED] flex items-center justify-center text-[#0D3325] flex-shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
               <CreditCard className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-[11px] font-bold text-[#1C1917] uppercase tracking-wide">SECURE PAYMENTS</h4>
-              <p className="text-[10px] text-[#5A6578]">COD, Cards & Wallets</p>
+              <h4 className="text-xs font-bold text-slate-900 uppercase">SECURE COD</h4>
+              <p className="text-[11px] text-slate-500">Cash on Delivery & Wallets</p>
             </div>
           </div>
 
-          {/* 4. Handcrafted */}
           <div className="flex items-center gap-3 md:px-4">
-            <div className="w-9 h-9 rounded-full bg-[#EAF2ED] flex items-center justify-center text-[#0D3325] flex-shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 flex-shrink-0">
               <Users className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-[11px] font-bold text-[#1C1917] uppercase tracking-wide">HANDCRAFTED</h4>
-              <p className="text-[10px] text-[#5A6578]">By Skilled Artisans</p>
+              <h4 className="text-xs font-bold text-slate-900 uppercase">HANDCRAFTED</h4>
+              <p className="text-[11px] text-slate-500">By Skilled Artisans</p>
             </div>
           </div>
 
-          {/* 5. Easy Returns */}
           <div className="flex items-center gap-3 md:px-4 col-span-2 md:col-span-1">
-            <div className="w-9 h-9 rounded-full bg-[#EAF2ED] flex items-center justify-center text-[#0D3325] flex-shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 flex-shrink-0">
               <RotateCcw className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-[11px] font-bold text-[#1C1917] uppercase tracking-wide">EASY RETURNS</h4>
-              <p className="text-[10px] text-[#5A6578]">7 Days Exchange Policy</p>
+              <h4 className="text-xs font-bold text-slate-900 uppercase">EASY EXCHANGE</h4>
+              <p className="text-[11px] text-slate-500">7 Days Return Guarantee</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════
-          3. COLLECTIONS FOR EVERY STYLE (5 JEWEL-TONED CARDS)
-          ══════════════════════════════════════════════════════ */}
+      {/* COLLECTIONS FOR EVERY STYLE */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#0D3325] block mb-1">
+            <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 block mb-1">
               EXPLORE OUR COLLECTIONS
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1C1917]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Collections For Every Style
             </h2>
           </div>
           <Link
             href="/shop"
-            className="text-xs font-bold text-[#1C1917] hover:text-[#0D3325] flex items-center gap-1 uppercase tracking-wider"
+            className="text-xs font-bold text-slate-900 hover:text-blue-600 flex items-center gap-1 uppercase tracking-wider"
           >
             <span>VIEW ALL COLLECTIONS</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* 5 Rich Jewel-Toned Rounded Collection Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
           {collectionsData.map((cat, idx) => (
             <Link
               key={idx}
               href={`/category/${cat.slug}`}
-              className={`category-card ${cat.bgClass} text-white p-5 min-h-[220px] flex flex-col justify-between group shadow-sm`}
+              className={`category-card ${cat.bgClass} text-white p-5 min-h-[220px] flex flex-col justify-between group shadow-xs`}
             >
-              {/* Subtle background mandala / geometry overlay */}
-              <div className="absolute inset-0 bg-radial from-white/10 to-transparent opacity-40 pointer-events-none" />
-
-              {/* Chappal Artwork floating in center */}
               <div className="relative w-full h-28 my-auto">
                 <Image
                   src={cat.image}
                   alt={cat.title}
                   fill
-                  className="object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md"
+                  className="object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-md"
                 />
               </div>
 
-              {/* Bottom Card Title & Item Count */}
               <div className="relative z-10 text-left pt-2">
-                <h3 className="text-sm font-serif font-bold leading-snug">{cat.title}</h3>
-                <span className="text-[10px] font-mono text-white/70 uppercase tracking-widest block mt-0.5">
+                <h3 className="text-sm font-bold leading-snug">{cat.title}</h3>
+                <span className="text-[11px] font-mono text-slate-300 uppercase tracking-wider block mt-0.5">
                   {cat.itemsCount}
                 </span>
               </div>
@@ -494,21 +444,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          4. HANDPICKED BESTSELLERS (5 PRODUCT CARDS GRID)
-          ══════════════════════════════════════════════════════ */}
+      {/* HANDPICKED BESTSELLERS */}
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
           <div>
-            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#0D3325] block mb-1">
+            <span className="text-xs font-semibold uppercase tracking-wider text-blue-600 block mb-1">
               POPULAR PESHAWARI CHAPPAL
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1C1917]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Handpicked Bestsellers
             </h2>
           </div>
 
-          {/* Filter Pills: ALL, KAPTAAN, TRADITIONAL, PREMIUM, NEW ARRIVALS */}
           <div className="flex flex-wrap items-center gap-2">
             {[
               { id: 'all', label: 'ALL' },
@@ -520,10 +467,10 @@ export default function HomePage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer ${
                   activeCategory === tab.id
-                    ? 'bg-[#0D3325] text-white shadow-xs'
-                    : 'bg-white text-[#1C1917] border border-[#EAE3D5] hover:border-[#0D3325]'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-400'
                 }`}
               >
                 {tab.label}
@@ -533,14 +480,13 @@ export default function HomePage() {
 
           <Link
             href="/shop"
-            className="text-xs font-bold text-[#1C1917] hover:text-[#0D3325] flex items-center gap-1 uppercase tracking-wider self-start lg:self-center"
+            className="text-xs font-bold text-slate-900 hover:text-blue-600 flex items-center gap-1 uppercase tracking-wider self-start lg:self-center"
           >
             <span>VIEW ALL PRODUCTS</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* 5-Column Grid Matching Reference Image */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product as any} />
@@ -548,38 +494,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          5. CRAFTSMANSHIP BANNER (MATCHING REFERENCE IMAGE)
-          ══════════════════════════════════════════════════════ */}
+      {/* CRAFTSMANSHIP BANNER */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0A2A1E] text-white rounded-xl overflow-hidden shadow-xl">
+        <div className="bg-slate-900 text-white rounded-2xl overflow-hidden shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 lg:p-12">
-            {/* Left: Artisan photo at workbench */}
-            <div className="lg:col-span-4 relative aspect-4/3 sm:aspect-16/10 lg:aspect-4/3 w-full rounded-lg overflow-hidden border border-white/10 shadow-md">
+            <div className="lg:col-span-4 relative aspect-4/3 w-full rounded-xl overflow-hidden border border-slate-800 shadow-md">
               <Image
                 src="/images/craft.png"
                 alt="Master Artisan Crafting Peshawari Chappal"
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-700"
+                className="object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
 
-            {/* Center: Narrative & Amber CTA */}
             <div className="lg:col-span-5 space-y-4 text-center lg:text-left">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-[#E5A93C] block">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400 block">
                 OUR CRAFTSMANSHIP
               </span>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white leading-tight">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight">
                 Made With Passion, <br />
                 Perfected By Tradition
               </h3>
-              <p className="text-xs text-white/70 leading-relaxed font-sans max-w-md">
-                Every pair is a masterpiece, handcrafted with dedication and precision to deliver unmatched quality and timeless style.
+              <p className="text-xs text-slate-300 leading-relaxed font-sans max-w-md">
+                Every pair is a masterwork, handcrafted with dedication and precision to deliver unmatched comfort and timeless style.
               </p>
               <div className="pt-2">
                 <Link
                   href="/craft"
-                  className="btn-amber px-6 py-3 text-xs inline-flex"
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold inline-flex items-center gap-2 shadow-xs transition-colors"
                 >
                   <span>DISCOVER OUR CRAFT</span>
                   <ArrowRight className="w-4 h-4 ml-1" />
@@ -587,106 +529,94 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right: 4 Circular Stats in 2x2 Layout */}
             <div className="lg:col-span-3 grid grid-cols-2 gap-4 text-center">
-              {/* Stat 1 */}
-              <div className="p-4 bg-white/5 border border-white/10 rounded-lg flex flex-col items-center justify-center space-y-1">
-                <div className="w-9 h-9 rounded-full bg-[#E5A93C]/20 border border-[#E5A93C]/40 text-[#E5A93C] flex items-center justify-center">
+              <div className="p-4 bg-slate-800/80 border border-slate-700/60 rounded-xl flex flex-col items-center justify-center space-y-1">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
                   <Users className="w-4 h-4" />
                 </div>
-                <div className="text-xl font-bold font-serif text-white">100+</div>
-                <div className="text-[10px] text-white/70 font-sans">Skilled Artisans</div>
+                <div className="text-xl font-bold text-white">100+</div>
+                <div className="text-[11px] text-slate-400">Skilled Artisans</div>
               </div>
 
-              {/* Stat 2 */}
-              <div className="p-4 bg-white/5 border border-white/10 rounded-lg flex flex-col items-center justify-center space-y-1">
-                <div className="w-9 h-9 rounded-full bg-[#E5A93C]/20 border border-[#E5A93C]/40 text-[#E5A93C] flex items-center justify-center">
+              <div className="p-4 bg-slate-800/80 border border-slate-700/60 rounded-xl flex flex-col items-center justify-center space-y-1">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
                   <Clock className="w-4 h-4" />
                 </div>
-                <div className="text-xl font-bold font-serif text-white">25+</div>
-                <div className="text-[10px] text-white/70 font-sans">Years of Tradition</div>
+                <div className="text-xl font-bold text-white">25+</div>
+                <div className="text-[11px] text-slate-400">Years of Heritage</div>
               </div>
 
-              {/* Stat 3 */}
-              <div className="p-4 bg-white/5 border border-white/10 rounded-lg flex flex-col items-center justify-center space-y-1">
-                <div className="w-9 h-9 rounded-full bg-[#E5A93C]/20 border border-[#E5A93C]/40 text-[#E5A93C] flex items-center justify-center">
+              <div className="p-4 bg-slate-800/80 border border-slate-700/60 rounded-xl flex flex-col items-center justify-center space-y-1">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
                   <HeartHandshake className="w-4 h-4" />
                 </div>
-                <div className="text-xl font-bold font-serif text-white">10K+</div>
-                <div className="text-[10px] text-white/70 font-sans">Happy Customers</div>
+                <div className="text-xl font-bold text-white">10K+</div>
+                <div className="text-[11px] text-slate-400">Happy Patrons</div>
               </div>
 
-              {/* Stat 4 */}
-              <div className="p-4 bg-white/5 border border-white/10 rounded-lg flex flex-col items-center justify-center space-y-1">
-                <div className="w-9 h-9 rounded-full bg-[#E5A93C]/20 border border-[#E5A93C]/40 text-[#E5A93C] flex items-center justify-center">
+              <div className="p-4 bg-slate-800/80 border border-slate-700/60 rounded-xl flex flex-col items-center justify-center space-y-1">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
                   <Award className="w-4 h-4" />
                 </div>
-                <div className="text-xl font-bold font-serif text-white">100%</div>
-                <div className="text-[10px] text-white/70 font-sans">Handcrafted</div>
+                <div className="text-xl font-bold text-white">100%</div>
+                <div className="text-[11px] text-slate-400">Handcrafted</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          6. SECONDARY TRUST ICONS STRIP (MATCHING REFERENCE)
-          ══════════════════════════════════════════════════════ */}
-      <section className="bg-white border-y border-[#EAE3D5] py-8 my-8">
+      {/* SECONDARY TRUST ICONS STRIP */}
+      <section className="bg-white border-y border-slate-200 py-8 my-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-0 md:divide-x divide-[#EAE3D5]">
-            {/* 1. Genuine Leather */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-0 md:divide-x divide-slate-100">
             <div className="flex items-center gap-3 px-3">
-              <div className="w-10 h-10 rounded-full bg-[#FAF6EF] border border-[#E5A93C]/40 text-[#B87A44] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h5 className="text-xs font-bold text-[#1C1917]">100% Genuine Leather</h5>
-                <p className="text-[10px] text-[#5A6578]">Premium quality guaranteed</p>
+                <h5 className="text-xs font-bold text-slate-900">100% Genuine Leather</h5>
+                <p className="text-[11px] text-slate-500">Premium quality guaranteed</p>
               </div>
             </div>
 
-            {/* 2. Secure Payments */}
             <div className="flex items-center gap-3 px-3">
-              <div className="w-10 h-10 rounded-full bg-[#FAF6EF] border border-[#E5A93C]/40 text-[#B87A44] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
                 <CreditCard className="w-5 h-5" />
               </div>
               <div>
-                <h5 className="text-xs font-bold text-[#1C1917]">Secure Payments</h5>
-                <p className="text-[10px] text-[#5A6578]">Multiple safe payment options</p>
+                <h5 className="text-xs font-bold text-slate-900">Secure Payments</h5>
+                <p className="text-[11px] text-slate-500">COD & online payment</p>
               </div>
             </div>
 
-            {/* 3. Nationwide Delivery */}
             <div className="flex items-center gap-3 px-3">
-              <div className="w-10 h-10 rounded-full bg-[#FAF6EF] border border-[#E5A93C]/40 text-[#B87A44] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
                 <Truck className="w-5 h-5" />
               </div>
               <div>
-                <h5 className="text-xs font-bold text-[#1C1917]">Nationwide Delivery</h5>
-                <p className="text-[10px] text-[#5A6578]">Fast & reliable shipping</p>
+                <h5 className="text-xs font-bold text-slate-900">Nationwide Delivery</h5>
+                <p className="text-[11px] text-slate-500">Fast TCS courier shipping</p>
               </div>
             </div>
 
-            {/* 4. 7 Days Easy Exchange */}
             <div className="flex items-center gap-3 px-3">
-              <div className="w-10 h-10 rounded-full bg-[#FAF6EF] border border-[#E5A93C]/40 text-[#B87A44] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
                 <RotateCcw className="w-5 h-5" />
               </div>
               <div>
-                <h5 className="text-xs font-bold text-[#1C1917]">7 Days Easy Exchange</h5>
-                <p className="text-[10px] text-[#5A6578]">Hassle free returns</p>
+                <h5 className="text-xs font-bold text-slate-900">7 Days Exchange</h5>
+                <p className="text-[11px] text-slate-500">Hassle-free return policy</p>
               </div>
             </div>
 
-            {/* 5. Customer Support */}
             <div className="flex items-center gap-3 px-3 col-span-2 md:col-span-1">
-              <div className="w-10 h-10 rounded-full bg-[#FAF6EF] border border-[#E5A93C]/40 text-[#B87A44] flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
                 <Headphones className="w-5 h-5" />
               </div>
               <div>
-                <h5 className="text-xs font-bold text-[#1C1917]">Customer Support</h5>
-                <p className="text-[10px] text-[#5A6578]">We are here to help</p>
+                <h5 className="text-xs font-bold text-slate-900">Customer Support</h5>
+                <p className="text-[11px] text-slate-500">Daily WhatsApp concierge</p>
               </div>
             </div>
           </div>

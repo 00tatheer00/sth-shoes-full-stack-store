@@ -17,10 +17,10 @@ export default async function AdminLayout({
 
   if (!authCheck.authorized) {
     return (
-      <div className="min-h-screen bg-[#0D3325] text-white flex items-center justify-center p-6 text-center">
-        <div className="max-w-md bg-white text-[#1C1917] p-8 border border-[#E5A93C] rounded-xl shadow-2xl space-y-4">
-          <h2 className="text-xl font-serif font-bold">Access Restricted</h2>
-          <p className="text-xs text-[#5A6578]">
+      <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center p-6 text-center font-sans">
+        <div className="max-w-md bg-white text-slate-900 p-8 border border-slate-200 rounded-2xl shadow-2xl space-y-4">
+          <h2 className="text-xl font-bold">Access Restricted</h2>
+          <p className="text-xs text-slate-500">
             You do not have administrative privileges to view the Tatheer SaaS Control Portal.
           </p>
         </div>
