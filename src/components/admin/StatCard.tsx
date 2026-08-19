@@ -10,6 +10,7 @@ interface StatCardProps {
   isPositive?: boolean;
   icon: LucideIcon;
   subtitle?: string;
+  accentColor?: string;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({
@@ -21,28 +22,29 @@ export const StatCard: React.FC<StatCardProps> = ({
   subtitle,
 }) => {
   return (
-    <div className="bg-white border border-[#E2D7C7] p-5 shadow-xs flex flex-col justify-between space-y-3">
+    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs flex flex-col justify-between space-y-3 hover:border-slate-300 transition-colors">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-mono uppercase tracking-wider text-[#4A2E1D]/70 font-bold">
+        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
           {title}
         </span>
-        <div className="w-9 h-9 rounded-full bg-[#FAF7F2] border border-[#E2D7C7] flex items-center justify-center text-[#B87546]">
-          <Icon className="w-4 h-4" />
+        <div className="w-9 h-9 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-700">
+          <Icon className="w-4 h-4 text-slate-700" />
         </div>
       </div>
 
       <div>
-        <div className="text-2xl font-serif font-bold text-[#1F130E]">{value}</div>
+        <div className="text-2xl font-bold text-slate-900 tracking-tight">{value}</div>
         {change && (
           <div
-            className={`text-[11px] font-mono font-bold mt-1 ${
-              isPositive ? 'text-green-700' : 'text-red-600'
+            className={`text-xs font-semibold mt-1 flex items-center gap-1 ${
+              isPositive ? 'text-emerald-600' : 'text-rose-600'
             }`}
           >
-            {change} <span className="text-[#4A2E1D]/60 font-normal">vs last month</span>
+            <span>{change}</span>
+            <span className="text-slate-400 font-normal">vs last month</span>
           </div>
         )}
-        {subtitle && <p className="text-[11px] text-[#4A2E1D]/60 font-sans mt-0.5">{subtitle}</p>}
+        {subtitle && <p className="text-xs text-slate-500 mt-1">{subtitle}</p>}
       </div>
     </div>
   );

@@ -43,110 +43,110 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6 pb-16">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EAE3D5] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <span className="text-xs font-mono uppercase tracking-widest text-[#0D3325] font-bold">
-            Storefront Configuration
-          </span>
-          <h1 className="text-2xl md:text-3xl font-serif font-bold text-[#1C1917]">
-            Content & Store Settings
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            Storefront Settings
           </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Configure header ribbons, support contacts, and shipping fee thresholds.
+          </p>
         </div>
       </div>
 
       {saved && (
-        <div className="p-4 bg-green-50 border border-green-200 text-green-800 text-xs flex items-center gap-2 rounded-lg">
-          <ShieldCheck className="w-4 h-4 text-green-600" />
+        <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2 rounded-xl">
+          <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0" />
           <span>Site settings saved successfully! Changes reflect across live storefront header, footer, and checkout.</span>
         </div>
       )}
 
-      <form onSubmit={handleSave} className="bg-white border border-[#EAE3D5] rounded-lg p-8 space-y-6 max-w-3xl shadow-xs">
-        <h3 className="text-base font-serif font-bold text-[#1C1917] border-b border-[#EAE3D5] pb-2">
-          Storefront Header & Announcement Bar
+      <form onSubmit={handleSave} className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6 max-w-3xl shadow-2xs">
+        <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3">
+          Announcement Bar & Top Ribbon
         </h3>
 
-        <div className="space-y-1">
-          <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Top Announcement Bar Ribbon</label>
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700">Top Announcement Ribbon</label>
           <input
             type="text"
             required
             value={announcement}
             onChange={(e) => setAnnouncement(e.target.value)}
-            className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif focus:outline-none focus:border-[#0D3325]"
+            className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
           />
         </div>
 
-        <h3 className="text-base font-serif font-bold text-[#1C1917] border-b border-[#EAE3D5] pb-2 pt-4">
-          Peshawar Flagship Concierge Contact
+        <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3 pt-2">
+          Customer Support & Concierge Contact
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">WhatsApp Concierge Phone</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">WhatsApp / Phone</label>
             <input
               type="text"
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono focus:outline-none focus:border-[#0D3325]"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
             />
           </div>
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Support Email</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Support Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif focus:outline-none focus:border-[#0D3325]"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
             />
           </div>
         </div>
 
-        <div className="space-y-1">
-          <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Atelier Flagship Address</label>
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700">Flagship Atelier Address</label>
           <input
             type="text"
             required
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif focus:outline-none focus:border-[#0D3325]"
+            className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
           />
         </div>
 
-        <h3 className="text-base font-serif font-bold text-[#1C1917] border-b border-[#EAE3D5] pb-2 pt-4">
-          Shipping & Logistics Thresholds
+        <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3 pt-2">
+          Shipping & Logistics Rules
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Free Delivery Threshold (PKR)</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Free Delivery Threshold (PKR)</label>
             <input
               type="number"
               required
               value={freeThreshold}
               onChange={(e) => setFreeThreshold(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono focus:outline-none focus:border-[#0D3325]"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
             />
           </div>
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Standard COD Flat Shipping (PKR)</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Standard COD Shipping Fee (PKR)</label>
             <input
               type="number"
               required
               value={codFee}
               onChange={(e) => setCodFee(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono focus:outline-none focus:border-[#0D3325]"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
             />
           </div>
         </div>
 
         <button
           type="submit"
-          className="btn-forest px-8 py-3.5 text-xs flex items-center gap-2 shadow-md cursor-pointer"
+          className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
         >
-          <Save className="w-4 h-4 text-[#E5A93C]" /> Save & Apply Store Settings
+          <Save className="w-4 h-4" /> Save Store Settings
         </button>
       </form>
     </div>

@@ -11,7 +11,7 @@ import { useStore } from '@/context/StoreContext';
 export default function NewProductPage() {
   const router = useRouter();
   const { showToast } = useStore();
-  const [categoriesList, setCategoriesList] = useState(dataEngine.getCategories());
+  const [categoriesList] = useState(dataEngine.getCategories());
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
@@ -42,14 +42,6 @@ export default function NewProductPage() {
     setSlug(val.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''));
   };
 
-  const handleCategoryChange = (val: string) => {
-    setCategory(val);
-    if (val === 'Kaptan Collection') setCategorySlug('kaptan-collection');
-    else if (val === 'Zalmi Collection') setCategorySlug('zalmi-collection');
-    else if (val === 'Traditional Leather') setCategorySlug('traditional-leather');
-    else setCategorySlug('premium-calfskin');
-  };
-
   const handleAddVariantRow = () => {
     const nextSize = 39 + variants.length;
     setVariants((prev) => [
@@ -61,6 +53,10 @@ export default function NewProductPage() {
         inStock: true,
       },
     ]);
+  };
+
+  const handleRemoveVariantRow = (index: number) => {
+    setVariants((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -112,171 +108,184 @@ export default function NewProductPage() {
   return (
     <div className="space-y-6 pb-16">
       {/* Top Header */}
-      <div className="flex items-center justify-between border-b border-[#EAE3D5] pb-4">
+      <div className="flex items-center justify-between border-b border-slate-200 pb-5">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/products"
-            className="p-2 bg-white border border-[#EAE3D5] rounded hover:bg-[#FAF6EF] text-[#1C1917]"
+            className="p-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-700 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0D3325] font-bold">
-              Catalog Management
-            </span>
-            <h1 className="text-2xl font-serif font-bold text-[#1C1917]">Create New Product</h1>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+              Create New Footwear
+            </h1>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Add a handcrafted masterwork to the live storefront catalog.
+            </p>
           </div>
         </div>
       </div>
 
       {errorMsg && (
-        <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2 rounded">
-          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+        <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
           <span>{errorMsg}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Main Product Info Form */}
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Main Details Column */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-white border border-[#EAE3D5] rounded-lg p-6 space-y-4 shadow-xs">
-            <h3 className="text-base font-serif font-bold text-[#1C1917] border-b border-[#EAE3D5] pb-2">
-              Basic Product Details
+          <div className="bg-white border border-slate-200 rounded-xl p-6 space-y-5 shadow-2xs">
+            <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3">
+              General Information
             </h3>
 
-            <div className="space-y-1">
-              <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Product Name *</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Product Title *</label>
               <input
                 type="text"
                 required
-                placeholder="e.g. Kaptan Double Sole Dark Chocolate"
+                placeholder="e.g. Kaptan Signature Double Sole Chappal"
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
-                className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif focus:outline-none focus:border-[#0D3325]"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900"
               />
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">URL Slug *</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">URL Slug (Auto-generated)</label>
               <input
                 type="text"
                 required
-                placeholder="kaptan-double-sole-dark-chocolate"
+                placeholder="kaptan-signature-double-sole"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
-                className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono focus:outline-none focus:border-[#0D3325]"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-mono text-slate-700"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Base Price (PKR) *</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">Base Price (PKR) *</label>
                 <input
                   type="number"
                   required
+                  placeholder="14500"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono focus:outline-none focus:border-[#0D3325]"
+                  className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
                 />
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Discount Price (Optional)</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">Discount Sale Price (PKR)</label>
                 <input
                   type="number"
+                  placeholder="12999"
                   value={salePrice}
                   onChange={(e) => setSalePrice(e.target.value)}
-                  className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono focus:outline-none focus:border-[#0D3325]"
+                  className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
                 />
               </div>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Short Description *</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Short Summary</label>
               <textarea
                 rows={2}
-                required
+                placeholder="Brief summary for shop cards..."
                 value={shortDescription}
                 onChange={(e) => setShortDescription(e.target.value)}
-                className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
               />
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Full Story & Details *</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Full Heritage Description</label>
               <textarea
                 rows={4}
-                required
+                placeholder="Detailed craft story and specifications..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
               />
             </div>
           </div>
 
-          {/* Variants Management */}
-          <div className="bg-white border border-[#EAE3D5] rounded-lg p-6 space-y-4 shadow-xs">
-            <div className="flex justify-between items-center border-b border-[#EAE3D5] pb-2">
-              <h3 className="text-base font-serif font-bold text-[#1C1917]">Product Variants & Stock</h3>
+          {/* Variants Table */}
+          <div className="bg-white border border-slate-200 rounded-xl p-6 space-y-4 shadow-2xs">
+            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900">Shoe Size Variants</h3>
+                <p className="text-xs text-slate-500">Configure size availability</p>
+              </div>
               <button
                 type="button"
                 onClick={handleAddVariantRow}
-                className="btn-forest px-3 py-1.5 text-xs flex items-center gap-1"
+                className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium rounded-lg flex items-center gap-1 transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" /> Add Size
               </button>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               {variants.map((v, idx) => (
-                <div key={idx} className="p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded grid grid-cols-1 sm:grid-cols-4 gap-3 items-center text-xs">
-                  <div>
-                    <span className="font-mono text-[10px] uppercase text-[#0D3325] font-bold block">Size (EU):</span>
+                <div key={idx} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <div className="w-24">
+                    <label className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">Size (EU)</label>
                     <input
                       type="number"
                       value={v.size}
                       onChange={(e) => {
                         const val = Number(e.target.value);
-                        setVariants((prev) => prev.map((item, i) => i === idx ? { ...item, size: val } : item));
+                        setVariants((prev) =>
+                          prev.map((item, i) => (i === idx ? { ...item, size: val } : item))
+                        );
                       }}
-                      className="w-full p-1.5 bg-white border border-[#EAE3D5] rounded font-mono text-center font-bold"
+                      className="w-full p-1.5 bg-white border border-slate-300 rounded text-xs font-mono font-bold"
                     />
                   </div>
-                  <div>
-                    <span className="font-mono text-[10px] uppercase text-[#0D3325] font-bold block">Color Shade:</span>
+
+                  <div className="flex-1">
+                    <label className="text-[10px] uppercase font-bold text-slate-500 block mb-0.5">Color</label>
                     <input
                       type="text"
                       value={v.colorName}
                       onChange={(e) => {
                         const val = e.target.value;
-                        setVariants((prev) => prev.map((item, i) => i === idx ? { ...item, colorName: val } : item));
+                        setVariants((prev) =>
+                          prev.map((item, i) => (i === idx ? { ...item, colorName: val } : item))
+                        );
                       }}
-                      className="w-full p-1.5 bg-white border border-[#EAE3D5] rounded"
+                      className="w-full p-1.5 bg-white border border-slate-300 rounded text-xs"
                     />
                   </div>
-                  <div>
-                    <span className="font-mono text-[10px] uppercase text-[#0D3325] font-bold block">Stock Status:</span>
-                    <select
-                      value={v.inStock ? 'true' : 'false'}
-                      onChange={(e) => {
-                        const inStock = e.target.value === 'true';
-                        setVariants((prev) => prev.map((item, i) => i === idx ? { ...item, inStock } : item));
-                      }}
-                      className="w-full p-1.5 bg-white border border-[#EAE3D5] rounded font-semibold"
-                    >
-                      <option value="true">In Stock</option>
-                      <option value="false">Out of Stock</option>
-                    </select>
+
+                  <div className="pt-3">
+                    <label className="flex items-center gap-1.5 cursor-pointer text-xs font-medium text-slate-700">
+                      <input
+                        type="checkbox"
+                        checked={v.inStock}
+                        onChange={(e) => {
+                          const val = e.target.checked;
+                          setVariants((prev) =>
+                            prev.map((item, i) => (i === idx ? { ...item, inStock: val } : item))
+                          );
+                        }}
+                        className="w-4 h-4 accent-slate-900 rounded"
+                      />
+                      <span>In Stock</span>
+                    </label>
                   </div>
-                  <div className="text-right pt-3 sm:pt-0">
-                    <button
-                      type="button"
-                      onClick={() => setVariants((prev) => prev.filter((_, i) => i !== idx))}
-                      className="p-1.5 text-red-600 hover:bg-red-50 rounded"
-                      title="Remove variant"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveVariantRow(idx)}
+                    className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg mt-3 cursor-pointer"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
               ))}
             </div>
@@ -285,13 +294,13 @@ export default function NewProductPage() {
 
         {/* Right Settings Column */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white border border-[#EAE3D5] rounded-lg p-6 space-y-4 shadow-xs">
-            <h3 className="text-base font-serif font-bold text-[#1C1917] border-b border-[#EAE3D5] pb-2">
+          <div className="bg-white border border-slate-200 rounded-xl p-6 space-y-4 shadow-2xs">
+            <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-3">
               Catalog Options
             </h3>
 
-            <div className="space-y-1">
-              <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Category</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Category</label>
               <select
                 value={category}
                 onChange={(e) => {
@@ -299,7 +308,7 @@ export default function NewProductPage() {
                   setCategory(e.target.value);
                   if (selected) setCategorySlug(selected.slug);
                 }}
-                className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900"
               >
                 {categoriesList.map((c) => (
                   <option key={c.id} value={c.name}>
@@ -309,12 +318,12 @@ export default function NewProductPage() {
               </select>
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Product Image Asset</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">Image Asset</label>
               <select
                 value={featuredImage}
                 onChange={(e) => setFeaturedImage(e.target.value)}
-                className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono"
+                className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900"
               >
                 <option value="/images/kaptaan.png">/images/kaptaan.png (Kaptaan)</option>
                 <option value="/images/zalmi.png">/images/zalmi.png (Zalmi)</option>
@@ -324,23 +333,44 @@ export default function NewProductPage() {
               </select>
             </div>
 
-            <div className="space-y-2 pt-2 border-t border-[#FAF6EF]">
-              <label className="flex items-center gap-2 cursor-pointer text-xs font-serif text-[#1C1917]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">Sole Type</label>
+                <input
+                  type="text"
+                  value={soleType}
+                  onChange={(e) => setSoleType(e.target.value)}
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">Leather Type</label>
+                <input
+                  type="text"
+                  value={leatherType}
+                  onChange={(e) => setLeatherType(e.target.value)}
+                  className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2 pt-3 border-t border-slate-100">
+              <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-800">
                 <input
                   type="checkbox"
                   checked={isNew}
                   onChange={(e) => setIsNew(e.target.checked)}
-                  className="w-4 h-4 accent-[#0D3325]"
+                  className="w-4 h-4 accent-slate-900 rounded"
                 />
                 <span>Featured New Arrival</span>
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer text-xs font-serif text-[#1C1917]">
+              <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-800">
                 <input
                   type="checkbox"
                   checked={isBestSeller}
                   onChange={(e) => setIsBestSeller(e.target.checked)}
-                  className="w-4 h-4 accent-[#0D3325]"
+                  className="w-4 h-4 accent-slate-900 rounded"
                 />
                 <span>Best Seller Badge</span>
               </label>
@@ -350,9 +380,9 @@ export default function NewProductPage() {
           <button
             type="submit"
             disabled={isSaving}
-            className="btn-amber w-full py-4 text-xs flex items-center justify-center gap-2 shadow-lg cursor-pointer"
+            className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
           >
-            <Save className="w-4 h-4 text-[#0D3325]" /> {isSaving ? 'Publishing...' : 'Save & Publish Product'}
+            <Save className="w-4 h-4" /> {isSaving ? 'Publishing...' : 'Save & Publish Product'}
           </button>
         </div>
       </form>

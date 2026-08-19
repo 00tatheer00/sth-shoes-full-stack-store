@@ -13,6 +13,7 @@ import {
   ArrowRight,
   Eye,
   Plus,
+  TrendingUp,
 } from 'lucide-react';
 import { StatCard } from '@/components/admin/StatCard';
 import { AnalyticsCharts } from '@/components/admin/AnalyticsCharts';
@@ -45,13 +46,13 @@ export default function AdminDashboardPage() {
 
   if (!metrics) {
     return (
-      <div className="space-y-6 animate-pulse p-6">
-        <div className="h-8 bg-[#EAE3D5] w-64 rounded"></div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="h-28 bg-white border border-[#EAE3D5] rounded"></div>
-          <div className="h-28 bg-white border border-[#EAE3D5] rounded"></div>
-          <div className="h-28 bg-white border border-[#EAE3D5] rounded"></div>
-          <div className="h-28 bg-white border border-[#EAE3D5] rounded"></div>
+      <div className="space-y-6 animate-pulse p-4">
+        <div className="h-8 bg-slate-200 w-64 rounded-lg"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="h-28 bg-white border border-slate-200 rounded-xl"></div>
+          <div className="h-28 bg-white border border-slate-200 rounded-xl"></div>
+          <div className="h-28 bg-white border border-slate-200 rounded-xl"></div>
+          <div className="h-28 bg-white border border-slate-200 rounded-xl"></div>
         </div>
       </div>
     );
@@ -60,21 +61,21 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-8 pb-12">
       {/* Top Banner Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAE3D5] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <span className="text-xs font-mono uppercase tracking-widest text-[#0D3325] font-bold">
-            Executive Summary
-          </span>
-          <h1 className="text-2xl md:text-3xl font-serif font-bold text-[#1C1917]">
-            Atelier SaaS Operations Overview
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            Operations Dashboard
           </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Real-time sales, order fulfillment, and inventory analytics.
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <Link
             href="/admin/products/new"
-            className="btn-forest px-4 py-2.5 text-xs flex items-center gap-1.5 shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-medium shadow-xs transition-colors"
           >
-            <Plus className="w-4 h-4 text-[#E5A93C]" /> Add New Footwear
+            <Plus className="w-4 h-4" /> Add New Product
           </Link>
         </div>
       </div>
@@ -89,17 +90,10 @@ export default function AdminDashboardPage() {
           icon={DollarSign}
         />
         <StatCard
-          title="Today's Revenue"
+          title="Today's Sales"
           value={formatPKR(metrics.todayRevenue)}
           subtitle="Live calculated today"
-          icon={DollarSign}
-        />
-        <StatCard
-          title="Monthly Revenue"
-          value={formatPKR(metrics.monthlyRevenue)}
-          change="+12.1%"
-          isPositive={true}
-          icon={DollarSign}
+          icon={TrendingUp}
         />
         <StatCard
           title="Total Orders"
@@ -109,19 +103,25 @@ export default function AdminDashboardPage() {
           icon={ShoppingBag}
         />
         <StatCard
-          title="Pending Fulfillment"
+          title="Pending Orders"
           value={metrics.pendingOrders}
-          subtitle="Needs cobbler dispatch"
+          subtitle="Awaiting dispatch"
           icon={Clock}
         />
         <StatCard
-          title="Delivered Orders"
+          title="Dispatched"
+          value={metrics.dispatchedOrders}
+          subtitle="In transit via courier"
+          icon={ShoppingBag}
+        />
+        <StatCard
+          title="Delivered"
           value={metrics.deliveredOrders}
           isPositive={true}
           icon={CheckCircle2}
         />
         <StatCard
-          title="Cancelled Orders"
+          title="Cancelled"
           value={metrics.cancelledOrders}
           isPositive={false}
           icon={XCircle}
@@ -143,63 +143,63 @@ export default function AdminDashboardPage() {
       />
 
       {/* Recent Orders Table & Low Stock Alert Columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Recent Orders Table */}
-        <div className="lg:col-span-8 bg-white border border-[#EAE3D5] rounded-lg p-6 shadow-xs space-y-4">
-          <div className="flex justify-between items-center border-b border-[#EAE3D5] pb-3">
+        <div className="lg:col-span-8 bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-4">
+          <div className="flex justify-between items-center border-b border-slate-100 pb-3">
             <div>
-              <h3 className="text-base font-serif font-bold text-[#1C1917]">Recent Patron Orders</h3>
-              <p className="text-xs text-[#5A6578] font-mono">Latest dispatch requests</p>
+              <h3 className="text-sm font-bold text-slate-900">Recent Patron Orders</h3>
+              <p className="text-xs text-slate-500">Latest checkout requests across Pakistan</p>
             </div>
             <Link
               href="/admin/orders"
-              className="text-xs font-serif text-[#0D3325] font-bold hover:underline flex items-center gap-1"
+              className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
             >
               View All Orders <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs font-serif border-collapse">
+            <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-[#FAF6EF] border-b border-[#EAE3D5] font-mono text-[11px] text-[#0D3325] uppercase font-bold">
-                  <th className="p-3">Order Code</th>
-                  <th className="p-3">Patron</th>
-                  <th className="p-3">Status</th>
-                  <th className="p-3 text-right">Amount</th>
-                  <th className="p-3 text-center">Action</th>
+                <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider text-[11px]">
+                  <th className="p-3.5">Order #</th>
+                  <th className="p-3.5">Customer</th>
+                  <th className="p-3.5">Status</th>
+                  <th className="p-3.5 text-right">Amount</th>
+                  <th className="p-3.5 text-center">Invoice</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#EAE3D5]">
+              <tbody className="divide-y divide-slate-100">
                 {orders.map((ord) => (
-                  <tr key={ord.id} className="hover:bg-[#FAF6EF]/60 transition-colors">
-                    <td className="p-3 font-mono font-bold text-[#1C1917]">{ord.orderNumber}</td>
-                    <td className="p-3 font-sans">
-                      <div className="font-bold text-[#1C1917]">{ord.shippingAddress.fullName}</div>
-                      <div className="text-[10px] text-[#5A6578] font-mono">{ord.shippingAddress.city}</div>
+                  <tr key={ord.id} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="p-3.5 font-mono font-semibold text-slate-900">{ord.orderNumber}</td>
+                    <td className="p-3.5">
+                      <div className="font-semibold text-slate-800">{ord.shippingAddress.fullName}</div>
+                      <div className="text-[11px] text-slate-500">{ord.shippingAddress.city}</div>
                     </td>
-                    <td className="p-3">
+                    <td className="p-3.5">
                       <span
-                        className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded ${
+                        className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full border ${
                           ord.status === 'Dispatched'
-                            ? 'bg-blue-100 text-blue-800'
+                            ? 'bg-blue-50 text-blue-700 border-blue-200'
                             : ord.status === 'Delivered'
-                            ? 'bg-green-100 text-green-800'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                             : ord.status === 'Cancelled'
-                            ? 'bg-red-100 text-red-800'
-                            : 'bg-amber-100 text-amber-800'
+                            ? 'bg-rose-50 text-rose-700 border-rose-200'
+                            : 'bg-amber-50 text-amber-700 border-amber-200'
                         }`}
                       >
                         {ord.status}
                       </span>
                     </td>
-                    <td className="p-3 text-right font-mono font-bold text-[#1C1917]">
+                    <td className="p-3.5 text-right font-mono font-bold text-slate-900">
                       {formatPKR(ord.total)}
                     </td>
-                    <td className="p-3 text-center">
+                    <td className="p-3.5 text-center">
                       <button
                         onClick={() => setSelectedInvoiceOrder(ord)}
-                        className="p-1.5 bg-[#FAF6EF] border border-[#EAE3D5] rounded hover:bg-[#0D3325] hover:text-white transition-colors cursor-pointer"
+                        className="p-1.5 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-900 hover:text-white transition-colors cursor-pointer text-slate-600"
                         title="Print Invoice"
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -213,14 +213,14 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Low Stock Alert List */}
-        <div className="lg:col-span-4 bg-white border border-[#EAE3D5] rounded-lg p-6 shadow-xs space-y-4">
-          <div className="flex items-center justify-between border-b border-[#EAE3D5] pb-3">
+        <div className="lg:col-span-4 bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-red-600" />
-              <h3 className="text-base font-serif font-bold text-[#1C1917]">Low Stock Warning</h3>
+              <AlertTriangle className="w-4 h-4 text-amber-500" />
+              <h3 className="text-sm font-bold text-slate-900">Low Stock Notice</h3>
             </div>
-            <Link href="/admin/inventory" className="text-xs text-[#0D3325] font-bold hover:underline font-mono">
-              Restock All
+            <Link href="/admin/inventory" className="text-xs text-blue-600 font-semibold hover:underline">
+              Manage
             </Link>
           </div>
 
@@ -232,18 +232,18 @@ export default function AdminDashboardPage() {
               .map((v, i) => (
                 <div
                   key={i}
-                  className={`p-3 rounded space-y-1 border ${
+                  className={`p-3 rounded-lg space-y-1 border ${
                     v.stockCount === 0
-                      ? 'bg-red-50 border-red-200 text-red-900'
+                      ? 'bg-rose-50 border-rose-200 text-rose-900'
                       : 'bg-amber-50 border-amber-200 text-amber-900'
                   }`}
                 >
-                  <div className="font-serif font-bold text-[#1C1917]">{v.productName}</div>
-                  <div className="flex justify-between text-[11px] font-mono">
-                    <span className={v.stockCount === 0 ? 'text-red-700 font-bold' : 'text-amber-800 font-bold'}>
-                      EU {v.size} ({v.color}): {v.stockCount} in Stock
+                  <div className="font-semibold text-slate-900">{v.productName}</div>
+                  <div className="flex justify-between items-center text-[11px]">
+                    <span className={v.stockCount === 0 ? 'text-rose-700 font-medium' : 'text-amber-800 font-medium'}>
+                      EU {v.size} ({v.color}): {v.stockCount} left
                     </span>
-                    <Link href="/admin/inventory" className="text-[#0D3325] underline font-bold">
+                    <Link href="/admin/inventory" className="text-blue-600 font-semibold hover:underline">
                       Restock
                     </Link>
                   </div>

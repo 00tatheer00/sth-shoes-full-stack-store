@@ -88,74 +88,74 @@ export default function EditProductPage() {
 
   if (isLoading) {
     return (
-      <div className="p-12 text-center text-[#5A6578]">Loading product data...</div>
+      <div className="p-12 text-center text-slate-500">Loading product data...</div>
     );
   }
 
   return (
     <div className="space-y-6 pb-16">
       {/* Top Header */}
-      <div className="flex items-center justify-between border-b border-[#EAE3D5] pb-4">
+      <div className="flex items-center justify-between border-b border-slate-200 pb-5">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/products"
-            className="p-2 bg-white border border-[#EAE3D5] rounded hover:bg-[#FAF6EF] text-[#1C1917]"
+            className="p-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-700 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0D3325] font-bold">
-              Catalog Editor
-            </span>
-            <h1 className="text-2xl font-serif font-bold text-[#1C1917]">Edit {name}</h1>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Edit {name}</h1>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Update pricing, variant specifications, and imagery.
+            </p>
           </div>
         </div>
       </div>
 
       {errorMsg && (
-        <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2 rounded">
+        <div className="p-4 bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 rounded-xl">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span>{errorMsg}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white border border-[#EAE3D5] rounded-lg p-8 space-y-6 max-w-4xl shadow-xs">
-        <div className="space-y-1">
-          <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Product Title *</label>
+      <form onSubmit={handleSubmit} className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 space-y-6 max-w-3xl shadow-2xs">
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700">Product Title *</label>
           <input
             type="text"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif focus:outline-none focus:border-[#0D3325]"
+            className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
           />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Base Price (PKR) *</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Base Price (PKR) *</label>
             <input
               type="number"
               required
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono focus:outline-none focus:border-[#0D3325]"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
             />
           </div>
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Discount Sale Price (PKR)</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Discount Sale Price (PKR)</label>
             <input
               type="number"
               value={salePrice}
               onChange={(e) => setSalePrice(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono focus:outline-none focus:border-[#0D3325]"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Category</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Category</label>
             <select
               value={category}
               onChange={(e) => {
@@ -164,7 +164,7 @@ export default function EditProductPage() {
                 setCategory(e.target.value);
                 if (match) setCategorySlug(match.slug);
               }}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900"
             >
               {dataEngine.getCategories().map((c) => (
                 <option key={c.id} value={c.name}>
@@ -173,12 +173,12 @@ export default function EditProductPage() {
               ))}
             </select>
           </div>
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Product Image Asset</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Image Asset</label>
             <select
               value={featuredImage}
               onChange={(e) => setFeaturedImage(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-mono"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900"
             >
               <option value="/images/kaptaan.png">/images/kaptaan.png (Kaptaan)</option>
               <option value="/images/zalmi.png">/images/zalmi.png (Zalmi)</option>
@@ -190,63 +190,63 @@ export default function EditProductPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Sole Type</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Sole Type</label>
             <input
               type="text"
               value={soleType}
               onChange={(e) => setSoleType(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs"
+              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900"
             />
           </div>
-          <div className="space-y-1">
-            <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Leather Type</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-700">Leather Type</label>
             <input
               type="text"
               value={leatherType}
               onChange={(e) => setLeatherType(e.target.value)}
-              className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs"
+              className="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs text-slate-900"
             />
           </div>
         </div>
 
-        <div className="space-y-1">
-          <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Short Description</label>
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700">Short Description</label>
           <textarea
             rows={2}
             value={shortDescription}
             onChange={(e) => setShortDescription(e.target.value)}
-            className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif"
+            className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
           />
         </div>
 
-        <div className="space-y-1">
-          <label className="text-xs font-mono uppercase text-[#0D3325] font-bold">Full Story & Description</label>
+        <div className="space-y-1.5">
+          <label className="text-xs font-semibold text-slate-700">Full Description</label>
           <textarea
             rows={4}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-3 bg-[#FAF6EF] border border-[#EAE3D5] rounded text-xs font-serif"
+            className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
           />
         </div>
 
-        <div className="flex items-center gap-6 pt-2 border-t border-[#FAF6EF]">
-          <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-[#1C1917]">
+        <div className="flex items-center gap-6 pt-3 border-t border-slate-100">
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-800">
             <input
               type="checkbox"
               checked={isNew}
               onChange={(e) => setIsNew(e.target.checked)}
-              className="w-4 h-4 accent-[#0D3325]"
+              className="w-4 h-4 accent-slate-900 rounded"
             />
             <span>New Arrival Badge</span>
           </label>
 
-          <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-[#1C1917]">
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-800">
             <input
               type="checkbox"
               checked={isBestSeller}
               onChange={(e) => setIsBestSeller(e.target.checked)}
-              className="w-4 h-4 accent-[#0D3325]"
+              className="w-4 h-4 accent-slate-900 rounded"
             />
             <span>Best Seller Badge</span>
           </label>
@@ -255,9 +255,9 @@ export default function EditProductPage() {
         <button
           type="submit"
           disabled={isSaving}
-          className="btn-amber px-8 py-3.5 text-xs flex items-center gap-2 shadow-md cursor-pointer"
+          className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
         >
-          <Save className="w-4 h-4 text-[#0D3325]" /> {isSaving ? 'Updating...' : 'Save & Publish Changes'}
+          <Save className="w-4 h-4" /> {isSaving ? 'Updating...' : 'Save & Publish Changes'}
         </button>
       </form>
     </div>
