@@ -2,12 +2,7 @@ import type { Metadata } from 'next';
 import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { StoreProvider } from '@/context/StoreContext';
-import { AnnouncementBar } from '@/components/layout/AnnouncementBar';
-import { Navbar } from '@/components/layout/Navbar';
-import { CartDrawer } from '@/components/layout/CartDrawer';
-import { SearchModal } from '@/components/layout/SearchModal';
-import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
-import { Footer } from '@/components/layout/Footer';
+import { StorefrontShell } from '@/components/layout/StorefrontShell';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -46,13 +41,7 @@ export default function RootLayout({
     <html lang="en" className={`${playfair.variable} ${jakarta.variable}`}>
       <body className="font-sans bg-[#FAF7F2] text-[#1C1917] antialiased selection:bg-[#B87546] selection:text-white flex flex-col min-h-screen">
         <StoreProvider>
-          <AnnouncementBar />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <CartDrawer />
-          <SearchModal />
-          <WhatsAppButton />
-          <Footer />
+          <StorefrontShell>{children}</StorefrontShell>
         </StoreProvider>
       </body>
     </html>

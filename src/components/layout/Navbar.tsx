@@ -213,13 +213,6 @@ export const Navbar: React.FC = () => {
                     >
                       <Package className="w-4 h-4 text-[#0D3325]" /> Order History
                     </Link>
-                    <Link
-                      href="/admin"
-                      onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-[#1C1917] font-semibold hover:bg-[#FAF6EF] rounded"
-                    >
-                      <ShieldCheck className="w-4 h-4 text-[#0D3325]" /> SaaS Admin Portal
-                    </Link>
                   </div>
 
                   {currentUser && (
@@ -271,7 +264,6 @@ export const Navbar: React.FC = () => {
           <Link href="/craft" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#FAF6EF]">OUR CRAFT</Link>
           <Link href="/size-guide" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#FAF6EF]">SIZE GUIDE</Link>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block py-2 border-b border-[#FAF6EF]">ABOUT US</Link>
-          <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-[#0D3325] font-bold">SAAS ADMIN PORTAL</Link>
         </div>
       )}
     </header>
